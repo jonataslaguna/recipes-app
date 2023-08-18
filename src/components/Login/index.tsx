@@ -12,6 +12,11 @@ function Login() {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const { email } = formLogin;
+    const userEmail = {
+      email,
+    };
+    localStorage.setItem('user', JSON.stringify(userEmail));
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -24,7 +29,7 @@ function Login() {
   };
 
   return (
-    <form onChange={ handleSubmit }>
+    <form onSubmit={ handleSubmit }>
 
       <h1>Login</h1>
 
