@@ -4,16 +4,21 @@ import { Routes, Route } from 'react-router-dom';
 // import rockGlass from './images/rockGlass.svg';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Login from './components/Login';
+
 import Header from './components/Header';
+import MealsPage from './pages/meals';
+
 
 function App() {
   return (
     <>
       <Routes>
         <Route path="/" element={ <Login /> } />
+
         <Route
           path="/meals"
-          element={ <Header pageTitle="Meals" showSearchIcon /> }
+          element={ <Header pageTitle="Meals" showSearchIcon />
+          <MealsPage /> }
         />
         <Route
           path="/drinks"
