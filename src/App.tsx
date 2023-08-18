@@ -8,7 +8,6 @@ import Login from './components/Login';
 import Header from './components/Header';
 import MealsPage from './pages/meals';
 
-
 function App() {
   return (
     <>
@@ -17,8 +16,12 @@ function App() {
 
         <Route
           path="/meals"
-          element={ <Header pageTitle="Meals" showSearchIcon />
-          <MealsPage /> }
+          element={
+            <>
+              <Header pageTitle="Meals" showSearchIcon />
+              <MealsPage />
+            </>
+          }
         />
         <Route
           path="/drinks"
