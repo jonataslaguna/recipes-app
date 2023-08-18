@@ -5,7 +5,7 @@ import userEvent from '@testing-library/user-event';
 import App from '../App';
 
 describe('Testes do App', () => {
-  it('Testa o componente login', async () => {
+  it('Testes no componente login', async () => {
     render(
       <BrowserRouter>
         <App />
@@ -21,8 +21,17 @@ describe('Testes do App', () => {
     expect(password).toBeInTheDocument();
     expect(button).toBeInTheDocument();
 
+    await userEvent.type(input, 'teste');
+    await userEvent.type(password, '123');
+    expect(button).toBeDisabled();
+
+    userEvent.clear(input);
+    userEvent.clear(password);
+
     await userEvent.type(input, 'email@teste.com');
-    await userEvent.type(password, '123456');
-    userEvent.click(button);
+    await userEvent.type(password, '1234567');
+    expect(button).not.toBeDisabled();
+    await userEvent.click(button);
+    expect(window.location.pathname).toBe('/meals');
   });
 });

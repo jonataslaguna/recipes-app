@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const INITIAL_STATE = {
   email: '',
@@ -7,6 +8,7 @@ const INITIAL_STATE = {
 
 function Login() {
   const [formLogin, setFormLogin] = useState(INITIAL_STATE);
+  const navigate = useNavigate();
 
   const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
@@ -17,6 +19,7 @@ function Login() {
       email,
     };
     localStorage.setItem('user', JSON.stringify(userEmail));
+    navigate('/meals');
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
