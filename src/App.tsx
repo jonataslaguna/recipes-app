@@ -1,11 +1,20 @@
 import React from 'react';
 import './App.css';
-import rockGlass from './images/rockGlass.svg';
+import { Routes, Route } from 'react-router-dom';
+// import rockGlass from './images/rockGlass.svg';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Login from './components/Login';
 
 function App() {
   return (
-    <div className="meals">
+    <>
+      <Routes>
+        <Route path="/" element={ <Login /> } />
+      </Routes>
+      { /*
+      Deixei comentado caso precise depois
+
+      <div className="meals">
       <span className="logo">TRYBE</span>
       <object
         className="rocksGlass"
@@ -14,7 +23,8 @@ function App() {
       >
         Glass
       </object>
-    </div>
+    </div>  */ }
+    </>
   );
 }
 
