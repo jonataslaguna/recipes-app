@@ -1,12 +1,11 @@
 import Footer from '../../components/Footer';
 
-function MealsPage() {
+function Profile() {
   return (
     <div>
-      <h1>Meals</h1>
       <Footer />
     </div>
   );
 }
 
-export default MealsPage;
+export default Profile;

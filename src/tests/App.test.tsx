@@ -34,4 +34,25 @@ describe('Testes do App', () => {
     await userEvent.click(button);
     expect(window.location.pathname).toBe('/meals');
   });
+  it('Testes no componente Footer', async () => {
+    render(
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>,
+    );
+
+    const input = screen.getByRole('textbox');
+    const password = screen.getByPlaceholderText(/password/i);
+    const button = screen.getByRole('button');
+
+    await userEvent.type(input, 'email@teste.com');
+    await userEvent.type(password, '1234567');
+    await userEvent.click(button);
+
+    const drinksIcon = screen.getByTestId('drinks-bottom-btn');
+    const mealsIcon = screen.getByTestId('meals-bottom-btn');
+
+    expect(drinksIcon).toBeInTheDocument();
+    expect(mealsIcon).toBeInTheDocument();
+  });
 });

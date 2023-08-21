@@ -7,6 +7,8 @@ import Login from './components/Login';
 
 import Header from './components/Header';
 import MealsPage from './pages/meals';
+import Drinks from './pages/meals/Drinks';
+import Profile from './pages/meals/Profile';
 
 function App() {
   return (
@@ -25,11 +27,21 @@ function App() {
         />
         <Route
           path="/drinks"
-          element={ <Header pageTitle="Drinks" showSearchIcon /> }
+          element={
+            <>
+              <Header pageTitle="Drinks" showSearchIcon />
+              <Drinks />
+            </>
+            }
         />
         <Route
           path="/profile"
-          element={ <Header pageTitle="Profile" /> }
+          element={
+            <>
+              <Header pageTitle="Profile" />
+              <Profile />
+            </>
+            }
         />
         <Route path="/meals/:id" />
         <Route path="/drinks/:id" />
