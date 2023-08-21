@@ -3,6 +3,7 @@ import { render, screen } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 import userEvent from '@testing-library/user-event';
 import App from '../App';
+import renderWithRouter from './renderWithRouter';
 
 describe('Testes do App', () => {
   it('Testes no componente login', async () => {
@@ -34,25 +35,29 @@ describe('Testes do App', () => {
     await userEvent.click(button);
     expect(window.location.pathname).toBe('/meals');
   });
+  it('Testes no componente Header', async () => {
+    const { user } = renderWithRouter(<App />, { route: '/meals' });
+
+    expect(screen.getByTestId('page-title')).toBeInTheDocument();
+    const profileBtn = screen.getByRole('img', { name: /profile/i });
+    const searchBtn = screen.getByRole('img', { name: /search/i });
+    await user.click(searchBtn);
+    const searchInput = screen.getByRole('textbox');
+    await user.click(searchBtn);
+    expect(searchInput).not.toBeInTheDocument();
+
+    await user.click(profileBtn);
+    expect(screen.getByTestId('page-title'));
+  });
   it('Testes no componente Footer', async () => {
-    render(
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>,
-    );
+    const { user } = renderWithRouter(<App />, { route: '/meals' });
 
-    const input = screen.getByRole('textbox');
-    const password = screen.getByPlaceholderText(/password/i);
-    const button = screen.getByRole('button');
+    const drinksBtn = screen.getByTestId('drinks-bottom-btn');
+    await user.click(drinksBtn);
+    expect(window.location.pathname).toBe('/drinks');
 
-    await userEvent.type(input, 'email@teste.com');
-    await userEvent.type(password, '1234567');
-    await userEvent.click(button);
-
-    const drinksIcon = screen.getByTestId('drinks-bottom-btn');
-    const mealsIcon = screen.getByTestId('meals-bottom-btn');
-
-    expect(drinksIcon).toBeInTheDocument();
-    expect(mealsIcon).toBeInTheDocument();
+    const mealsBtn = screen.getByTestId('meals-bottom-btn');
+    await user.click(mealsBtn);
+    expect(window.location.pathname).toBe('/meals');
   });
 });
