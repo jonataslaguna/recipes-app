@@ -34,12 +34,40 @@ function Header({ pageTitle, showSearchIcon }: HeaderRouterProps) {
         </button>
       )}
       {showSearchBtn && (
-        <input
-          type="text"
-          data-testid="search-input"
-          placeholder="Search recipe"
-        />
+        <div>
+          <input
+            type="text"
+            data-testid="search-input"
+            placeholder="Search recipe"
+          />
+
+          <input
+            data-testid="ingredient-search-radio"
+            type="radio"
+            name="search-radio"
+            id="ingredient"
+          />
+          <label htmlFor="ingredient">Ingredient</label>
+
+          <input
+            data-testid="name-search-radio"
+            type="radio"
+            name="search-radio"
+            id="name"
+          />
+          <label htmlFor="name">Name</label>
+          <input
+            data-testid="first-letter-search-radio"
+            type="radio"
+            name="search-radio"
+            id="firstLetter"
+          />
+          <label htmlFor="firstLetter">First letter</label>
+
+          <button data-testid="exec-search-btn">Search</button>
+        </div>
       )}
+
     </header>
   );
 }
