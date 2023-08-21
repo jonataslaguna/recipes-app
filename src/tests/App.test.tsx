@@ -49,4 +49,15 @@ describe('Testes do App', () => {
     await user.click(profileBtn);
     expect(screen.getByTestId('page-title'));
   });
+  it('Testes no componente Footer', async () => {
+    const { user } = renderWithRouter(<App />, { route: '/meals' });
+
+    const drinksBtn = screen.getByTestId('drinks-bottom-btn');
+    await user.click(drinksBtn);
+    expect(window.location.pathname).toBe('/drinks');
+
+    const mealsBtn = screen.getByTestId('meals-bottom-btn');
+    await user.click(mealsBtn);
+    expect(window.location.pathname).toBe('/meals');
+  });
 });
