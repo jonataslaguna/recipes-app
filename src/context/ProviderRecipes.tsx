@@ -14,17 +14,18 @@ const InitialStateSearchForm = {
 function ProviderRecipes({ children }: ProviderRecipesProps) {
   const [searchFormData, setSearchFormData] = useState(InitialStateSearchForm);
   const [recipesSearchForm, setRecipesSearchForm] = useState([{}]);
+  const [pageName, setPageName] = useState('');
 
   const handleSubmitSearchForm = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const { searchInput, searchType } = searchFormData;
 
     if (searchType === 'ingredient') {
-      setRecipesSearchForm(await getIngredient(searchInput));
+      setRecipesSearchForm(await getIngredient(searchInput, pageName));
     } else if (searchType === 'name') {
-      setRecipesSearchForm(await getName(searchInput));
+      setRecipesSearchForm(await getName(searchInput, pageName));
     } else if (searchType === 'firstLetter' && searchInput.length === 1) {
-      setRecipesSearchForm(await getFirstLetter(searchInput));
+      setRecipesSearchForm(await getFirstLetter(searchInput, pageName));
     } else {
       alert('Your search must have only 1 (one) character');
     }
@@ -36,7 +37,7 @@ function ProviderRecipes({ children }: ProviderRecipesProps) {
         searchFormData,
         setSearchFormData,
         handleSubmitSearchForm,
-        recipesSearchForm,
+        setPageName,
       } }
     >
       {children}
