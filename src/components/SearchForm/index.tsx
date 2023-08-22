@@ -32,6 +32,7 @@ function SearchForm() {
         type="radio"
         name="search-radio"
         id="ingredient"
+        value="ingredient"
         checked
         onChange={ handleChange }
       />
@@ -42,6 +43,7 @@ function SearchForm() {
         type="radio"
         name="search-radio"
         id="name"
+        value="name"
         onChange={ handleChange }
       />
       <label htmlFor="name">Name</label>
@@ -51,6 +53,7 @@ function SearchForm() {
         type="radio"
         name="search-radio"
         id="firstLetter"
+        value="firstLetter"
         onChange={ handleChange }
       />
       <label htmlFor="firstLetter">First letter</label>
