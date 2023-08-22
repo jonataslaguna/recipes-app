@@ -3,25 +3,20 @@ import { useState } from 'react';
 import profileIcon from '../../images/profileIcon.svg';
 import searchIcon from '../../images/searchIcon.svg';
 import { HeaderRouterProps } from './type';
+import SearchForm from '../SearchForm';
 
 function Header({ pageTitle, showSearchIcon }: HeaderRouterProps) {
-  const [showSearchBtn, setShowSearchBtn] = useState(false);
+  const [showInputSearch, setShowInputSearch] = useState(false);
+
   const navigate = useNavigate();
 
   const handleClickSearchButton = () => {
-    setShowSearchBtn(!showSearchBtn);
+    setShowInputSearch(!showInputSearch);
   };
 
   return (
     <header>
       <h1 data-testid="page-title">{pageTitle}</h1>
-      <button onClick={ () => navigate('/profile') }>
-        <img
-          src={ profileIcon }
-          alt="profile"
-          data-testid="profile-top-btn"
-        />
-      </button>
       {showSearchIcon && (
         <button
           onClick={ handleClickSearchButton }
@@ -33,41 +28,15 @@ function Header({ pageTitle, showSearchIcon }: HeaderRouterProps) {
           />
         </button>
       )}
-      {showSearchBtn && (
-        <div>
-          <input
-            type="text"
-            data-testid="search-input"
-            placeholder="Search recipe"
-          />
+      <button onClick={ () => navigate('/profile') }>
+        <img
+          src={ profileIcon }
+          alt="profile"
+          data-testid="profile-top-btn"
+        />
+      </button>
 
-          <input
-            data-testid="ingredient-search-radio"
-            type="radio"
-            name="search-radio"
-            id="ingredient"
-          />
-          <label htmlFor="ingredient">Ingredient</label>
-
-          <input
-            data-testid="name-search-radio"
-            type="radio"
-            name="search-radio"
-            id="name"
-          />
-          <label htmlFor="name">Name</label>
-          <input
-            data-testid="first-letter-search-radio"
-            type="radio"
-            name="search-radio"
-            id="firstLetter"
-          />
-          <label htmlFor="firstLetter">First letter</label>
-
-          <button data-testid="exec-search-btn">Search</button>
-        </div>
-      )}
-
+      {showInputSearch && <SearchForm />}
     </header>
   );
 }

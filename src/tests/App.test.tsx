@@ -1,17 +1,11 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
-import { BrowserRouter } from 'react-router-dom';
-import userEvent from '@testing-library/user-event';
+import { screen } from '@testing-library/react';
 import App from '../App';
 import renderWithRouter from './renderWithRouter';
 
 describe('Testes do App', () => {
   it('Testes no componente login', async () => {
-    render(
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>,
-    );
+    const { user } = renderWithRouter(<App />);
     const input = screen.getByRole('textbox');
     const password = screen.getByPlaceholderText(/password/i);
     const button = screen.getByRole('button');
@@ -22,17 +16,17 @@ describe('Testes do App', () => {
     expect(password).toBeInTheDocument();
     expect(button).toBeInTheDocument();
 
-    await userEvent.type(input, 'teste');
-    await userEvent.type(password, '123');
+    await user.type(input, 'teste');
+    await user.type(password, '123');
     expect(button).toBeDisabled();
 
-    userEvent.clear(input);
-    userEvent.clear(password);
+    user.clear(input);
+    user.clear(password);
 
-    await userEvent.type(input, 'email@teste.com');
-    await userEvent.type(password, '1234567');
+    await user.type(input, 'email@teste.com');
+    await user.type(password, '1234567');
     expect(button).not.toBeDisabled();
-    await userEvent.click(button);
+    await user.click(button);
     expect(window.location.pathname).toBe('/meals');
   });
   it('Testes no componente Header', async () => {
