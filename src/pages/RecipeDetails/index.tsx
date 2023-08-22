@@ -2,6 +2,7 @@ import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { DrinkType, MealType } from './detailsType';
 import useFetchDetails from './useFetchDetails';
+import Recommendations from '../../components/Recommendations';
 // import useFetchDetails, { fecthMealDetails, fetchDrinkDetails } from './useFetchDetails';
 
 type RecipeDetailsProps = {
@@ -14,7 +15,7 @@ function RecipeDetails({ type }: RecipeDetailsProps) {
   const [drinkDetails, setDrinkDetails] = useState<DrinkType>();
   const [ingredients, setIngredients] = useState<string[]>();
   const [measures, setMeasures] = useState<string[]>();
-  const [recomendations, setRecomendations] = useState<MealType[] | DrinkType[]>();
+  const [recommendations, setRecommendations] = useState<MealType[] | DrinkType[]>();
   // const [isLoading, setIsLoading] = useState(false);
 
   const recipe: MealType | DrinkType = useFetchDetails(type, id);
@@ -43,7 +44,8 @@ function RecipeDetails({ type }: RecipeDetailsProps) {
     const recomendationsData = type === 'Meal'
       ? data.drinks
       : data.meals;
-    setRecomendations(recomendationsData);
+    setRecommendations(recomendationsData);
+    console.log(recomendationsData);
   };
 
   useEffect(() => {
@@ -117,6 +119,15 @@ function RecipeDetails({ type }: RecipeDetailsProps) {
           src={ type === 'Meal' ? mealDetails?.strYoutube : undefined }
           width="420"
           height="345"
+        />
+      </div>
+      <div>
+        <h5>
+          Recomendações
+        </h5>
+        <Recommendations
+          recommendations={ recommendations as any }
+          type={ type }
         />
       </div>
     </div>
