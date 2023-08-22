@@ -40,7 +40,7 @@ function RecipeInProgress({ type }: RecipeInProgressProps) {
       setDrinkDetails(recipe as DrinkType);
       renderInfo(recipe);
     }
-  }, [recipe]);
+  }, [recipe, type]);
 
   return (
     <div>

@@ -1,11 +1,13 @@
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import profileIcon from '../../images/profileIcon.svg';
 import searchIcon from '../../images/searchIcon.svg';
 import { HeaderRouterProps } from './type';
-import SearchForm from '../SearchForm';
+import SearchBar from '../SearchBar';
+import ContextRecipes from '../../context/ContextRecipes';
 
 function Header({ pageTitle, showSearchIcon }: HeaderRouterProps) {
+  const { setPageName } = useContext(ContextRecipes);
   const [showInputSearch, setShowInputSearch] = useState(false);
 
   const navigate = useNavigate();
@@ -13,6 +15,10 @@ function Header({ pageTitle, showSearchIcon }: HeaderRouterProps) {
   const handleClickSearchButton = () => {
     setShowInputSearch(!showInputSearch);
   };
+
+  useEffect(() => {
+    setPageName(pageTitle);
+  }, [pageTitle, setPageName]);
 
   return (
     <header>
@@ -36,7 +42,7 @@ function Header({ pageTitle, showSearchIcon }: HeaderRouterProps) {
         />
       </button>
 
-      {showInputSearch && <SearchForm />}
+      {showInputSearch && <SearchBar />}
     </header>
   );
 }

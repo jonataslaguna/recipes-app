@@ -23,7 +23,7 @@ function App() {
         <Route path="/meals/:id" element={ <RecipeDetails type="Meal" /> } />
         <Route path="/drinks/:id" element={ <RecipeDetails type="Drink" /> } />
         <Route path="/meals/:id/:in" element={ <RecipeInProgress type="Meal" /> } />
-        <Route path="/drinks/:id/:in" element={ <RecipeInProgress type="Meal" /> } />
+        <Route path="/drinks/:id/:in" element={ <RecipeInProgress type="Drink" /> } />
         <Route path="/done-recipes" element={ <DoneRecipes /> } />
         <Route path="/favorite-recipes" element={ <FavoritesRecipes /> } />
       </Routes>

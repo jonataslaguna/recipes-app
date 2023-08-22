@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import ContextRecipes from '../../context/ContextRecipes';
 
-function SearchForm() {
+function SearchBar() {
   const {
     searchFormData,
     handleSubmitSearchForm,
@@ -63,4 +63,4 @@ function SearchForm() {
   );
 }
 
-export default SearchForm;
+export default SearchBar;
