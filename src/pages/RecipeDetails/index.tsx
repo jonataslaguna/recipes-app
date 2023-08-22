@@ -1,8 +1,8 @@
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { render } from '@testing-library/react';
 import { DrinkType, MealType } from './detailsType';
-import { fecthMealDetails, fetchDrinkDetails } from './useFetchDetails';
+import useFetchDetails from './useFetchDetails';
+// import useFetchDetails, { fecthMealDetails, fetchDrinkDetails } from './useFetchDetails';
 
 type RecipeDetailsProps = {
   type: string;
@@ -14,6 +14,10 @@ function RecipeDetails({ type }: RecipeDetailsProps) {
   const [drinkDetails, setDrinkDetails] = useState<DrinkType>();
   const [ingredients, setIngredients] = useState<string[]>();
   const [measures, setMeasures] = useState<string[]>();
+  const [recomendations, setRecomendations] = useState<MealType[] | DrinkType[]>();
+  // const [isLoading, setIsLoading] = useState(false);
+
+  const recipe: MealType | DrinkType = useFetchDetails(type, id);
 
   const renderInfo = (recipesData: MealType | DrinkType) => {
     if (recipesData) {
@@ -31,19 +35,27 @@ function RecipeDetails({ type }: RecipeDetailsProps) {
     }
   };
 
+  const fetchRecomedations = async () => {
+    const response = type === 'Meal'
+      ? await fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=')
+      : await fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=');
+    const data = await response.json();
+    const recomendationsData = type === 'Meal'
+      ? data.drinks
+      : data.meals;
+    setRecomendations(recomendationsData);
+  };
+
   useEffect(() => {
     if (type === 'Meal') {
-      fecthMealDetails(id).then((data) => {
-        setMealDetails(data);
-        renderInfo(data);
-      });
+      setMealDetails(recipe as MealType);
+      renderInfo(recipe);
     } else {
-      fetchDrinkDetails(id).then((data) => {
-        setDrinkDetails(data);
-        renderInfo(data);
-      });
+      setDrinkDetails(recipe as DrinkType);
+      renderInfo(recipe);
     }
-  }, []);
+    fetchRecomedations();
+  }, [recipe]);
 
   return (
     <div>

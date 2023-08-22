@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { fecthMealDetails, fetchDrinkDetails } from '../RecipeDetails/useFetchDetails';
+import useFetchDetails from '../RecipeDetails/useFetchDetails';
 import { DrinkType, MealType } from '../RecipeDetails/detailsType';
 
 type RecipeInProgressProps = {
@@ -14,15 +14,17 @@ function RecipeInProgress({ type }: RecipeInProgressProps) {
   const [ingredients, setIngredients] = useState<string[]>();
   const [measures, setMeasures] = useState<string[]>();
 
+  const recipe: MealType | DrinkType = useFetchDetails(type, id);
+
   const renderInfo = (recipesData: MealType | DrinkType) => {
     if (recipesData) {
-      const measuresData = Object.entries(recipesData as MealType)
+      const measuresData = Object.entries(recipesData)
         .filter((entry) => entry[0]
           .includes('strMeasure') && entry[1] !== null && entry[1] !== '')
         .map((entry) => entry[1]);
       setMeasures(measuresData);
 
-      const ingredientsData = Object.entries(recipesData as MealType)
+      const ingredientsData = Object.entries(recipesData)
         .filter((entry) => entry[0]
           .includes('strIngredient') && entry[1] !== null && entry[1] !== '')
         .map((entry) => entry[1]);
@@ -32,17 +34,13 @@ function RecipeInProgress({ type }: RecipeInProgressProps) {
 
   useEffect(() => {
     if (type === 'Meal') {
-      fecthMealDetails(id).then((data) => {
-        setMealDetails(data);
-        renderInfo(data);
-      });
+      setMealDetails(recipe as MealType);
+      renderInfo(recipe);
     } else {
-      fetchDrinkDetails(id).then((data) => {
-        setDrinkDetails(data);
-        renderInfo(data);
-      });
+      setDrinkDetails(recipe as DrinkType);
+      renderInfo(recipe);
     }
-  }, []);
+  }, [recipe]);
 
   return (
     <div>
@@ -84,12 +82,17 @@ function RecipeInProgress({ type }: RecipeInProgressProps) {
         <ul>
           {
             ingredients?.map((ingredient, index) => (
-              <li
+              <label
                 key={ ingredient }
-                data-testid={ `${index}-ingredient-name-and-measure` }
+                data-testid={ `${index}-ingredient-step` }
               >
+                <input
+                  type="checkbox"
+                  name="ingredient"
+                  id={ ingredient }
+                />
                 { `${ingredient} - ${measures?.[index]}` }
-              </li>
+              </label>
             ))
           }
         </ul>
