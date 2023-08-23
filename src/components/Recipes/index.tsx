@@ -13,6 +13,7 @@ function Recipes() {
       const fetchMeals = async () => {
         const response = await fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=');
         const dataResponse = await response.json();
+        console.log(dataResponse.meals);
         setData(dataResponse.meals);
         const fetchCategories = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?c=list');
         const dataCategories = await fetchCategories.json();
@@ -21,6 +22,7 @@ function Recipes() {
       const fetchDrinks = async () => {
         const response = await fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
         const dataResponse = await response.json();
+        console.log(dataResponse.drinks);
         setData(dataResponse.drinks);
         const fetchCategories = await fetch('https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list');
         const dataCategories = await fetchCategories.json();
@@ -45,7 +47,7 @@ function Recipes() {
         </button>
       ))}
       { path === 'meals' && (
-        dataWith12Length.map((item: ItemMealType, index) => (
+        dataWith12Length.map(({ strMeal, strMealThumb }: ItemMealType, index) => (
           <div
             key={ index }
             data-testid={ `${index}-recipe-card` }
@@ -53,11 +55,11 @@ function Recipes() {
             <h2
               data-testid={ `${index}-card-name` }
             >
-              { item.strMeal }
+              { strMeal }
             </h2>
             <img
               data-testid={ `${index}-card-img` }
-              src={ item.strMealThumb }
+              src={ strMealThumb }
               alt="Meal Thumb"
             />
           </div>
@@ -65,7 +67,7 @@ function Recipes() {
       ) }
 
       { path === 'drinks' && (
-        dataWith12Length.map((item: ItemDrinkType, index) => (
+        dataWith12Length.map(({ strDrink, strDrinkThumb }: ItemDrinkType, index) => (
           <div
             key={ index }
             data-testid={ `${index}-recipe-card` }
@@ -73,11 +75,11 @@ function Recipes() {
             <h2
               data-testid={ `${index}-card-name` }
             >
-              { item.strDrink }
+              { strDrink }
             </h2>
             <img
               data-testid={ `${index}-card-img` }
-              src={ item.strDrinkThumb }
+              src={ strDrinkThumb }
               alt="Drink Thumb"
             />
           </div>
