@@ -1,5 +1,5 @@
 import { Button } from 'react-bootstrap';
-import { useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import useLocalStorage from '../../hooks/useLocalStorage';
 
@@ -10,6 +10,7 @@ type ButtonProps = {
 
 function RecipesButton({ type, id }: ButtonProps) {
   const [isInProgress, setIsInProgress] = useState(false);
+  const navigate = useNavigate();
   const [inProgress, setInProgress] = useLocalStorage('inProgressRecipes', {
     meals: {},
     drinks: {},
@@ -35,6 +36,7 @@ function RecipesButton({ type, id }: ButtonProps) {
             [id]: [],
           },
         });
+        navigate(`/meals/${id}/in-progress`);
         break;
       case 'Drink':
         setInProgress({
@@ -44,6 +46,7 @@ function RecipesButton({ type, id }: ButtonProps) {
             [id]: [],
           },
         });
+        navigate(`/drinks/${id}/in-progress`);
         break;
       default: return null;
     }
@@ -56,7 +59,12 @@ function RecipesButton({ type, id }: ButtonProps) {
   return (
     <div>
       <Button
-        style={ { position: 'fixed', bottom: '0', zIndex: 5 } }
+        variant={ isInProgress ? 'warning' : 'danger' }
+        style={ { position: 'fixed',
+          bottom: '0',
+          zIndex: 5,
+          width: '100%',
+        } }
         data-testid="start-recipe-btn"
         onClick={ handleClick }
       >
