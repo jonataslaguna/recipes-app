@@ -7,3 +7,17 @@ export type FavoriteRecipeType = {
   name: string;
   image: string;
 };
+
+export type ItemMealType = {
+  strMeal: string;
+  strMealThumb: string;
+};
+
+export type ItemDrinkType = {
+  strDrink: string;
+  strDrinkThumb: string;
+};
+
+export type CategoryType = {
+  strCategory: string;
+};

@@ -8,7 +8,6 @@ function FavoriteRecipes() {
 
   if (favoriteRecipesJSON !== null) {
     setFavoriteRecipes(JSON.parse(favoriteRecipesJSON));
-    console.log(favoriteRecipes);
   } else {
     console.log('Nenhuma receita favorita encontrada no localStorage.');
   }
@@ -38,38 +37,51 @@ function FavoriteRecipes() {
         </button>
       </div>
       { favoriteRecipes.length > 0 && (
-        favoriteRecipes.map((recipe, index) => (
+        favoriteRecipes.map((
+          { image, name, type, nationality, alcoholicOrNot, category },
+          index,
+        ) => (
           <div
             key={ index }
           >
             <img
-              src={ recipe.image }
-              alt={ recipe.name }
+              src={ image }
+              alt={ name }
               data-testid={ `${index}-horizontal-image` }
             />
             <div>
               <span
                 data-testid={ `${index}-horizontal-top-text` }
               >
-                { recipe.category }
+                { type === 'meal'
+                  ? `${nationality} - ${category}`
+                  : alcoholicOrNot }
               </span>
               <span
                 data-testid={ `${index}-horizontal-name` }
               >
-                { recipe.name }
+                { name }
               </span>
             </div>
             <div>
               <button
                 type="button"
-                data-testid={ `${index}-horizontal-share-btn` }
               >
+                <img
+                  src="../../images/shareIcon.svg"
+                  alt="share icon"
+                  data-testid={ `${index}-horizontal-share-btn` }
+                />
                 Compartilhar Receita
               </button>
               <button
                 type="button"
-                data-testid={ `${index}-horizontal-favorite-btn` }
               >
+                <img
+                  src="../../images/blackHeartIcon.svg"
+                  alt="favorite icon"
+                  data-testid={ `${index}-horizontal-favorite-btn` }
+                />
                 Favoritar
               </button>
             </div>
