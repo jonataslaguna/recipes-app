@@ -36,16 +36,18 @@ function Recommendations({ recommendations, type }: Props) {
       bound
       panelsPerView={ 2 }
       moveType={ ['strict', { count: 2 }] }
-      onMoveEnd={ (e) => {
-        console.log(e);
-      } }
+      preventClickOnDrag
     >
       {
         recommendations && recommendations.map((recommendation, index) => {
           const maxIndex = 6;
           if (index >= maxIndex) return null;
           return (
-            <div key={ index } data-testid={ `${index}-recommendation-card` }>
+            <div
+              key={ index }
+              data-testid={ `${index}-recommendation-card` }
+              style={ { width: '100%', textAlign: 'center' } }
+            >
               <img
                 src={ type === 'Meal'
                   ? recommendation.strDrinkThumb
@@ -53,8 +55,11 @@ function Recommendations({ recommendations, type }: Props) {
                 alt={ type === 'Meal'
                   ? recommendation.strMeal
                   : recommendation.strDrink }
+                style={ { width: '400px', height: '300px' } }
               />
-              <p data-testid={ `${index}-recommendation-title` }>
+              <p
+                data-testid={ `${index}-recommendation-title` }
+              >
                 { type === 'Meal'
                   ? recommendation.strDrink
                   : recommendation.strMeal }

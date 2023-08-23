@@ -121,9 +121,21 @@ function RecipeDetails({ type }: RecipeDetailsProps) {
           height="345"
         />
       </div>
-      <div>
+      <div
+        style={ { position: 'fixed', bottom: '0' } }
+      >
+        <button
+          data-testid="start-recipe-btn"
+          style={ { position: 'fixed', bottom: '0', zIndex: 5 } }
+        >
+          Start Recipe
+        </button>
+      </div>
+      <div
+        style={ { zIndex: 1 } }
+      >
         <h5>
-          Recomendações
+          Recommendations
         </h5>
         <Recommendations
           recommendations={ recommendations as any }
