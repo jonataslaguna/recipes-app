@@ -1,7 +1,7 @@
-import { useState } from "react";
-import { FavoriteRecipeType } from "../../utils/types";
+import { useState } from 'react';
+import { FavoriteRecipeType } from '../../utils/types';
 
-const FavoriteRecipes = () => {
+function FavoriteRecipes() {
   const [favoriteRecipes, setFavoriteRecipes] = useState<FavoriteRecipeType[]>([]);
 
   const favoriteRecipesJSON = localStorage.getItem('favoriteRecipes');
@@ -10,7 +10,7 @@ const FavoriteRecipes = () => {
     setFavoriteRecipes(JSON.parse(favoriteRecipesJSON));
     console.log(favoriteRecipes);
   } else {
-      console.log("Nenhuma receita favorita encontrada no localStorage.");
+    console.log('Nenhuma receita favorita encontrada no localStorage.');
   }
 
   return (
@@ -36,10 +36,6 @@ const FavoriteRecipes = () => {
         >
           Drinks
         </button>
-        <button
-          type="button"
-        >
-        </button>
       </div>
       { favoriteRecipes.length > 0 && (
         favoriteRecipes.map((recipe, index) => (
@@ -52,36 +48,36 @@ const FavoriteRecipes = () => {
               data-testid={ `${index}-horizontal-image` }
             />
             <div>
-                <span
-                  data-testid={ `${index}-horizontal-top-text` }
-                >
-                  { recipe.category }
-                </span>
-                <span
+              <span
+                data-testid={ `${index}-horizontal-top-text` }
+              >
+                { recipe.category }
+              </span>
+              <span
                 data-testid={ `${index}-horizontal-name` }
-                >
+              >
                 { recipe.name }
-                </span>
-                </div>
-                <div>
-                  <button
-                    type="button"
-                    data-testid={ `${index}-horizontal-share-btn` }
-                    >
-                    Compartilhar Receita
-                  </button>
-                  <button
-                    type="button"
-                    data-testid={ `${index}-horizontal-favorite-btn` }
-                    >
-                    Favoritar
-                  </button>
-                </div>
+              </span>
+            </div>
+            <div>
+              <button
+                type="button"
+                data-testid={ `${index}-horizontal-share-btn` }
+              >
+                Compartilhar Receita
+              </button>
+              <button
+                type="button"
+                data-testid={ `${index}-horizontal-favorite-btn` }
+              >
+                Favoritar
+              </button>
+            </div>
           </div>
         ))
-    )}
+      )}
     </div>
-  )
+  );
 }
 
 export default FavoriteRecipes;
