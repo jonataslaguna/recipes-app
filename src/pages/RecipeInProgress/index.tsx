@@ -2,6 +2,7 @@ import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import useFetchDetails from '../RecipeDetails/useFetchDetails';
 import { DrinkType, MealType } from '../RecipeDetails/detailsType';
+import './index.css';
 
 type RecipeInProgressProps = {
   type: string;
@@ -13,6 +14,7 @@ function RecipeInProgress({ type }: RecipeInProgressProps) {
   const [drinkDetails, setDrinkDetails] = useState<DrinkType>();
   const [ingredients, setIngredients] = useState<string[]>();
   const [measures, setMeasures] = useState<string[]>();
+  const [checkedBox, setCheckedBox] = useState<{ [index: number]: boolean }>({});
 
   const recipe: MealType | DrinkType = useFetchDetails(type, id);
 
@@ -33,6 +35,21 @@ function RecipeInProgress({ type }: RecipeInProgressProps) {
   };
 
   useEffect(() => {
+    const localStorageCheckedBox = localStorage.getItem('checkedBox');
+
+    if (localStorageCheckedBox) {
+      setCheckedBox(JSON.parse(localStorageCheckedBox));
+    }
+  }, []);
+
+  const handleCheckedBoxes = (index: number) => {
+    setCheckedBox((prevState) => ({
+      ...prevState,
+      [index]: !prevState[index],
+    }));
+  };
+
+  useEffect(() => {
     if (type === 'Meal') {
       setMealDetails(recipe as MealType);
       renderInfo(recipe);
@@ -41,6 +58,10 @@ function RecipeInProgress({ type }: RecipeInProgressProps) {
       renderInfo(recipe);
     }
   }, [recipe, type]);
+
+  useEffect(() => {
+    localStorage.setItem('checkedBox', JSON.stringify(checkedBox));
+  }, [checkedBox]);
 
   return (
     <div>
@@ -83,15 +104,20 @@ function RecipeInProgress({ type }: RecipeInProgressProps) {
           {
             ingredients?.map((ingredient, index) => (
               <label
+                className="checkbox"
                 key={ ingredient }
                 data-testid={ `${index}-ingredient-step` }
               >
                 <input
                   type="checkbox"
                   name="ingredient"
+                  checked={ checkedBox[index] }
+                  onChange={ () => handleCheckedBoxes(index) }
                   id={ ingredient }
                 />
-                { `${ingredient} - ${measures?.[index]}` }
+                { checkedBox[index]
+                  ? <del>{ `${ingredient} - ${measures?.[index]}` }</del>
+                  : `${ingredient} - ${measures?.[index]}` }
               </label>
             ))
           }
