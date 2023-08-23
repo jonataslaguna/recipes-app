@@ -15,7 +15,6 @@ function ProviderRecipes({ children }: ProviderRecipesProps) {
   const [searchFormData, setSearchFormData] = useState(InitialStateSearchForm);
   const [recipesSearchForm, setRecipesSearchForm] = useState([{}]);
   const [pageName, setPageName] = useState('');
-  const [btnClicked, setBtnClicked] = useState(false);
 
   const handleSubmitSearchForm = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -25,12 +24,10 @@ function ProviderRecipes({ children }: ProviderRecipesProps) {
     } else if (searchType === 'ingredient') {
       setRecipesSearchForm(await getIngredient(searchInput, pageName));
     } else if (searchType === 'name') {
-      const teste = await getName(searchInput, pageName);
-      await setRecipesSearchForm(teste);
+      setRecipesSearchForm(await getName(searchInput, pageName));
     } else if (searchType === 'firstLetter' && searchInput.length === 1) {
       setRecipesSearchForm(await getFirstLetter(searchInput, pageName));
     }
-    setBtnClicked(true);
   };
 
   return (
@@ -43,7 +40,6 @@ function ProviderRecipes({ children }: ProviderRecipesProps) {
         recipesSearchForm,
         pageName,
         setRecipesSearchForm,
-        btnClicked,
       } }
     >
       {children}
