@@ -63,6 +63,8 @@ function RecipeInProgress({ type }: RecipeInProgressProps) {
     localStorage.setItem('checkedBox', JSON.stringify(checkedBox));
   }, [checkedBox]);
 
+  const ingredientsChecked = ingredients?.every((_, index) => checkedBox[index]);
+
   return (
     <div>
       <h1>Receita em Progresso</h1>
@@ -131,7 +133,11 @@ function RecipeInProgress({ type }: RecipeInProgressProps) {
             : drinkDetails?.strInstructions }
         </p>
       </div>
-      <button data-testid="finish-recipe-btn">
+      <button
+        data-testid="finish-recipe-btn"
+        type="button"
+        disabled={ !ingredientsChecked }
+      >
         Finalizar Receita
       </button>
     </div>
