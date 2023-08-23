@@ -34,6 +34,14 @@ function RecipeInProgress({ type }: RecipeInProgressProps) {
     }
   };
 
+  useEffect(() => {
+    const localStorageCheckedBox = localStorage.getItem('checkedBox');
+
+    if (localStorageCheckedBox) {
+      setCheckedBox(JSON.parse(localStorageCheckedBox));
+    }
+  }, []);
+
   const handleCheckedBoxes = (index: number) => {
     setCheckedBox((prevState) => ({
       ...prevState,
@@ -50,6 +58,10 @@ function RecipeInProgress({ type }: RecipeInProgressProps) {
       renderInfo(recipe);
     }
   }, [recipe, type]);
+
+  useEffect(() => {
+    localStorage.setItem('checkedBox', JSON.stringify(checkedBox));
+  }, [checkedBox]);
 
   return (
     <div>
