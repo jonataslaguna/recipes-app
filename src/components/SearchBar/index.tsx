@@ -1,12 +1,15 @@
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import ContextRecipes from '../../context/ContextRecipes';
 
 function SearchBar() {
   const {
     searchFormData,
-    handleSubmitSearchForm,
     setSearchFormData,
+    recipesSearchForm,
+    handleSubmitSearchForm,
   } = useContext(ContextRecipes);
+  const navigate = useNavigate();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value, type } = e.target;
@@ -16,6 +19,23 @@ function SearchBar() {
       setSearchFormData({ ...searchFormData, [id]: value });
     }
   };
+
+  useEffect(() => {
+    const navigateToPageDetails = () => {
+      if (recipesSearchForm
+        && recipesSearchForm.meals
+        && recipesSearchForm.meals.length === 1) {
+        navigate(`/meals/${recipesSearchForm.meals[0].idMeal}`);
+      }
+      if (recipesSearchForm
+        && recipesSearchForm.drinks
+        && recipesSearchForm.drinks.length === 1) {
+        navigate(`/drinks/${recipesSearchForm.drinks[0].idDrink}`);
+      }
+    };
+    navigateToPageDetails();
+  }, [recipesSearchForm, navigate]);
+
   return (
     <form onSubmit={ handleSubmitSearchForm }>
       <input
@@ -33,7 +53,6 @@ function SearchBar() {
         name="search-radio"
         id="ingredient"
         value="ingredient"
-        checked
         onChange={ handleChange }
       />
       <label htmlFor="ingredient">Ingredient</label>
