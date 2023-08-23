@@ -1,8 +1,9 @@
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { DrinkType, MealType } from './detailsType';
-import useFetchDetails from './useFetchDetails';
+import useFetchDetails from '../../hooks/useFetchDetails';
 import Recommendations from '../../components/Recommendations';
+import RecipesButton from '../../components/RecipesButton';
 // import useFetchDetails, { fecthMealDetails, fetchDrinkDetails } from './useFetchDetails';
 
 type RecipeDetailsProps = {
@@ -122,16 +123,6 @@ function RecipeDetails({ type }: RecipeDetailsProps) {
         />
       </div>
       <div
-        style={ { position: 'fixed', bottom: '0' } }
-      >
-        <button
-          data-testid="start-recipe-btn"
-          style={ { position: 'fixed', bottom: '0', zIndex: 5 } }
-        >
-          Start Recipe
-        </button>
-      </div>
-      <div
         style={ { zIndex: 1 } }
       >
         <h5>
@@ -142,6 +133,16 @@ function RecipeDetails({ type }: RecipeDetailsProps) {
           type={ type }
         />
       </div>
+      {/* <button
+        data-testid="start-recipe-btn"
+        style={ { position: 'fixed', bottom: '0', zIndex: 5 } }
+      >
+        Start Recipe
+      </button> */}
+      <RecipesButton
+        id={ id as string }
+        type={ type }
+      />
     </div>
   );
 }

@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import useFetchDetails from '../RecipeDetails/useFetchDetails';
+import useFetchDetails from '../../hooks/useFetchDetails';
 import { DrinkType, MealType } from '../RecipeDetails/detailsType';
 
 type RecipeInProgressProps = {
