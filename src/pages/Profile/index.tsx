@@ -7,7 +7,10 @@ function Profile() {
       <Header pageTitle="Profile" />
 
       <form>
-        <input type="email" data-testid="profile-email" />
+        <input
+          type="email"
+          data-testid="profile-email"
+        />
         <button
           data-testid="profile-done-btn"
         >
