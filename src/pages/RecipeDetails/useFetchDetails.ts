@@ -14,7 +14,7 @@ export default function useFetchDetails(type: string, id: any) {
       setRecipe(details);
     };
     fetchDetails();
-  }, []);
+  }, [id, type]);
 
   return recipe;
 }
