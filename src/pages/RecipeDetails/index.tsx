@@ -4,6 +4,7 @@ import { DrinkType, MealType } from './detailsType';
 import useFetchDetails from '../../hooks/useFetchDetails';
 import Recommendations from '../../components/Recommendations';
 import RecipesButton from '../../components/RecipesButton';
+import DetailsHeader from '../../components/DetailsHeader';
 // import useFetchDetails, { fecthMealDetails, fetchDrinkDetails } from './useFetchDetails';
 
 type RecipeDetailsProps = {
@@ -62,7 +63,7 @@ function RecipeDetails({ type }: RecipeDetailsProps) {
 
   return (
     <div>
-      <h1>Detalhes</h1>
+      <DetailsHeader />
       <div>
         <h2
           data-testid="recipe-category"
