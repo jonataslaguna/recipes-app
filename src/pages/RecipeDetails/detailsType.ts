@@ -39,6 +39,7 @@ export type DrinkType = {
   'strDrinkFR':string;
   'strDrinkZH-HANS':string;
   'strDrinkZH-HANT':string;
+  'strArea': string;
   'strTags':string;
   'strVideo':string;
   'strCategory':string;
