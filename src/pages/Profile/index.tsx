@@ -1,16 +1,25 @@
+import { useEffect, useState } from 'react';
 import Footer from '../../components/Footer';
 import Header from '../../components/Header';
 
 function Profile() {
+  const [userEmail, setUserEmail] = useState('');
+
+  useEffect(() => {
+    const getEmail = localStorage.getItem('user');
+    if (getEmail) {
+      const { email } = JSON.parse(getEmail);
+      setUserEmail(email);
+    }
+  }, []);
   return (
     <>
       <Header pageTitle="Profile" />
 
       <form>
-        <input
-          type="email"
-          data-testid="profile-email"
-        />
+        <p data-testid="profile-email">
+          {userEmail}
+        </p>
         <button
           data-testid="profile-done-btn"
         >
