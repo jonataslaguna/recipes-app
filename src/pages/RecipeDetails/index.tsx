@@ -22,7 +22,7 @@ function RecipeDetails({ type }: RecipeDetailsProps) {
   const [clipboardText, setClipboardText] = useState<string>();
   // const [isLoading, setIsLoading] = useState(false);
 
-  const recipe: MealType | DrinkType = useFetchDetails(type, id);
+  const recipe: any = useFetchDetails(type, id);
 
   const renderInfo = (recipesData: MealType | DrinkType) => {
     if (recipesData) {
@@ -72,6 +72,26 @@ function RecipeDetails({ type }: RecipeDetailsProps) {
   return (
     <div>
       <DetailsHeader
+        id={ id as string }
+        recipe={
+          (recipe && type === 'Meal')
+            ? {
+              id: id as string,
+              type: 'meal',
+              nationality: recipe.strArea,
+              category: recipe.strCategory,
+              alcoholicOrNot: '',
+              name: recipe.strMeal,
+              image: recipe.strMealThumb }
+            : {
+              id: id as string,
+              type: 'drink',
+              nationality: '',
+              category: recipe.strCategory,
+              alcoholicOrNot: recipe.strAlcoholic,
+              name: recipe.strDrink,
+              image: recipe.strDrinkThumb }
+        }
         onClick={ copyToClipboard }
       />
       {
