@@ -4,12 +4,13 @@ import { vi } from 'vitest';
 import App from '../App';
 import renderWithRouter from './renderWithRouter';
 import ProviderRecipes from '../context/ProviderRecipes';
-import { recipesMockIngredients } from './mocks/recipesMock';
+// import { recipesMockIngredients } from './mocks/recipesMock';
+import { mealsAndDrinksMocks } from './mocks/mealsAndDrinksMocks';
 
 describe('Testes do App', () => {
   beforeEach(() => {
     global.fetch = vi.fn().mockResolvedValue({
-      json: async () => recipesMockIngredients,
+      json: async () => mealsAndDrinksMocks,
     });
   });
   afterEach(() => {
