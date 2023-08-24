@@ -1,16 +1,17 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { FavoriteRecipeType } from '../../utils/types';
 
 function FavoriteRecipes() {
   const [favoriteRecipes, setFavoriteRecipes] = useState<FavoriteRecipeType[]>([]);
 
-  const favoriteRecipesJSON = localStorage.getItem('favoriteRecipes');
-
-  if (favoriteRecipesJSON !== null) {
-    setFavoriteRecipes(JSON.parse(favoriteRecipesJSON));
-  } else {
-    console.log('Nenhuma receita favorita encontrada no localStorage.');
-  }
+  useEffect(() => {
+    const favoriteRecipesJSON = localStorage.getItem('favoriteRecipes');
+    if (favoriteRecipesJSON !== null) {
+      setFavoriteRecipes(JSON.parse(favoriteRecipesJSON));
+    } else {
+      console.log('Nenhuma receita favorita encontrada no localStorage.');
+    }
+  }, []);
 
   return (
     <div>
