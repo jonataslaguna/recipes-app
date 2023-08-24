@@ -33,7 +33,7 @@ function DetailsHeader(props: DetailsHeaderProps) {
         } }
       >
         <button>
-          { '< Voltar '}
+          { '< '}
         </button>
         <div
           style={ { display: 'flex', justifyContent: 'end' } }
