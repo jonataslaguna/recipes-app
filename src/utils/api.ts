@@ -42,3 +42,23 @@ export const getFirstLetter = async (firstLetter: string, page: string) => {
     console.log(error);
   }
 };
+
+export const getCategoryMeal = async (categoryMeal: string) => {
+  try {
+    const response = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${categoryMeal}`);
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getCategoryDrink = async (categoryDrink: string) => {
+  try {
+    const response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${categoryDrink}`);
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+};
