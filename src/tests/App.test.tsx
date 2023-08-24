@@ -104,4 +104,40 @@ describe('Testes do App', () => {
     await user.type(searchInput, 'aa');
     await user.click(btnSubmit);
   });
+  it('Testes no componente Profile', async () => {
+    const { user } = renderWithRouter(
+      <ProviderRecipes>
+        <App />
+      </ProviderRecipes>,
+      { route: '/profile' },
+    );
+
+    const doneRecipesBtn = screen.getByRole('button', {
+      name: /done recipes/i,
+    });
+    await user.click(doneRecipesBtn);
+    expect(window.location.pathname).toBe('/done-recipes');
+
+    const profileBtn = screen.getByTestId('profile-top-btn');
+    await user.click(profileBtn);
+    expect(window.location.pathname).toBe('/profile');
+
+    const favoriteRecipesBtn = screen.getByRole('button', {
+      name: /favorite recipes/i,
+    });
+    await user.click(favoriteRecipesBtn);
+    expect(window.location.pathname).toBe('/favorite-recipes');
+
+    const profileButton = screen.getByRole('button', {
+      name: /profile/i,
+    });
+    await user.click(profileButton);
+    expect(window.location.pathname).toBe('/profile');
+
+    const logoutBtn = screen.getByRole('button', {
+      name: /logout/i,
+    });
+    await user.click(logoutBtn);
+    expect(window.location.pathname).toBe('/');
+  });
 });
