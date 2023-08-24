@@ -1,5 +1,6 @@
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import { Alert } from 'react-bootstrap';
 import { DrinkType, MealType } from './detailsType';
 import useFetchDetails from '../../hooks/useFetchDetails';
 import Recommendations from '../../components/Recommendations';
@@ -18,6 +19,7 @@ function RecipeDetails({ type }: RecipeDetailsProps) {
   const [ingredients, setIngredients] = useState<string[]>();
   const [measures, setMeasures] = useState<string[]>();
   const [recommendations, setRecommendations] = useState<MealType[] | DrinkType[]>();
+  const [clipboardText, setClipboardText] = useState<string>();
   // const [isLoading, setIsLoading] = useState(false);
 
   const recipe: MealType | DrinkType = useFetchDetails(type, id);
@@ -50,6 +52,12 @@ function RecipeDetails({ type }: RecipeDetailsProps) {
     console.log(recomendationsData);
   };
 
+  const copyToClipboard = () => {
+    const url = window.location.href;
+    setClipboardText(url);
+    navigator.clipboard.writeText(url);
+  };
+
   useEffect(() => {
     if (type === 'Meal') {
       setMealDetails(recipe as MealType);
@@ -63,7 +71,20 @@ function RecipeDetails({ type }: RecipeDetailsProps) {
 
   return (
     <div>
-      <DetailsHeader />
+      <DetailsHeader
+        onClick={ copyToClipboard }
+      />
+      {
+        clipboardText && (
+          <Alert
+            variant="info"
+            dismissible
+            onClose={ () => setClipboardText('') }
+          >
+            <Alert.Heading>Link copied!</Alert.Heading>
+          </Alert>
+        )
+      }
       <div>
         <h2
           data-testid="recipe-category"

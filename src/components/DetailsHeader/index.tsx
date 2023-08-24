@@ -1,11 +1,16 @@
 import React, { useState } from 'react';
-import { useLocation } from 'react-router-dom';
 import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../../images/blackHeartIcon.svg';
 import shareIcon from '../../images/shareIcon.svg';
 
-function DetailsHeader() {
+type DetailsHeaderProps = {
+  onClick: () => void;
+};
+
+function DetailsHeader(props: DetailsHeaderProps) {
+  const { onClick } = props;
   const [favorite, isFavorite] = useState(false);
+
   return (
     <div>
       <div
@@ -22,11 +27,13 @@ function DetailsHeader() {
         >
           <button
             data-testid="share-btn"
+            onClick={ onClick }
           >
             <img src={ shareIcon } alt="favorite" />
           </button>
           <button
             data-testid="favorite-btn"
+            onClick={ () => isFavorite(!favorite) }
           >
             <img src={ favorite ? blackHeartIcon : whiteHeartIcon } alt="favorite" />
           </button>
