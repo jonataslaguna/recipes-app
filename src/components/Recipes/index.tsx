@@ -8,6 +8,7 @@ function Recipes() {
   const [data, setData] = useState([]);
   const [categories, setCategories] = useState([]);
   const [categoryData, setCategoryData] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState('');
   const path = location.pathname.replace('/', '');
 
   useEffect(() => {
@@ -35,7 +36,13 @@ function Recipes() {
   }, []);
 
   const handleClick = async (categoryName: string) => {
+    if (categoryName === selectedCategory) {
+      setSelectedCategory('');
+      setCategoryData([]);
+      return;
+    }
     if (path === 'meals') {
+      setSelectedCategory(categoryName);
       const fetchMealCategory = await getCategoryMeal(categoryName);
       if (fetchMealCategory.meals.length > 11) {
         setCategoryData(fetchMealCategory.meals.slice(0, 12));
@@ -44,6 +51,7 @@ function Recipes() {
       }
       console.log(categoryData);
     } else {
+      setSelectedCategory(categoryName);
       const fetchDrinkCategory = await getCategoryDrink(categoryName);
       if (fetchDrinkCategory.drinks.length > 11) {
         setCategoryData(fetchDrinkCategory.drinks.slice(0, 12));
