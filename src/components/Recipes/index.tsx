@@ -62,11 +62,11 @@ function Recipes() {
     }
   };
 
-  const dataWith12Length = data.slice(0, 12);
-  const categoriesWith5Length = categories.slice(0, 5);
+  const dataWith12Length = data?.slice(0, 12);
+  const categoriesWith5Length = categories?.slice(0, 5);
   return (
     <div>
-      { categoriesWith5Length.map(({ strCategory: categoryName }: CategoryType) => (
+      { categoriesWith5Length?.map(({ strCategory: categoryName }: CategoryType) => (
         <button
           key={ categoryName }
           data-testid={ `${categoryName}-category-filter` }
@@ -82,7 +82,7 @@ function Recipes() {
         All
       </button>
       { categoryData.length > 0 && path === 'meals' && (
-        categoryData.map(({ strMeal, strMealThumb }: ItemMealType, index) => (
+        categoryData?.map(({ strMeal, strMealThumb }: ItemMealType, index) => (
           <div
             key={ index }
             data-testid={ `${index}-recipe-card` }
@@ -101,7 +101,7 @@ function Recipes() {
           </div>
         )))}
       { categoryData.length > 0 && path === 'drinks' && (
-        categoryData.map(({ strDrink, strDrinkThumb }: ItemDrinkType, index) => (
+        categoryData?.map(({ strDrink, strDrinkThumb }: ItemDrinkType, index) => (
           <div
             key={ index }
             data-testid={ `${index}-recipe-card` }
@@ -120,7 +120,7 @@ function Recipes() {
           </div>
         )))}
       { categoryData.length === 0 && path === 'meals' && (
-        dataWith12Length.map(({ strMeal, strMealThumb }: ItemMealType, index) => (
+        dataWith12Length?.map(({ strMeal, strMealThumb }: ItemMealType, index) => (
           <div
             key={ index }
             data-testid={ `${index}-recipe-card` }
@@ -140,7 +140,7 @@ function Recipes() {
       ) }
 
       { categoryData.length === 0 && path === 'drinks' && (
-        dataWith12Length.map(({ strDrink, strDrinkThumb }: ItemDrinkType, index) => (
+        dataWith12Length?.map(({ strDrink, strDrinkThumb }: ItemDrinkType, index) => (
           <div
             key={ index }
             data-testid={ `${index}-recipe-card` }

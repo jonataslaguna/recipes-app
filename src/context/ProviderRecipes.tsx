@@ -16,6 +16,7 @@ function ProviderRecipes({ children }: ProviderRecipesProps) {
   const [searchFormData, setSearchFormData] = useState(InitialStateSearchForm);
   const [recipesSearchForm, setRecipesSearchForm] = useState([{}]);
   const [pageName, setPageName] = useState('');
+  const [btnClicked, setBtnClicked] = useState(false);
   const [favorite, setFavorite] = useState<FavoriteRecipeType>();
 
   const handleSubmitSearchForm = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -30,6 +31,7 @@ function ProviderRecipes({ children }: ProviderRecipesProps) {
     } else if (searchType === 'firstLetter' && searchInput.length === 1) {
       setRecipesSearchForm(await getFirstLetter(searchInput, pageName));
     }
+    setBtnClicked(true);
   };
 
   const handleAddToFavorites = (recipe: FavoriteRecipeType) => {
@@ -62,6 +64,8 @@ function ProviderRecipes({ children }: ProviderRecipesProps) {
         recipesSearchForm,
         pageName,
         setRecipesSearchForm,
+        btnClicked,
+        setBtnClicked,
         handleAddToFavorites,
         handleRemoveFromFavorites,
       } }

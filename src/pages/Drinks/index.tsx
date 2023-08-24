@@ -6,14 +6,15 @@ import Card from '../../components/Card';
 import Recipes from '../../components/Recipes';
 
 function Drinks() {
-  const { recipesSearchForm } = useContext(ContextRecipes);
+  const { recipesSearchForm, btnClicked, setBtnClicked } = useContext(ContextRecipes);
 
   useEffect(() => {
-    if (!recipesSearchForm
-      || !recipesSearchForm.drinks || recipesSearchForm.drinks.length === 0) {
+    if (btnClicked && (!recipesSearchForm
+      || !recipesSearchForm.drinks || recipesSearchForm.drinks.length === 0)) {
       alert("Sorry, we haven't found any recipes for these filters.");
+      setBtnClicked(false);
     }
-  }, [recipesSearchForm]);
+  }, [recipesSearchForm, btnClicked, setBtnClicked]);
 
   return (
     <div>
