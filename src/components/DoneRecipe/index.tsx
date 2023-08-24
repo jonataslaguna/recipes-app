@@ -1,28 +1,33 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import iconShare from '../../images/shareIcon.svg';
 import { DoneRecipesType } from '../../pages/DoneRecipes/DoneRecipesType';
 
 function DoneRecipe() {
   const [doneRecipes, setDoneRecipes] = useState<DoneRecipesType[]>([]);
 
-  const savedStorageDoneRecipes = localStorage.getItem('doneRecipes');
-  if (savedStorageDoneRecipes !== null) {
-    setDoneRecipes(JSON.parse(savedStorageDoneRecipes));
-  }
+  useEffect(() => {
+    const savedStorageDoneRecipes = localStorage.getItem('doneRecipes');
+    if (savedStorageDoneRecipes !== null) {
+      setDoneRecipes(JSON.parse(savedStorageDoneRecipes));
+    }
+  }, []);
 
   return (
     <div>
       <button
+        type="button"
         data-testid="filter-by-all-btn"
       >
         All
       </button>
       <button
+        type="button"
         data-testid="filter-by-meal-btn"
       >
         Meals
       </button>
       <button
+        type="button"
         data-testid="filter-by-drink-btn"
       >
         Drinks
@@ -30,7 +35,7 @@ function DoneRecipe() {
 
       { doneRecipes.length > 0
       && doneRecipes.map((recipe, index) => (
-        <div key={ index }>
+        <div key={ recipe.id }>
           <img
             src={ recipe.image }
             alt=""
@@ -53,18 +58,23 @@ function DoneRecipe() {
             Done in:
             {recipe.doneDate}
           </p>
-          <button>
+          <button
+            type="button"
+          >
             <img
               src={ iconShare }
               alt="share"
               data-testid={ `${index}-horizontal-share-btn` }
             />
           </button>
-          <p
-            data-testid={ `${index}-${recipe?.tags}-horizontal-tag` }
-          >
-            {recipe.tags}
-          </p>
+          {recipe.tags.map((tag, indexTag) => (
+            <p
+              key={ indexTag }
+              data-testid={ `${index}-${tag}-horizontal-tag` }
+            >
+              {recipe.tags}
+            </p>
+          ))}
         </div>
       ))}
 

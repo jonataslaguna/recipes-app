@@ -1,8 +1,10 @@
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import useFetchDetails from '../RecipeDetails/useFetchDetails';
+import { Alert } from 'react-bootstrap';
+import useFetchDetails from '../../hooks/useFetchDetails';
 import { DrinkType, MealType } from '../RecipeDetails/detailsType';
 import './index.css';
+import DetailsHeader from '../../components/DetailsHeader';
 
 type RecipeInProgressProps = {
   type: string;
@@ -15,8 +17,9 @@ function RecipeInProgress({ type }: RecipeInProgressProps) {
   const [ingredients, setIngredients] = useState<string[]>();
   const [measures, setMeasures] = useState<string[]>();
   const [checkedBox, setCheckedBox] = useState<{ [index: number]: boolean }>({});
+  const [clipboardText, setClipboardText] = useState<string>();
 
-  const recipe: MealType | DrinkType = useFetchDetails(type, id);
+  const recipe: any = useFetchDetails(type, id);
 
   const renderInfo = (recipesData: MealType | DrinkType) => {
     if (recipesData) {
@@ -41,6 +44,12 @@ function RecipeInProgress({ type }: RecipeInProgressProps) {
       setCheckedBox(JSON.parse(localStorageCheckedBox));
     }
   }, []);
+
+  const copyToClipboard = () => {
+    const url = window.location.href.replace('/in-progress', '');
+    setClipboardText(url);
+    navigator.clipboard.writeText(url);
+  };
 
   const handleCheckedBoxes = (index: number) => {
     setCheckedBox((prevState) => ({
@@ -67,6 +76,40 @@ function RecipeInProgress({ type }: RecipeInProgressProps) {
 
   return (
     <div>
+      <DetailsHeader
+        id={ id as string }
+        recipe={
+          (recipe && type === 'Meal')
+            ? {
+              id: id as string,
+              type: 'meal',
+              nationality: recipe.strArea,
+              category: recipe.strCategory,
+              alcoholicOrNot: '',
+              name: recipe.strMeal,
+              image: recipe.strMealThumb }
+            : {
+              id: id as string,
+              type: 'drink',
+              nationality: '',
+              category: recipe.strCategory,
+              alcoholicOrNot: recipe.strAlcoholic,
+              name: recipe.strDrink,
+              image: recipe.strDrinkThumb }
+        }
+        onClick={ copyToClipboard }
+      />
+      {
+        clipboardText && (
+          <Alert
+            variant="info"
+            dismissible
+            onClose={ () => setClipboardText('') }
+          >
+            <Alert.Heading>Link copied!</Alert.Heading>
+          </Alert>
+        )
+      }
       <h1>Receita em Progresso</h1>
       <div>
         <h2
@@ -81,12 +124,6 @@ function RecipeInProgress({ type }: RecipeInProgressProps) {
         >
           { drinkDetails && drinkDetails.strAlcoholic }
         </h5>
-        <button data-testid="share-btn">
-          Compartilhar
-        </button>
-        <button data-testid="favorite-btn">
-          Favoritar
-        </button>
         <img
           data-testid="recipe-photo"
           src={ type === 'Meal'

@@ -1,8 +1,11 @@
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import { Alert } from 'react-bootstrap';
 import { DrinkType, MealType } from './detailsType';
-import useFetchDetails from './useFetchDetails';
+import useFetchDetails from '../../hooks/useFetchDetails';
 import Recommendations from '../../components/Recommendations';
+import RecipesButton from '../../components/RecipesButton';
+import DetailsHeader from '../../components/DetailsHeader';
 // import useFetchDetails, { fecthMealDetails, fetchDrinkDetails } from './useFetchDetails';
 
 type RecipeDetailsProps = {
@@ -16,9 +19,10 @@ function RecipeDetails({ type }: RecipeDetailsProps) {
   const [ingredients, setIngredients] = useState<string[]>();
   const [measures, setMeasures] = useState<string[]>();
   const [recommendations, setRecommendations] = useState<MealType[] | DrinkType[]>();
+  const [clipboardText, setClipboardText] = useState<string>();
   // const [isLoading, setIsLoading] = useState(false);
 
-  const recipe: MealType | DrinkType = useFetchDetails(type, id);
+  const recipe: any = useFetchDetails(type, id);
 
   const renderInfo = (recipesData: MealType | DrinkType) => {
     if (recipesData) {
@@ -48,6 +52,12 @@ function RecipeDetails({ type }: RecipeDetailsProps) {
     console.log(recomendationsData);
   };
 
+  const copyToClipboard = () => {
+    const url = window.location.href;
+    setClipboardText(url);
+    navigator.clipboard.writeText(url);
+  };
+
   useEffect(() => {
     if (type === 'Meal') {
       setMealDetails(recipe as MealType);
@@ -61,7 +71,40 @@ function RecipeDetails({ type }: RecipeDetailsProps) {
 
   return (
     <div>
-      <h1>Detalhes</h1>
+      <DetailsHeader
+        id={ id as string }
+        recipe={
+          (recipe && type === 'Meal')
+            ? {
+              id: id as string,
+              type: 'meal',
+              nationality: recipe.strArea,
+              category: recipe.strCategory,
+              alcoholicOrNot: '',
+              name: recipe.strMeal,
+              image: recipe.strMealThumb }
+            : {
+              id: id as string,
+              type: 'drink',
+              nationality: '',
+              category: recipe.strCategory,
+              alcoholicOrNot: recipe.strAlcoholic,
+              name: recipe.strDrink,
+              image: recipe.strDrinkThumb }
+        }
+        onClick={ copyToClipboard }
+      />
+      {
+        clipboardText && (
+          <Alert
+            variant="info"
+            dismissible
+            onClose={ () => setClipboardText('') }
+          >
+            <Alert.Heading>Link copied!</Alert.Heading>
+          </Alert>
+        )
+      }
       <div>
         <h2
           data-testid="recipe-category"
@@ -122,16 +165,6 @@ function RecipeDetails({ type }: RecipeDetailsProps) {
         />
       </div>
       <div
-        style={ { position: 'fixed', bottom: '0' } }
-      >
-        <button
-          data-testid="start-recipe-btn"
-          style={ { position: 'fixed', bottom: '0', zIndex: 5 } }
-        >
-          Start Recipe
-        </button>
-      </div>
-      <div
         style={ { zIndex: 1 } }
       >
         <h5>
@@ -142,6 +175,16 @@ function RecipeDetails({ type }: RecipeDetailsProps) {
           type={ type }
         />
       </div>
+      {/* <button
+        data-testid="start-recipe-btn"
+        style={ { position: 'fixed', bottom: '0', zIndex: 5 } }
+      >
+        Start Recipe
+      </button> */}
+      <RecipesButton
+        id={ id as string }
+        type={ type }
+      />
     </div>
   );
 }

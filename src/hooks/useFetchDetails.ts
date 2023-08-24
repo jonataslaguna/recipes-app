@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { DrinkType, MealType } from './detailsType';
+import { DrinkType, MealType } from '../pages/RecipeDetails/detailsType';
 
 export default function useFetchDetails(type: string, id: any) {
   const [recipe, setRecipe] = useState({} as MealType | DrinkType);

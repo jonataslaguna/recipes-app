@@ -4,12 +4,13 @@ import { vi } from 'vitest';
 import App from '../App';
 import renderWithRouter from './renderWithRouter';
 import ProviderRecipes from '../context/ProviderRecipes';
-import { recipesMockIngredients } from './mocks/recipesMock';
+// import { recipesMockIngredients } from './mocks/recipesMock';
+import { mealsAndDrinksMocks } from './mocks/mealsAndDrinksMocks';
 
 describe('Testes do App', () => {
   beforeEach(() => {
     global.fetch = vi.fn().mockResolvedValue({
-      json: async () => recipesMockIngredients,
+      json: async () => mealsAndDrinksMocks,
     });
   });
   afterEach(() => {
@@ -102,5 +103,41 @@ describe('Testes do App', () => {
     await user.click(screen.getByText(/first letter/i));
     await user.type(searchInput, 'aa');
     await user.click(btnSubmit);
+  });
+  it('Testes no componente Profile', async () => {
+    const { user } = renderWithRouter(
+      <ProviderRecipes>
+        <App />
+      </ProviderRecipes>,
+      { route: '/profile' },
+    );
+
+    const doneRecipesBtn = screen.getByRole('button', {
+      name: /done recipes/i,
+    });
+    await user.click(doneRecipesBtn);
+    expect(window.location.pathname).toBe('/done-recipes');
+
+    const profileBtn = screen.getByTestId('profile-top-btn');
+    await user.click(profileBtn);
+    expect(window.location.pathname).toBe('/profile');
+
+    const favoriteRecipesBtn = screen.getByRole('button', {
+      name: /favorite recipes/i,
+    });
+    await user.click(favoriteRecipesBtn);
+    expect(window.location.pathname).toBe('/favorite-recipes');
+
+    const profileButton = screen.getByRole('button', {
+      name: /profile/i,
+    });
+    await user.click(profileButton);
+    expect(window.location.pathname).toBe('/profile');
+
+    const logoutBtn = screen.getByRole('button', {
+      name: /logout/i,
+    });
+    await user.click(logoutBtn);
+    expect(window.location.pathname).toBe('/');
   });
 });
