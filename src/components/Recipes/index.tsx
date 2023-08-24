@@ -37,11 +37,19 @@ function Recipes() {
   const handleClick = async (categoryName: string) => {
     if (path === 'meals') {
       const fetchMealCategory = await getCategoryMeal(categoryName);
-      setCategoryData(fetchMealCategory.meals);
+      if (fetchMealCategory.meals.length > 11) {
+        setCategoryData(fetchMealCategory.meals.slice(0, 12));
+      } else {
+        setCategoryData(fetchMealCategory.meals);
+      }
       console.log(categoryData);
     } else {
       const fetchDrinkCategory = await getCategoryDrink(categoryName);
-      setCategoryData(fetchDrinkCategory.drinks);
+      if (fetchDrinkCategory.drinks.length > 11) {
+        setCategoryData(fetchDrinkCategory.drinks.slice(0, 12));
+      } else {
+        setCategoryData(fetchDrinkCategory.drinks);
+      }
       console.log(categoryData);
     }
   };
@@ -69,9 +77,16 @@ function Recipes() {
         categoryData.map(({ strMeal, strMealThumb }: ItemMealType, index) => (
           <div
             key={ index }
+            data-testid={ `${index}-recipe-card` }
           >
-            <h2>{ strMeal }</h2>
+            <h2
+              data-testid={ `${index}-card-name` }
+            >
+              { strMeal }
+
+            </h2>
             <img
+              data-testid={ `${index}-card-img` }
               src={ strMealThumb }
               alt="Meal Thumb"
             />
@@ -79,9 +94,18 @@ function Recipes() {
         )))}
       { categoryData.length > 0 && path === 'drinks' && (
         categoryData.map(({ strDrink, strDrinkThumb }: ItemDrinkType, index) => (
-          <div key={ index }>
-            <h2>{ strDrink }</h2>
+          <div
+            key={ index }
+            data-testid={ `${index}-recipe-card` }
+          >
+            <h2
+              data-testid={ `${index}-card-name` }
+            >
+              { strDrink }
+
+            </h2>
             <img
+              data-testid={ `${index}-card-img` }
               src={ strDrinkThumb }
               alt="Drink Thumb"
             />

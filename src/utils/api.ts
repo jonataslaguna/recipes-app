@@ -55,7 +55,7 @@ export const getCategoryMeal = async (categoryMeal: string) => {
 
 export const getCategoryDrink = async (categoryDrink: string) => {
   try {
-    const response = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${categoryDrink}`);
+    const response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${categoryDrink}`);
     const data = await response.json();
     return data;
   } catch (error) {
