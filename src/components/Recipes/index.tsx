@@ -34,11 +34,11 @@ function Recipes() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const dataWith12Length = data.slice(0, 12);
-  const categoriesWith5Length = categories.slice(0, 5);
+  const dataWith12Length = data?.slice(0, 12);
+  const categoriesWith5Length = categories?.slice(0, 5);
   return (
     <div>
-      { categoriesWith5Length.map(({ strCategory: categoryName }: CategoryType) => (
+      { categoriesWith5Length?.map(({ strCategory: categoryName }: CategoryType) => (
         <button
           key={ categoryName }
           data-testid={ `${categoryName}-category-filter` }
@@ -47,7 +47,7 @@ function Recipes() {
         </button>
       ))}
       { path === 'meals' && (
-        dataWith12Length.map(({ strMeal, strMealThumb }: ItemMealType, index) => (
+        dataWith12Length?.map(({ strMeal, strMealThumb }: ItemMealType, index) => (
           <div
             key={ index }
             data-testid={ `${index}-recipe-card` }

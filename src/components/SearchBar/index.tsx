@@ -19,7 +19,7 @@ function SearchBar() {
       setSearchFormData({ ...searchFormData, [id]: value });
     }
   };
-
+  console.log(recipesSearchForm);
   useEffect(() => {
     const navigateToPageDetails = () => {
       if (recipesSearchForm
