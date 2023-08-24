@@ -8,6 +8,8 @@ function SearchBar() {
     setSearchFormData,
     recipesSearchForm,
     handleSubmitSearchForm,
+    btnClicked,
+    setBtnClicked,
   } = useContext(ContextRecipes);
   const navigate = useNavigate();
 
@@ -19,22 +21,24 @@ function SearchBar() {
       setSearchFormData({ ...searchFormData, [id]: value });
     }
   };
-  console.log(recipesSearchForm);
+
   useEffect(() => {
     const navigateToPageDetails = () => {
-      if (recipesSearchForm
+      if (btnClicked && (recipesSearchForm
         && recipesSearchForm.meals
-        && recipesSearchForm.meals.length === 1) {
+        && recipesSearchForm.meals.length === 1)) {
         navigate(`/meals/${recipesSearchForm.meals[0].idMeal}`);
+        setBtnClicked(false);
       }
-      if (recipesSearchForm
+      if (btnClicked && (recipesSearchForm
         && recipesSearchForm.drinks
-        && recipesSearchForm.drinks.length === 1) {
+        && recipesSearchForm.drinks.length === 1)) {
         navigate(`/drinks/${recipesSearchForm.drinks[0].idDrink}`);
+        setBtnClicked(false);
       }
     };
     navigateToPageDetails();
-  }, [recipesSearchForm, navigate]);
+  }, [recipesSearchForm, navigate, btnClicked, setBtnClicked]);
 
   return (
     <form onSubmit={ handleSubmitSearchForm }>
