@@ -23,12 +23,16 @@ describe('Testa o comportamento e renderização da tela de detalhes de uma rece
     const ingredientsSection = screen.getByRole('heading', { name: /ingredients/i });
     const instructionsSection = screen.getByRole('heading', { name: /instructions/i });
     const btnFinish = screen.getByRole('button', { name: /finalizar receita/i });
+    const recipePicture = screen.getByTestId('recipe-photo');
+    const recipeTitle = screen.getByTestId('recipe-title');
 
     expect(global.fetch).toHaveBeenCalled();
     expect(title).toBeInTheDocument();
     expect(ingredientsSection).toBeInTheDocument();
     expect(instructionsSection).toBeInTheDocument();
     expect(btnFinish).toBeInTheDocument();
+    expect(recipePicture).toBeInTheDocument();
+    expect(recipeTitle).toBeInTheDocument();
   });
   it('Testa se o link da receita é copiado ao clicar no botão de compartilhar', async () => {
     renderWithRouter(<App />, { route });
@@ -61,5 +65,13 @@ describe('Testa o comportamento e renderização da tela de detalhes de uma rece
     const favoriteButton = screen.getByTestId('favorite-btn');
     expect(favoriteButton).toBeInTheDocument();
     expect(favoriteButton).toHaveAttribute('src', '/src/images/whiteHeartIcon.svg');
+  });
+  it('Testa botao finalizar receita', async () => {
+    renderWithRouter(<App />, { route });
+
+    const btnFinish = screen.getByRole('button', { name: /finalizar receita/i });
+
+    expect(btnFinish).toBeInTheDocument();
+    await userEvent.click(btnFinish);
   });
 });

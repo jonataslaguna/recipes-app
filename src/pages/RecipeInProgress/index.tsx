@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { Alert } from 'react-bootstrap';
 import useFetchDetails from '../../hooks/useFetchDetails';
@@ -8,6 +8,17 @@ import DetailsHeader from '../../components/DetailsHeader';
 
 type RecipeInProgressProps = {
   type: string;
+};
+type RecipeDone = {
+  id: string;
+  type: string;
+  category: string;
+  alcoholicOrNot: string;
+  name: string;
+  image: string;
+  doneDate: string;
+  tags: string[];
+  nationality: string;
 };
 
 function RecipeInProgress({ type }: RecipeInProgressProps) {
@@ -20,6 +31,7 @@ function RecipeInProgress({ type }: RecipeInProgressProps) {
   const [clipboardText, setClipboardText] = useState<string>();
 
   const recipe: any = useFetchDetails(type, id);
+  const nav = useNavigate();
 
   const renderInfo = (recipesData: MealType | DrinkType) => {
     if (recipesData) {
@@ -38,7 +50,7 @@ function RecipeInProgress({ type }: RecipeInProgressProps) {
   };
 
   useEffect(() => {
-    const localStorageCheckedBox = localStorage.getItem('checkedBox');
+    const localStorageCheckedBox = localStorage.getItem('inProgressRecipes');
 
     if (localStorageCheckedBox) {
       setCheckedBox(JSON.parse(localStorageCheckedBox));
@@ -58,6 +70,37 @@ function RecipeInProgress({ type }: RecipeInProgressProps) {
     }));
   };
 
+  const handleDoneRecipes = () => {
+    const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes') || '[]');
+
+    const isoDate = new Date();
+
+    const year = isoDate.getUTCFullYear();
+    const month = String(isoDate.getUTCMonth() + 1).padStart(2, '0');
+    const day = String(isoDate.getUTCDate()).padStart(2, '0');
+    const hours = String(isoDate.getUTCHours()).padStart(2, '0');
+    const minutes = String(isoDate.getUTCMinutes()).padStart(2, '0');
+    const seconds = String(isoDate.getUTCSeconds()).padStart(2, '0');
+    const milliseconds = String(isoDate.getUTCMilliseconds()).padStart(3, '0');
+
+    const recipeDone: RecipeDone = {
+      id: id as string,
+      type: type.toLowerCase(),
+      category: mealDetails?.strCategory || drinkDetails?.strCategory || '',
+      alcoholicOrNot: drinkDetails?.strAlcoholic || '',
+      nationality: mealDetails?.strArea || '',
+      name: mealDetails?.strMeal || drinkDetails?.strDrink || '',
+      image: mealDetails?.strMealThumb || drinkDetails?.strDrinkThumb || '',
+      doneDate: `${year}-${month}-${day}T${hours}:${minutes}:${seconds}.${milliseconds}Z`,
+      tags: mealDetails?.strTags?.split(',') || [],
+    };
+    console.log(recipeDone);
+
+    localStorage.setItem('doneRecipes', JSON.stringify([...doneRecipes, recipeDone]));
+
+    nav('/done-recipes');
+  };
+
   useEffect(() => {
     if (type === 'Meal') {
       setMealDetails(recipe as MealType);
@@ -69,7 +112,7 @@ function RecipeInProgress({ type }: RecipeInProgressProps) {
   }, [recipe, type]);
 
   useEffect(() => {
-    localStorage.setItem('checkedBox', JSON.stringify(checkedBox));
+    localStorage.setItem('inProgressRecipes', JSON.stringify(checkedBox));
   }, [checkedBox]);
 
   const ingredientsChecked = ingredients?.every((_, index) => checkedBox[index]);
@@ -174,6 +217,7 @@ function RecipeInProgress({ type }: RecipeInProgressProps) {
         data-testid="finish-recipe-btn"
         type="button"
         disabled={ !ingredientsChecked }
+        onClick={ handleDoneRecipes }
       >
         Finalizar Receita
       </button>
