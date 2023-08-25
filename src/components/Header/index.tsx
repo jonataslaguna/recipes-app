@@ -12,7 +12,6 @@ import iconBell from '../../images/iconBell.svg';
 import styles from './styles.module.css';
 import mealTitleIcon from '../../images/mealsTitleIcon.svg';
 import drinkPageIcon from '../../images/drinkPageIcon.svg';
-import profileYellowIcon from '../../images/profileYellowIcon.svg';
 
 function Header({ pageTitle, showSearchIcon }: HeaderRouterProps) {
   const { setPageName } = useContext(ContextRecipes);
