@@ -1,6 +1,7 @@
 import { useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ContextRecipes from '../../context/ContextRecipes';
+import styles from './searchBar.module.css';
 
 function SearchBar() {
   const {
@@ -41,47 +42,56 @@ function SearchBar() {
   }, [recipesSearchForm, navigate, btnClicked, setBtnClicked]);
 
   return (
-    <form onSubmit={ handleSubmitSearchForm }>
-      <input
-        type="text"
-        data-testid="search-input"
-        placeholder="Search recipe"
-        id="searchInput"
-        value={ searchFormData?.searchInput }
-        onChange={ handleChange }
-      />
+    <form
+      onSubmit={ handleSubmitSearchForm }
+      className={ styles.formContainer }
+    >
+      <div className={ styles.inputTextSearchBar }>
+        <input
+          type="text"
+          data-testid="search-input"
+          placeholder="Search"
+          id="searchInput"
+          value={ searchFormData?.searchInput }
+          onChange={ handleChange }
+        />
+      </div>
 
-      <input
-        data-testid="ingredient-search-radio"
-        type="radio"
-        name="search-radio"
-        id="ingredient"
-        value="ingredient"
-        onChange={ handleChange }
-      />
-      <label htmlFor="ingredient">Ingredient</label>
+      <div className={ styles.inputRadiosAndButtonSearchBar }>
+        <div className={ styles.inputRadios }>
+          <input
+            data-testid="ingredient-search-radio"
+            type="radio"
+            name="search-radio"
+            id="ingredient"
+            value="ingredient"
+            onChange={ handleChange }
+          />
+          <label htmlFor="ingredient">Ingredient</label>
+          <input
+            data-testid="name-search-radio"
+            type="radio"
+            name="search-radio"
+            id="name"
+            value="name"
+            onChange={ handleChange }
+          />
+          <label htmlFor="name">Name</label>
+          <input
+            data-testid="first-letter-search-radio"
+            type="radio"
+            name="search-radio"
+            id="firstLetter"
+            value="firstLetter"
+            onChange={ handleChange }
+          />
+          <label htmlFor="firstLetter">First letter</label>
+        </div>
+        <div>
+          <button data-testid="exec-search-btn">Search</button>
+        </div>
+      </div>
 
-      <input
-        data-testid="name-search-radio"
-        type="radio"
-        name="search-radio"
-        id="name"
-        value="name"
-        onChange={ handleChange }
-      />
-      <label htmlFor="name">Name</label>
-
-      <input
-        data-testid="first-letter-search-radio"
-        type="radio"
-        name="search-radio"
-        id="firstLetter"
-        value="firstLetter"
-        onChange={ handleChange }
-      />
-      <label htmlFor="firstLetter">First letter</label>
-
-      <button data-testid="exec-search-btn">Search</button>
     </form>
   );
 }

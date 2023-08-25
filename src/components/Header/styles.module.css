@@ -1,0 +1,56 @@
+.headerIcons {
+  align-items: center;
+  background: hsl(50, 97%, 60%);
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.headerIcons button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  height: 28.71px;
+  outline: none;
+  width: 28.71px;
+}
+
+.headerIconsPar1 {
+  align-items: center;
+  display: flex;
+  gap: 1rem;
+  justify-content: space-between;
+  padding: 10px;
+}
+
+.headerIconsPar2 {
+  align-items: center;
+  display: flex;
+  gap: 1rem;
+  justify-content: space-between;
+  padding: 10px;
+}
+
+.titleIcon img {
+  max-width: 60px;
+}
+
+.titleIcon {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 40px;
+  margin-top: 40px;
+}
+
+.titleIcon h1 {
+  font-size: 30px;
+  font-style: normal;
+  font-weight: 900;
+  letter-spacing: 2.1px;
+  line-height: normal;
+  text-transform: uppercase;
+}
+

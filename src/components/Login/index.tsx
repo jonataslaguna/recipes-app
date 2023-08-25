@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import styles from './login.module.css';
+import recipesIcon from '../../images/recipesIcon.svg';
 
 const INITIAL_STATE = {
   email: '',
@@ -32,33 +34,42 @@ function Login() {
   };
 
   return (
-    <form onSubmit={ handleSubmit }>
+    <div className={ styles.loginContainer }>
+      <div className={ styles.icons }>
+        <img
+          src={ recipesIcon }
+          alt="logo"
+        />
+      </div>
 
-      <h1>Login</h1>
+      <form onSubmit={ handleSubmit } className={ styles.formLogin }>
 
-      <input
-        data-testid="email-input"
-        type="email"
-        id="email"
-        placeholder="E-mail"
-        value={ formLogin.email }
-        onChange={ handleChange }
-      />
-      <input
-        data-testid="password-input"
-        type="password"
-        id="password"
-        placeholder="Password"
-        value={ formLogin.password }
-        onChange={ handleChange }
-      />
-      <button
-        data-testid="login-submit-btn"
-        disabled={ !emailRegex.test(formLogin.email) || formLogin.password.length < 7 }
-      >
-        Enter
-      </button>
-    </form>
+        <h1>Login</h1>
+
+        <input
+          data-testid="email-input"
+          type="email"
+          id="email"
+          placeholder="E-mail"
+          value={ formLogin.email }
+          onChange={ handleChange }
+        />
+        <input
+          data-testid="password-input"
+          type="password"
+          id="password"
+          placeholder="Password"
+          value={ formLogin.password }
+          onChange={ handleChange }
+        />
+        <button
+          data-testid="login-submit-btn"
+          disabled={ !emailRegex.test(formLogin.email) || formLogin.password.length < 7 }
+        >
+          Enter
+        </button>
+      </form>
+    </div>
   );
 }
 

@@ -1,0 +1,70 @@
+.icons {
+  display: flex;
+  height: 157.25px;
+  justify-content: center;
+  width: 198px;
+}
+
+.loginContainer {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 0 auto;
+  max-width: 400px;
+  min-height: 100vh;
+  padding: 0 20px;
+}
+
+.formLogin {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: 50px;
+}
+
+.formLogin h1 {
+  color: hsl(264, 67%, 30%);
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 700;
+  letter-spacing: 0.72px;
+  line-height: normal;
+  margin-bottom: 20px;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.formLogin input {
+  background: white;
+  border: 1px solid hsl(0, 0%, 80%);
+  border-radius: 5px;
+  box-sizing: border-box;
+  color: hsl(0, 0%, 20%);
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  height: 40px;
+  letter-spacing: 0.42px;
+  line-height: normal;
+  margin-bottom: 10px;
+  padding: 0 10px;
+  width: 276px;
+}
+
+.formLogin button {
+  background: hsl(43, 97%, 60%);
+  border-radius: 5px;
+  color: white;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 700;
+  height: 40px;
+  letter-spacing: 0.42px;
+  line-height: normal;
+  text-align: center;
+  text-transform: uppercase;
+  width: 276px;
+}
+
