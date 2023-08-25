@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react';
+import { Alert } from 'react-bootstrap';
+import { useParams } from 'react-router-dom';
 import iconShare from '../../images/shareIcon.svg';
 import { DoneRecipesType } from '../../pages/DoneRecipes/DoneRecipesType';
 
 function DoneRecipe() {
   const [doneRecipes, setDoneRecipes] = useState<DoneRecipesType[]>([]);
-
+  const [clipboardText, setClipboardText] = useState<string>();
   useEffect(() => {
     const savedStorageDoneRecipes = localStorage.getItem('doneRecipes');
     if (savedStorageDoneRecipes !== null) {
@@ -44,7 +46,8 @@ function DoneRecipe() {
           <p
             data-testid={ `${index}-horizontal-top-text` }
           >
-            {recipe.category}
+            {`${recipe.nationality} - ${recipe.category}`}
+            {recipe?.alcoholicOrNot}
           </p>
           <p
             data-testid={ `${index}-horizontal-name` }
@@ -60,6 +63,13 @@ function DoneRecipe() {
           </p>
           <button
             type="button"
+            onClick={ () => {
+              const url = window.location.href
+                .replace('/done-recipes', `/meals/${recipe.id}`
+                || `/drinks/${recipe.id}`);
+              setClipboardText(url);
+              navigator.clipboard.writeText(url);
+            } }
           >
             <img
               src={ iconShare }
@@ -67,6 +77,15 @@ function DoneRecipe() {
               data-testid={ `${index}-horizontal-share-btn` }
             />
           </button>
+          { clipboardText && (
+            <Alert
+              variant="info"
+              dismissible
+              onClose={ () => setClipboardText('') }
+            >
+              <Alert.Heading>Link copied!</Alert.Heading>
+            </Alert>
+          )}
           {recipe.tags.map((tag, indexTag) => (
             <p
               key={ indexTag }
