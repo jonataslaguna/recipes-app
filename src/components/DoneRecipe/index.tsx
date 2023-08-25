@@ -7,6 +7,9 @@ import { DoneRecipesType } from '../../pages/DoneRecipes/DoneRecipesType';
 function DoneRecipe() {
   const [doneRecipes, setDoneRecipes] = useState<DoneRecipesType[]>([]);
   const [clipboardText, setClipboardText] = useState<string>();
+  const [filter, setFilter] = useState<string>('all');
+  console.log(doneRecipes);
+
   useEffect(() => {
     const savedStorageDoneRecipes = localStorage.getItem('doneRecipes');
     if (savedStorageDoneRecipes !== null) {
@@ -14,29 +17,48 @@ function DoneRecipe() {
     }
   }, []);
 
+  const handleFilterClickMeals = () => {
+    setFilter('meal');
+  };
+
+  const handleFilterClickDrinks = () => {
+    setFilter('drink');
+  };
+
+  const handleFilterClickAll = () => {
+    setFilter('all');
+  };
+
+  const filterDoneRecipes = filter === 'all'
+    ? doneRecipes
+    : doneRecipes.filter((recipe) => recipe.type === filter);
+
   return (
     <div>
       <button
         type="button"
         data-testid="filter-by-all-btn"
+        onClick={ handleFilterClickAll }
       >
         All
       </button>
       <button
         type="button"
         data-testid="filter-by-meal-btn"
+        onClick={ handleFilterClickMeals }
       >
         Meals
       </button>
       <button
         type="button"
         data-testid="filter-by-drink-btn"
+        onClick={ handleFilterClickDrinks }
       >
         Drinks
       </button>
 
-      { doneRecipes.length > 0
-      && doneRecipes.map((recipe, index) => (
+      { filterDoneRecipes.length > 0
+      && filterDoneRecipes.map((recipe, index) => (
         <div key={ recipe.id }>
           <img
             src={ recipe.image }

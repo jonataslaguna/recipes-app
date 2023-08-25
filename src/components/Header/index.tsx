@@ -22,6 +22,13 @@ function Header({ pageTitle, showSearchIcon }: HeaderRouterProps) {
 
   return (
     <header>
+      <button onClick={ () => navigate('/profile') }>
+        <img
+          src={ profileIcon }
+          alt="profile"
+          data-testid="profile-top-btn"
+        />
+      </button>
       <h1 data-testid="page-title">{pageTitle}</h1>
       {showSearchIcon && (
         <button
@@ -34,13 +41,6 @@ function Header({ pageTitle, showSearchIcon }: HeaderRouterProps) {
           />
         </button>
       )}
-      <button onClick={ () => navigate('/profile') }>
-        <img
-          src={ profileIcon }
-          alt="profile"
-          data-testid="profile-top-btn"
-        />
-      </button>
 
       {showInputSearch && <SearchBar />}
     </header>
