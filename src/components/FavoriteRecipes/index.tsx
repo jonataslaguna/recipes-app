@@ -7,15 +7,25 @@ import ContextRecipes from '../../context/ContextRecipes';
 
 function FavoriteRecipes() {
   const [favoriteRecipes, setFavoriteRecipes] = useState<FavoriteRecipeType[]>([]);
+  const [activeRecipes, setActiveRecipes] = useState<FavoriteRecipeType[]>([]); // [
   const [favorites, setFavorites] = useState([] as FavoriteRecipeType[]);
   const [clipBoard, setClipboard] = useState<string>('');
   const { handleRemoveFromFavorites } = useContext(ContextRecipes);
   const { host, protocol } = window.location;
 
+  const filterFavorites = (type: string) => {
+    if (type === 'all') {
+      setActiveRecipes(favoriteRecipes);
+    }
+    const filtered = favoriteRecipes.filter((recipe: any) => recipe.type === type);
+    setActiveRecipes(filtered);
+  };
+
   useEffect(() => {
     const favoriteRecipesJSON = localStorage.getItem('favoriteRecipes');
     if (favoriteRecipesJSON !== null) {
       setFavoriteRecipes(JSON.parse(favoriteRecipesJSON));
+      setActiveRecipes(JSON.parse(favoriteRecipesJSON));
     } else {
       console.log('Nenhuma receita favorita encontrada no localStorage.');
     }
@@ -29,18 +39,21 @@ function FavoriteRecipes() {
         <button
           type="button"
           data-testid="filter-by-all-btn"
+          onClick={ () => setActiveRecipes(favoriteRecipes) }
         >
           All
         </button>
         <button
           type="button"
           data-testid="filter-by-meal-btn"
+          onClick={ () => filterFavorites('meal') }
         >
           Meals
         </button>
         <button
           type="button"
           data-testid="filter-by-drink-btn"
+          onClick={ () => filterFavorites('drink') }
         >
           Drinks
         </button>
@@ -56,8 +69,8 @@ function FavoriteRecipes() {
         )
       }
       </div>
-      { favoriteRecipes.length > 0 && (
-        favoriteRecipes.map((
+      { activeRecipes.length > 0 && (
+        activeRecipes.map((
           { id, image, name, type, nationality, alcoholicOrNot, category },
           index,
         ) => (
