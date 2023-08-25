@@ -30,3 +30,27 @@
   justify-content: space-between;
   padding: 10px;
 }
+
+.titleIcon img {
+  max-width: 60px;
+}
+
+.titleIcon {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 40px;
+  margin-top: 40px;
+}
+
+.titleIcon h1 {
+  font-size: 30px;
+  font-style: normal;
+  font-weight: 900;
+  letter-spacing: 2.1px;
+  line-height: normal;
+  text-transform: uppercase;
+}
+

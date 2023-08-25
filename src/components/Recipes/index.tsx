@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
 import { CategoryType, ItemDrinkType, ItemMealType } from '../../utils/types';
 import { getCategoryDrink, getCategoryMeal } from '../../utils/api';
 
@@ -49,7 +49,6 @@ function Recipes() {
       } else {
         setCategoryData(fetchMealCategory.meals);
       }
-      console.log(categoryData);
     } else {
       setSelectedCategory(categoryName);
       const fetchDrinkCategory = await getCategoryDrink(categoryName);
@@ -58,7 +57,6 @@ function Recipes() {
       } else {
         setCategoryData(fetchDrinkCategory.drinks);
       }
-      console.log(categoryData);
     }
   };
 
@@ -82,10 +80,11 @@ function Recipes() {
         All
       </button>
       { categoryData.length > 0 && path === 'meals' && (
-        categoryData?.map(({ strMeal, strMealThumb }: ItemMealType, index) => (
-          <div
+        categoryData?.map(({ strMeal, strMealThumb, idMeal }: ItemMealType, index) => (
+          <Link
             key={ index }
             data-testid={ `${index}-recipe-card` }
+            to={ `/meals/${idMeal}` }
           >
             <h2
               data-testid={ `${index}-card-name` }
@@ -98,13 +97,15 @@ function Recipes() {
               src={ strMealThumb }
               alt="Meal Thumb"
             />
-          </div>
+          </Link>
         )))}
       { categoryData.length > 0 && path === 'drinks' && (
-        categoryData?.map(({ strDrink, strDrinkThumb }: ItemDrinkType, index) => (
-          <div
+        categoryData?.map(({ strDrink, strDrinkThumb, idDrink }
+        : ItemDrinkType, index) => (
+          <Link
             key={ index }
             data-testid={ `${index}-recipe-card` }
+            to={ `/drinks/${idDrink}` }
           >
             <h2
               data-testid={ `${index}-card-name` }
@@ -117,13 +118,15 @@ function Recipes() {
               src={ strDrinkThumb }
               alt="Drink Thumb"
             />
-          </div>
+          </Link>
         )))}
       { categoryData.length === 0 && path === 'meals' && (
-        dataWith12Length?.map(({ strMeal, strMealThumb }: ItemMealType, index) => (
-          <div
+        dataWith12Length?.map(({ strMeal, strMealThumb, idMeal }
+        : ItemMealType, index) => (
+          <Link
             key={ index }
             data-testid={ `${index}-recipe-card` }
+            to={ `/meals/${idMeal}` }
           >
             <h2
               data-testid={ `${index}-card-name` }
@@ -135,15 +138,17 @@ function Recipes() {
               src={ strMealThumb }
               alt="Meal Thumb"
             />
-          </div>
+          </Link>
         ))
       ) }
 
       { categoryData.length === 0 && path === 'drinks' && (
-        dataWith12Length?.map(({ strDrink, strDrinkThumb }: ItemDrinkType, index) => (
-          <div
+        dataWith12Length?.map(({ strDrink, strDrinkThumb, idDrink }
+        : ItemDrinkType, index) => (
+          <Link
             key={ index }
             data-testid={ `${index}-recipe-card` }
+            to={ `/drinks/${idDrink}` }
           >
             <h2
               data-testid={ `${index}-card-name` }
@@ -155,7 +160,7 @@ function Recipes() {
               src={ strDrinkThumb }
               alt="Drink Thumb"
             />
-          </div>
+          </Link>
         )))}
     </div>
   );

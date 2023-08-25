@@ -45,7 +45,7 @@ describe('Componente SearchBar na pagina /meals', () => {
     await user.click(btnSearch);
     await waitFor(() => {
       expect(global.fetch).toBeCalled();
-      expect(screen.getAllByRole('img')).toHaveLength(45);
+      expect(screen.getAllByRole('img')).toHaveLength(48);
     });
     await user.click(profileBtn);
     expect(window.location.pathname).toBe('/profile');
@@ -75,7 +75,7 @@ describe('Input First Letter na página /meals', () => {
     await user.click(radioName);
     await user.type(inputText, 'a');
     await user.click(screen.getByTestId(dataTestIdBtnSearch));
-    expect(screen.getAllByRole('img')).toHaveLength(8);
+    expect(screen.getAllByRole('img')).toHaveLength(11);
   });
 });
 
@@ -111,7 +111,7 @@ describe('Componente SearchBar na pagina /drinks', () => {
     await user.click(btnSearch);
     await waitFor(() => {
       expect(global.fetch).toBeCalled();
-      expect(screen.getAllByRole('img')).toHaveLength(16);
+      expect(screen.getAllByRole('img')).toHaveLength(19);
     });
     await user.click(profileBtn);
     expect(window.location.pathname).toBe('/profile');
@@ -130,7 +130,7 @@ describe('Componente SearchBar na pagina /drinks', () => {
     await user.click(radioName);
     await user.type(inputText, 'a');
     await waitFor(() => {
-      expect(screen.getAllByRole('img')).toHaveLength(16);
+      expect(screen.getAllByRole('img')).toHaveLength(19);
     });
   });
 });
@@ -158,7 +158,7 @@ describe('Testes de filtro na page drinks', () => {
     await user.click(radioName);
     await user.type(inputText, 'banana');
     await user.click(screen.getByTestId(dataTestIdBtnSearch));
-    expect(screen.getAllByRole('img')).toHaveLength(11);
+    expect(screen.getAllByRole('img')).toHaveLength(14);
   });
 });
 

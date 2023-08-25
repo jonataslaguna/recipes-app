@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { useContext, useEffect, useState } from 'react';
-/* import profileIcon from '../../images/profileIcon.svg';
-import searchIcon from '../../images/searchIcon.svg'; */
+import profileIcon from '../../images/profileIcon.svg';
+/* import searchIcon from '../../images/searchIcon.svg'; */
 import { HeaderRouterProps } from './type';
 import SearchBar from '../SearchBar';
 import ContextRecipes from '../../context/ContextRecipes';
@@ -10,6 +10,9 @@ import searchIcon2 from '../../images/searchIcon2.svg';
 import logoIcon from '../../images/logoIcon.svg';
 import iconBell from '../../images/iconBell.svg';
 import styles from './styles.module.css';
+import mealTitleIcon from '../../images/mealsTitleIcon.svg';
+import drinkPageIcon from '../../images/drinkPageIcon.svg';
+import profileYellowIcon from '../../images/profileYellowIcon.svg';
 
 function Header({ pageTitle, showSearchIcon }: HeaderRouterProps) {
   const { setPageName } = useContext(ContextRecipes);
@@ -53,7 +56,16 @@ function Header({ pageTitle, showSearchIcon }: HeaderRouterProps) {
           </button>
         </div>
       </div>
-      <h1 data-testid="page-title">{pageTitle}</h1>
+      <div className={ styles.titleIcon }>
+        {pageTitle === 'Profile'
+          ? <img src={ profileIcon } alt="icon" />
+          : <img
+              src={ pageTitle === 'Meals'
+                ? mealTitleIcon : drinkPageIcon }
+              alt="icon"
+          />}
+        <h1 data-testid="page-title">{pageTitle}</h1>
+      </div>
       {showInputSearch && <SearchBar />}
     </header>
   );
