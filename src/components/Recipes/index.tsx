@@ -16,7 +16,6 @@ function Recipes() {
       const fetchMeals = async () => {
         const response = await fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=');
         const dataResponse = await response.json();
-
         setData(dataResponse.meals);
         const fetchCategories = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?c=list');
         const dataCategories = await fetchCategories.json();
