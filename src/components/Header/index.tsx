@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { useContext, useEffect, useState } from 'react';
-import profileIcon from '../../images/profileIcon.svg';
-import searchIcon from '../../images/searchIcon.svg';
+/* import profileIcon from '../../images/profileIcon.svg';
+import searchIcon from '../../images/searchIcon.svg'; */
 import { HeaderRouterProps } from './type';
 import SearchBar from '../SearchBar';
 import ContextRecipes from '../../context/ContextRecipes';

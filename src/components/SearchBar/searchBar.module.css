@@ -1,0 +1,70 @@
+.formContainer {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.inputTextSearchBar {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
+.inputTextSearchBar input {
+  color: hsl(222, 5%, 50%);
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: normal;
+  padding: 10px;
+  width: 380px;
+}
+
+.inputRadiosAndButtonSearchBar {
+  align-items: center;
+  background: hsl(264, 67%, 30%);
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  justify-content: center;
+  padding: 20px;
+  width: 380px;
+}
+
+.inputRadiosAndButtonSearchBar button {
+  align-items: center;
+  background: hsl(43, 97%, 60%);
+  border: none;
+  border-radius: 5px;
+  color: white;
+  display: flex;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 700;
+  height: 25px;
+  justify-content: center;
+  letter-spacing: 0.36px;
+  line-height: normal;
+  padding: 20px;
+  text-align: center;
+  text-transform: uppercase;
+  width: 300px;
+}
+
+.inputRadios {
+  display: flex;
+  gap: 15px;
+}
+
+.inputRadios label {
+  color: white;
+  cursor: pointer;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
