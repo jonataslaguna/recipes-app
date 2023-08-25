@@ -1,14 +1,14 @@
 import { useEffect, useState } from 'react';
 import { Alert } from 'react-bootstrap';
-import { useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import iconShare from '../../images/shareIcon.svg';
 import { DoneRecipesType } from '../../pages/DoneRecipes/DoneRecipesType';
+import styles from './doneRecipe.module.css';
 
 function DoneRecipe() {
   const [doneRecipes, setDoneRecipes] = useState<DoneRecipesType[]>([]);
   const [clipboardText, setClipboardText] = useState<string>();
   const [filter, setFilter] = useState<string>('all');
-  console.log(doneRecipes);
 
   useEffect(() => {
     const savedStorageDoneRecipes = localStorage.getItem('doneRecipes');
@@ -59,30 +59,49 @@ function DoneRecipe() {
 
       { filterDoneRecipes.length > 0
       && filterDoneRecipes.map((recipe, index) => (
-        <div key={ recipe.id }>
-          <img
-            src={ recipe.image }
-            alt=""
-            data-testid={ `${index}-horizontal-image` }
-          />
+        <div
+          key={ recipe.id }
+          className={ styles.recipeCard }
+        >
+          <Link
+            to={ recipe.type === 'meal'
+              ? `/meals/${recipe.id}`
+              : `/drinks/${recipe.id}` }
+          >
+            <img
+              className="img-thumbnail"
+              src={ recipe.image }
+              alt={ recipe.name }
+              data-testid={ `${index}-horizontal-image` }
+            />
+
+          </Link>
+
           <p
             data-testid={ `${index}-horizontal-top-text` }
           >
             {`${recipe.nationality} - ${recipe.category}`}
             {recipe?.alcoholicOrNot}
           </p>
-          <p
-            data-testid={ `${index}-horizontal-name` }
-          >
-            {recipe.name}
 
-          </p>
+          <Link
+            to={ recipe.type === 'meal'
+              ? `/meals/${recipe.id}`
+              : `/drinks/${recipe.id}` }
+          >
+            <p
+              data-testid={ `${index}-horizontal-name` }
+            >
+              {recipe.name}
+            </p>
+          </Link>
           <p
             data-testid={ `${index}-horizontal-done-date` }
           >
             Done in:
             {recipe.doneDate}
           </p>
+
           <button
             type="button"
             onClick={ () => {
