@@ -1,8 +1,16 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
+import { Alert } from 'react-bootstrap';
 import { FavoriteRecipeType } from '../../utils/types';
+import shareIcon from '../../images/shareIcon.svg';
+import blackHeartIcon from '../../images/blackHeartIcon.svg';
+import ContextRecipes from '../../context/ContextRecipes';
 
 function FavoriteRecipes() {
   const [favoriteRecipes, setFavoriteRecipes] = useState<FavoriteRecipeType[]>([]);
+  const [favorites, setFavorites] = useState([] as FavoriteRecipeType[]);
+  const [clipBoard, setClipboard] = useState<string>('');
+  const { handleRemoveFromFavorites } = useContext(ContextRecipes);
+  const { host, protocol } = window.location;
 
   useEffect(() => {
     const favoriteRecipesJSON = localStorage.getItem('favoriteRecipes');
@@ -11,7 +19,7 @@ function FavoriteRecipes() {
     } else {
       console.log('Nenhuma receita favorita encontrada no localStorage.');
     }
-  }, []);
+  }, [favorites]);
 
   return (
     <div>
@@ -36,14 +44,26 @@ function FavoriteRecipes() {
         >
           Drinks
         </button>
+        {
+        clipBoard && (
+          <Alert
+            variant="info"
+            dismissible
+            onClose={ () => setClipboard('') }
+          >
+            <Alert.Heading>Link copied!</Alert.Heading>
+          </Alert>
+        )
+      }
       </div>
       { favoriteRecipes.length > 0 && (
         favoriteRecipes.map((
-          { image, name, type, nationality, alcoholicOrNot, category },
+          { id, image, name, type, nationality, alcoholicOrNot, category },
           index,
         ) => (
           <div
             key={ index }
+            style={ { padding: '50px' } }
           >
             <img
               src={ image }
@@ -66,24 +86,29 @@ function FavoriteRecipes() {
             </div>
             <div>
               <button
-                type="button"
+                onClick={ () => {
+                  const url = `${protocol}//${host}/${type}s/${id}`;
+                  navigator.clipboard.writeText(url);
+                  setClipboard(url);
+                } }
               >
                 <img
-                  src="../../images/shareIcon.svg"
+                  src={ shareIcon }
                   alt="share icon"
                   data-testid={ `${index}-horizontal-share-btn` }
                 />
-                Compartilhar Receita
               </button>
               <button
-                type="button"
+                onClick={ () => {
+                  handleRemoveFromFavorites(id);
+                  setFavorites(favorites.filter((recipe: any) => recipe.id !== id));
+                } }
               >
                 <img
-                  src="../../images/blackHeartIcon.svg"
+                  src={ blackHeartIcon }
                   alt="favorite icon"
                   data-testid={ `${index}-horizontal-favorite-btn` }
                 />
-                Favoritar
               </button>
             </div>
           </div>
