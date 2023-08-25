@@ -5,6 +5,11 @@ import searchIcon from '../../images/searchIcon.svg';
 import { HeaderRouterProps } from './type';
 import SearchBar from '../SearchBar';
 import ContextRecipes from '../../context/ContextRecipes';
+import profileIcon2 from '../../images/profileIcon2.svg';
+import searchIcon2 from '../../images/searchIcon2.svg';
+import logoIcon from '../../images/logoIcon.svg';
+import iconBell from '../../images/iconBell.svg';
+import styles from './styles.module.css';
 
 function Header({ pageTitle, showSearchIcon }: HeaderRouterProps) {
   const { setPageName } = useContext(ContextRecipes);
@@ -22,26 +27,33 @@ function Header({ pageTitle, showSearchIcon }: HeaderRouterProps) {
 
   return (
     <header>
-      <button onClick={ () => navigate('/profile') }>
-        <img
-          src={ profileIcon }
-          alt="profile"
-          data-testid="profile-top-btn"
-        />
-      </button>
+      <div className={ styles.headerIcons }>
+        <div className={ styles.headerIconsPar1 }>
+          <img src={ iconBell } alt="" />
+          <img src={ logoIcon } alt="recipesAppIcon" />
+        </div>
+        <div className={ styles.headerIconsPar2 }>
+          {showSearchIcon && (
+            <button
+              onClick={ handleClickSearchButton }
+            >
+              <img
+                src={ searchIcon2 }
+                alt="search"
+                data-testid="search-top-btn"
+              />
+            </button>
+          )}
+          <button onClick={ () => navigate('/profile') }>
+            <img
+              src={ profileIcon2 }
+              alt="profile"
+              data-testid="profile-top-btn"
+            />
+          </button>
+        </div>
+      </div>
       <h1 data-testid="page-title">{pageTitle}</h1>
-      {showSearchIcon && (
-        <button
-          onClick={ handleClickSearchButton }
-        >
-          <img
-            src={ searchIcon }
-            alt="search"
-            data-testid="search-top-btn"
-          />
-        </button>
-      )}
-
       {showInputSearch && <SearchBar />}
     </header>
   );
