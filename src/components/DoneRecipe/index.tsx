@@ -4,7 +4,6 @@ import { DoneRecipesType } from '../../pages/DoneRecipes/DoneRecipesType';
 
 function DoneRecipe() {
   const [doneRecipes, setDoneRecipes] = useState<DoneRecipesType[]>([]);
-
   useEffect(() => {
     const savedStorageDoneRecipes = localStorage.getItem('doneRecipes');
     if (savedStorageDoneRecipes !== null) {
