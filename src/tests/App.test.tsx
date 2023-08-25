@@ -140,4 +140,26 @@ describe('Testes do App', () => {
     await user.click(logoutBtn);
     expect(window.location.pathname).toBe('/');
   });
+  it('Testes no componente DoneRecipe', () => {
+    renderWithRouter(
+      <ProviderRecipes>
+        <App />
+      </ProviderRecipes>,
+      { route: '/done-recipes' },
+    );
+    const allBtn = screen.getByRole('button', {
+      name: /all/i,
+    });
+    expect(allBtn).toBeInTheDocument();
+
+    const mealsBtn = screen.getByRole('button', {
+      name: /meals/i,
+    });
+    expect(mealsBtn).toBeInTheDocument();
+
+    const drinksBtn = screen.getByRole('button', {
+      name: /drinks/i,
+    });
+    expect(drinksBtn).toBeInTheDocument();
+  });
 });

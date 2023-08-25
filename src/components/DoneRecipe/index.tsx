@@ -44,7 +44,8 @@ function DoneRecipe() {
           <p
             data-testid={ `${index}-horizontal-top-text` }
           >
-            {recipe.category}
+            {`${recipe.nationality} - ${recipe.category}`}
+            {recipe?.alcoholicOrNot}
           </p>
           <p
             data-testid={ `${index}-horizontal-name` }
