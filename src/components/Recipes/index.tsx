@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useLocation, Link } from 'react-router-dom';
 import { CategoryType, ItemDrinkType, ItemMealType } from '../../utils/types';
 import { getCategoryDrink, getCategoryMeal } from '../../utils/api';
+import style from './Recipes.module.css';
 
 function Recipes() {
   const location = useLocation();
@@ -19,6 +20,7 @@ function Recipes() {
         setData(dataResponse.meals);
         const fetchCategories = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?c=list');
         const dataCategories = await fetchCategories.json();
+
         setCategories(dataCategories.meals);
       };
       const fetchDrinks = async () => {
@@ -62,23 +64,32 @@ function Recipes() {
 
   const dataWith12Length = data?.slice(0, 12);
   const categoriesWith5Length = categories?.slice(0, 5);
+
   return (
     <div>
-      { categoriesWith5Length?.map(({ strCategory: categoryName }: CategoryType) => (
-        <button
-          key={ categoryName }
-          data-testid={ `${categoryName}-category-filter` }
-          onClick={ () => handleClick(categoryName) }
-        >
-          { categoryName }
-        </button>
-      ))}
-      <button
-        data-testid="All-category-filter"
-        onClick={ () => setCategoryData([]) }
+      <div
+        className={ style.categoryBtnsContainer }
       >
-        All
-      </button>
+        { categoriesWith5Length?.map(({ strCategory: categoryName }: CategoryType) => (
+          <button
+            className={ `${style.categoryBtns} ${style[`btn${categoryName}`]}` }
+            key={ categoryName }
+            data-testid={ `${categoryName}-category-filter` }
+            onClick={ () => handleClick(categoryName) }
+          >
+            { categoryName }
+          </button>
+        ))}
+        <button
+          className={ path === 'meals'
+            ? `${style.categoryBtns} ${style.allBtnMeals}`
+            : `${style.categoryBtns} ${style.allBtnDrinks}` }
+          data-testid="All-category-filter"
+          onClick={ () => setCategoryData([]) }
+        >
+          All
+        </button>
+      </div>
       { categoryData.length > 0 && path === 'meals' && (
         categoryData?.map(({ strMeal, strMealThumb, idMeal }: ItemMealType, index) => (
           <Link
