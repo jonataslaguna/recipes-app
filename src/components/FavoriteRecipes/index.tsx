@@ -1,5 +1,6 @@
 import { useContext, useEffect, useState } from 'react';
 import { Alert } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import { FavoriteRecipeType } from '../../utils/types';
 import shareIcon from '../../images/shareIcon.svg';
 import blackHeartIcon from '../../images/blackHeartIcon.svg';
@@ -7,15 +8,22 @@ import ContextRecipes from '../../context/ContextRecipes';
 
 function FavoriteRecipes() {
   const [favoriteRecipes, setFavoriteRecipes] = useState<FavoriteRecipeType[]>([]);
+  const [activeRecipes, setActiveRecipes] = useState<FavoriteRecipeType[]>([]); // [
   const [favorites, setFavorites] = useState([] as FavoriteRecipeType[]);
   const [clipBoard, setClipboard] = useState<string>('');
   const { handleRemoveFromFavorites } = useContext(ContextRecipes);
   const { host, protocol } = window.location;
 
+  const filterFavorites = (type: string) => {
+    const filtered = favoriteRecipes.filter((recipe: any) => recipe.type === type);
+    setActiveRecipes(filtered);
+  };
+
   useEffect(() => {
     const favoriteRecipesJSON = localStorage.getItem('favoriteRecipes');
     if (favoriteRecipesJSON !== null) {
       setFavoriteRecipes(JSON.parse(favoriteRecipesJSON));
+      setActiveRecipes(JSON.parse(favoriteRecipesJSON));
     } else {
       console.log('Nenhuma receita favorita encontrada no localStorage.');
     }
@@ -29,18 +37,21 @@ function FavoriteRecipes() {
         <button
           type="button"
           data-testid="filter-by-all-btn"
+          onClick={ () => setActiveRecipes(favoriteRecipes) }
         >
           All
         </button>
         <button
           type="button"
           data-testid="filter-by-meal-btn"
+          onClick={ () => filterFavorites('meal') }
         >
           Meals
         </button>
         <button
           type="button"
           data-testid="filter-by-drink-btn"
+          onClick={ () => filterFavorites('drink') }
         >
           Drinks
         </button>
@@ -56,8 +67,8 @@ function FavoriteRecipes() {
         )
       }
       </div>
-      { favoriteRecipes.length > 0 && (
-        favoriteRecipes.map((
+      { activeRecipes.length > 0 && (
+        activeRecipes.map((
           { id, image, name, type, nationality, alcoholicOrNot, category },
           index,
         ) => (
@@ -65,25 +76,32 @@ function FavoriteRecipes() {
             key={ index }
             style={ { padding: '50px' } }
           >
-            <img
-              src={ image }
-              alt={ name }
-              data-testid={ `${index}-horizontal-image` }
-            />
-            <div>
-              <span
-                data-testid={ `${index}-horizontal-top-text` }
-              >
-                { type === 'meal'
-                  ? `${nationality} - ${category}`
-                  : alcoholicOrNot }
-              </span>
-              <span
-                data-testid={ `${index}-horizontal-name` }
-              >
-                { name }
-              </span>
-            </div>
+            <Link
+              to={ `/${type}s/${id}` }
+            >
+              <div>
+                <img
+                  src={ image }
+                  alt={ name }
+                  data-testid={ `${index}-horizontal-image` }
+                  width={ 200 }
+                />
+                <div>
+                  <span
+                    data-testid={ `${index}-horizontal-top-text` }
+                  >
+                    { type === 'meal'
+                      ? `${nationality} - ${category}`
+                      : alcoholicOrNot }
+                  </span>
+                  <span
+                    data-testid={ `${index}-horizontal-name` }
+                  >
+                    { name }
+                  </span>
+                </div>
+              </div>
+            </Link>
             <div>
               <button
                 onClick={ () => {

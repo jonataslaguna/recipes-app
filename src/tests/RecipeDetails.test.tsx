@@ -1,9 +1,10 @@
-import { screen } from '@testing-library/react';
+import { screen, within } from '@testing-library/react';
 import { vi } from 'vitest';
 import userEvent from '@testing-library/user-event';
 import renderWithRouter from './renderWithRouter';
 import { detailsDrinkMock, detailsMock } from './mocks/detailsMock';
 import App from '../App';
+import ProviderRecipes from '../context/ProviderRecipes';
 
 describe('Testa o comportamento e renderização da tela de detalhes de uma receita ', async () => {
   const route = '/meals/52977';
@@ -101,11 +102,56 @@ describe('Testa o comportamento e renderização da tela de detalhes de uma rece
     expect(favoriteButton).toBeInTheDocument();
   });
   it('Testa se a receita é favoritada ao clicar no botão de favoritar', async () => {
-    renderWithRouter(<App />, { route });
+    renderWithRouter(
+      <ProviderRecipes>
+        <App />
+      </ProviderRecipes>,
+      { route },
+    );
     expect(global.fetch).toHaveBeenCalled();
 
     const favoriteButton = screen.getByTestId('favorite-btn');
+    const shareButton = screen.getByTestId('share-btn');
+    const returnButton = screen.getByRole('button', {
+      name: /</i,
+    });
+    expect(favoriteButton).toBeInTheDocument();
+    expect(shareButton).toBeInTheDocument();
     expect(favoriteButton).toBeInTheDocument();
     expect(favoriteButton).toHaveAttribute('src', '/src/images/whiteHeartIcon.svg');
+
+    await userEvent.click(favoriteButton);
+
+    expect(favoriteButton).toHaveAttribute('src', '/src/images/blackHeartIcon.svg');
+
+    await userEvent.click(favoriteButton);
+
+    expect(favoriteButton).toHaveAttribute('src', '/src/images/whiteHeartIcon.svg');
+
+    await userEvent.click(returnButton);
+
+    const profileButton = screen.getByRole('img', {
+      name: /profile/i,
+    });
+    const pageTitle = screen.getByRole('heading', {
+      name: /meals/i,
+    });
+
+    expect(profileButton).toBeInTheDocument();
+    expect(pageTitle).toBeInTheDocument();
+  });
+  it('Testa se o carousel de recomendações é renderizado', async () => {
+    renderWithRouter(
+      <ProviderRecipes>
+        <App />
+      </ProviderRecipes>,
+      { route },
+    );
+    expect(global.fetch).toHaveBeenCalled();
+
+    const recommendationsSection = screen.getByRole('heading', {
+      name: /recommendations/i,
+    });
+    expect(recommendationsSection).toBeInTheDocument();
   });
 });

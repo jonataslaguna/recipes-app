@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useLocation, Link } from 'react-router-dom';
 import { CategoryType, ItemDrinkType, ItemMealType } from '../../utils/types';
 import { getCategoryDrink, getCategoryMeal } from '../../utils/api';
+import style from './Recipes.module.css';
 
 function Recipes() {
   const location = useLocation();
@@ -19,6 +20,7 @@ function Recipes() {
         setData(dataResponse.meals);
         const fetchCategories = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?c=list');
         const dataCategories = await fetchCategories.json();
+
         setCategories(dataCategories.meals);
       };
       const fetchDrinks = async () => {
@@ -62,106 +64,145 @@ function Recipes() {
 
   const dataWith12Length = data?.slice(0, 12);
   const categoriesWith5Length = categories?.slice(0, 5);
+
   return (
     <div>
-      { categoriesWith5Length?.map(({ strCategory: categoryName }: CategoryType) => (
-        <button
-          key={ categoryName }
-          data-testid={ `${categoryName}-category-filter` }
-          onClick={ () => handleClick(categoryName) }
-        >
-          { categoryName }
-        </button>
-      ))}
-      <button
-        data-testid="All-category-filter"
-        onClick={ () => setCategoryData([]) }
+      <div
+        className={ style.categoryBtnsContainer }
       >
-        All
-      </button>
-      { categoryData.length > 0 && path === 'meals' && (
-        categoryData?.map(({ strMeal, strMealThumb, idMeal }: ItemMealType, index) => (
-          <Link
-            key={ index }
-            data-testid={ `${index}-recipe-card` }
-            to={ `/meals/${idMeal}` }
+        { categoriesWith5Length?.map(({ strCategory: categoryName }: CategoryType) => (
+          <button
+            // line commented because breaks the tests
+            className={
+              categoryName === 'Ordinary Drink' || categoryName === 'Other / Unknown'
+                ? `${style.categoryBtns} ${style[`btn${categoryName.replace(/[\s/]/g, '')}`]}`
+                : `${style.categoryBtns} ${style[`btn${categoryName}`]}`
+              }
+            key={ categoryName }
+            data-testid={ `${categoryName}-category-filter` }
+            onClick={ () => handleClick(categoryName) }
           >
-            <h2
-              data-testid={ `${index}-card-name` }
+            { categoryName }
+          </button>
+        ))}
+        <button
+          className={ path === 'meals'
+            ? `${style.categoryBtns} ${style.allBtnMeals}`
+            : `${style.categoryBtns} ${style.allBtnDrinks}` }
+          data-testid="All-category-filter"
+          onClick={ () => setCategoryData([]) }
+        >
+          All
+        </button>
+      </div>
+      <div
+        className={ style.categoryCardContainer }
+      >
+        { categoryData.length > 0 && path === 'meals' && (
+          categoryData?.map(({ strMeal, strMealThumb, idMeal }: ItemMealType, index) => (
+            <Link
+              className={ style.recipeLink }
+              key={ index }
+              data-testid={ `${index}-recipe-card` }
+              to={ `/meals/${idMeal}` }
             >
-              { strMeal }
-
-            </h2>
-            <img
-              data-testid={ `${index}-card-img` }
-              src={ strMealThumb }
-              alt="Meal Thumb"
-            />
-          </Link>
-        )))}
-      { categoryData.length > 0 && path === 'drinks' && (
-        categoryData?.map(({ strDrink, strDrinkThumb, idDrink }
-        : ItemDrinkType, index) => (
-          <Link
-            key={ index }
-            data-testid={ `${index}-recipe-card` }
-            to={ `/drinks/${idDrink}` }
-          >
-            <h2
-              data-testid={ `${index}-card-name` }
+              <img
+                className={ style.recipeImg }
+                data-testid={ `${index}-card-img` }
+                src={ strMealThumb }
+                alt="Meal Thumb"
+              />
+              <h2
+                className={ style.recipeText }
+                data-testid={ `${index}-card-name` }
+              >
+                { strMeal }
+              </h2>
+            </Link>
+          )))}
+      </div>
+      <div
+        className={ style.categoryCardContainer }
+      >
+        { categoryData.length > 0 && path === 'drinks' && (
+          categoryData?.map(({ strDrink, strDrinkThumb, idDrink }
+          : ItemDrinkType, index) => (
+            <Link
+              className={ style.recipeLink }
+              key={ index }
+              data-testid={ `${index}-recipe-card` }
+              to={ `/drinks/${idDrink}` }
             >
-              { strDrink }
-
-            </h2>
-            <img
-              data-testid={ `${index}-card-img` }
-              src={ strDrinkThumb }
-              alt="Drink Thumb"
-            />
-          </Link>
-        )))}
-      { categoryData.length === 0 && path === 'meals' && (
-        dataWith12Length?.map(({ strMeal, strMealThumb, idMeal }
-        : ItemMealType, index) => (
-          <Link
-            key={ index }
-            data-testid={ `${index}-recipe-card` }
-            to={ `/meals/${idMeal}` }
-          >
-            <h2
-              data-testid={ `${index}-card-name` }
+              <img
+                className={ style.recipeImg }
+                data-testid={ `${index}-card-img` }
+                src={ strDrinkThumb }
+                alt="Drink Thumb"
+              />
+              <h2
+                className={ style.recipeText }
+                data-testid={ `${index}-card-name` }
+              >
+                { strDrink }
+              </h2>
+            </Link>
+          )))}
+      </div>
+      <div
+        className={ style.categoryCardContainer }
+      >
+        { categoryData.length === 0 && path === 'meals' && (
+          dataWith12Length?.map(({ strMeal, strMealThumb, idMeal }
+          : ItemMealType, index) => (
+            <Link
+              className={ style.recipeLink }
+              key={ index }
+              data-testid={ `${index}-recipe-card` }
+              to={ `/meals/${idMeal}` }
             >
-              { strMeal }
-            </h2>
-            <img
-              data-testid={ `${index}-card-img` }
-              src={ strMealThumb }
-              alt="Meal Thumb"
-            />
-          </Link>
-        ))
-      ) }
-
-      { categoryData.length === 0 && path === 'drinks' && (
-        dataWith12Length?.map(({ strDrink, strDrinkThumb, idDrink }
-        : ItemDrinkType, index) => (
-          <Link
-            key={ index }
-            data-testid={ `${index}-recipe-card` }
-            to={ `/drinks/${idDrink}` }
-          >
-            <h2
-              data-testid={ `${index}-card-name` }
+              <img
+                className={ style.recipeImg }
+                data-testid={ `${index}-card-img` }
+                src={ strMealThumb }
+                alt="Meal Thumb"
+              />
+              <h2
+                className={ style.recipeText }
+                data-testid={ `${index}-card-name` }
+              >
+                { strMeal }
+              </h2>
+            </Link>
+          ))
+        ) }
+      </div>
+      <div
+        className={ style.categoryCardContainer }
+      >
+        { categoryData.length === 0 && path === 'drinks' && (
+          dataWith12Length?.map(({ strDrink, strDrinkThumb, idDrink }
+          : ItemDrinkType, index) => (
+            <Link
+              className={ style.recipeLink }
+              key={ index }
+              data-testid={ `${index}-recipe-card` }
+              to={ `/drinks/${idDrink}` }
             >
-              { strDrink }
-            </h2>
-            <img
-              data-testid={ `${index}-card-img` }
-              src={ strDrinkThumb }
-              alt="Drink Thumb"
-            />
-          </Link>
-        )))}
+              <img
+                className={ style.recipeImg }
+                data-testid={ `${index}-card-img` }
+                src={ strDrinkThumb }
+                alt="Drink Thumb"
+              />
+              <h2
+                className={ style.recipeText }
+                data-testid={ `${index}-card-name` }
+              >
+                { strDrink }
+              </h2>
+            </Link>
+          )))}
+      </div>
     </div>
   );
 }
