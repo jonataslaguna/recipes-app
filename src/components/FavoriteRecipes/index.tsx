@@ -1,5 +1,6 @@
 import { useContext, useEffect, useState } from 'react';
 import { Alert } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import { FavoriteRecipeType } from '../../utils/types';
 import shareIcon from '../../images/shareIcon.svg';
 import blackHeartIcon from '../../images/blackHeartIcon.svg';
@@ -78,25 +79,32 @@ function FavoriteRecipes() {
             key={ index }
             style={ { padding: '50px' } }
           >
-            <img
-              src={ image }
-              alt={ name }
-              data-testid={ `${index}-horizontal-image` }
-            />
-            <div>
-              <span
-                data-testid={ `${index}-horizontal-top-text` }
-              >
-                { type === 'meal'
-                  ? `${nationality} - ${category}`
-                  : alcoholicOrNot }
-              </span>
-              <span
-                data-testid={ `${index}-horizontal-name` }
-              >
-                { name }
-              </span>
-            </div>
+            <Link
+              to={ `/${type}s/${id}` }
+            >
+              <div>
+                <img
+                  src={ image }
+                  alt={ name }
+                  data-testid={ `${index}-horizontal-image` }
+                  width={ 200 }
+                />
+                <div>
+                  <span
+                    data-testid={ `${index}-horizontal-top-text` }
+                  >
+                    { type === 'meal'
+                      ? `${nationality} - ${category}`
+                      : alcoholicOrNot }
+                  </span>
+                  <span
+                    data-testid={ `${index}-horizontal-name` }
+                  >
+                    { name }
+                  </span>
+                </div>
+              </div>
+            </Link>
             <div>
               <button
                 onClick={ () => {
