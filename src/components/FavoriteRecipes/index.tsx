@@ -15,9 +15,6 @@ function FavoriteRecipes() {
   const { host, protocol } = window.location;
 
   const filterFavorites = (type: string) => {
-    if (type === 'all') {
-      setActiveRecipes(favoriteRecipes);
-    }
     const filtered = favoriteRecipes.filter((recipe: any) => recipe.type === type);
     setActiveRecipes(filtered);
   };
