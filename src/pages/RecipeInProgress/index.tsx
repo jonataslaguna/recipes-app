@@ -27,7 +27,8 @@ function RecipeInProgress({ type }: RecipeInProgressProps) {
   const [drinkDetails, setDrinkDetails] = useState<DrinkType>();
   const [ingredients, setIngredients] = useState<string[]>();
   const [measures, setMeasures] = useState<string[]>();
-  const [checkedBox, setCheckedBox] = useState<{ [index: number]: boolean }>({});
+  const [checkedBoxes, setCheckedBoxes] = useState<{ [recipeId: string]:
+  { [index: number]: boolean } }>({});
   const [clipboardText, setClipboardText] = useState<string>();
 
   const recipe: any = useFetchDetails(type, id);
@@ -53,7 +54,7 @@ function RecipeInProgress({ type }: RecipeInProgressProps) {
     const localStorageCheckedBox = localStorage.getItem('inProgressRecipes');
 
     if (localStorageCheckedBox) {
-      setCheckedBox(JSON.parse(localStorageCheckedBox));
+      setCheckedBoxes(JSON.parse(localStorageCheckedBox));
     }
   }, []);
 
@@ -63,10 +64,13 @@ function RecipeInProgress({ type }: RecipeInProgressProps) {
     navigator.clipboard.writeText(url);
   };
 
-  const handleCheckedBoxes = (index: number) => {
-    setCheckedBox((prevState) => ({
+  const handleCheckedBoxes = (recipeId: string, index: number) => {
+    setCheckedBoxes((prevState) => ({
       ...prevState,
-      [index]: !prevState[index],
+      [recipeId]: {
+        ...prevState[recipeId],
+        [index]: !prevState[recipeId]?.[index] || false,
+      },
     }));
   };
 
@@ -112,10 +116,16 @@ function RecipeInProgress({ type }: RecipeInProgressProps) {
   }, [recipe, type]);
 
   useEffect(() => {
-    localStorage.setItem('inProgressRecipes', JSON.stringify(checkedBox));
-  }, [checkedBox]);
+    localStorage.setItem('inProgressRecipes', JSON.stringify(checkedBoxes));
+  }, [checkedBoxes]);
 
-  const ingredientsChecked = ingredients?.every((_, index) => checkedBox[index]);
+  const areAllIngredientsChecked = () => {
+    const recipeCheckedBoxes = checkedBoxes[id as string];
+    if (!recipeCheckedBoxes || ingredients === undefined) {
+      return false;
+    }
+    return ingredients.every((_, index) => recipeCheckedBoxes[index]);
+  };
 
   return (
     <div>
@@ -193,11 +203,11 @@ function RecipeInProgress({ type }: RecipeInProgressProps) {
                 <input
                   type="checkbox"
                   name="ingredient"
-                  checked={ checkedBox[index] }
-                  onChange={ () => handleCheckedBoxes(index) }
+                  checked={ checkedBoxes[id as string]?.[index] || false }
+                  onChange={ () => handleCheckedBoxes(id as string, index) }
                   id={ ingredient }
                 />
-                { checkedBox[index]
+                { checkedBoxes[index]
                   ? <del>{ `${ingredient} - ${measures?.[index]}` }</del>
                   : `${ingredient} - ${measures?.[index]}` }
               </label>
@@ -216,7 +226,7 @@ function RecipeInProgress({ type }: RecipeInProgressProps) {
       <button
         data-testid="finish-recipe-btn"
         type="button"
-        disabled={ !ingredientsChecked }
+        disabled={ !areAllIngredientsChecked() }
         onClick={ handleDoneRecipes }
       >
         Finalizar Receita
