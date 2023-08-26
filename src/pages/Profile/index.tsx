@@ -2,6 +2,10 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Footer from '../../components/Footer';
 import Header from '../../components/Header';
+import style from './Profile.module.css';
+import doneIcon from '../../images/doneBtn.svg';
+import favoriteIcon from '../../images/favoriteBtn.svg';
+import logoutIcon from '../../images/logoutBtn.svg';
 
 function Profile() {
   const [userEmail, setUserEmail] = useState('');
@@ -34,30 +38,52 @@ function Profile() {
   return (
     <>
       <Header pageTitle="Profile" />
-
-      <form>
-        <p data-testid="profile-email">
+      <form
+        className={ style.profileForm }
+      >
+        <p
+          className={ style.profileEmail }
+          data-testid="profile-email"
+        >
           {userEmail}
         </p>
         <button
+          className={ style.btn }
           type="button"
           data-testid="profile-done-btn"
           onClick={ navigateToDoneRecipes }
         >
+          <img
+            className={ style.iconBtn }
+            src={ doneIcon }
+            alt="done icon"
+          />
           Done Recipes
         </button>
         <button
+          className={ style.btn }
           type="button"
           data-testid="profile-favorite-btn"
           onClick={ navigateToFavoriteRecipes }
         >
+          <img
+            className={ style.iconBtn }
+            src={ favoriteIcon }
+            alt="done icon"
+          />
           Favorite Recipes
         </button>
         <button
+          className={ ` ${style.btn} ${style.logoutBtn}` }
           type="button"
           data-testid="profile-logout-btn"
           onClick={ navigateToLogout }
         >
+          <img
+            className={ style.iconBtn }
+            src={ logoutIcon }
+            alt="done icon"
+          />
           Logout
         </button>
       </form>

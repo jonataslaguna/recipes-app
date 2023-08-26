@@ -6,6 +6,7 @@ import { HeaderRouterProps } from './type';
 import SearchBar from '../SearchBar';
 import ContextRecipes from '../../context/ContextRecipes';
 import profileIcon2 from '../../images/profileIcon2.svg';
+import profileIcon3 from '../../images/profileIcon3.svg';
 import searchIcon2 from '../../images/searchIcon2.svg';
 import logoIcon from '../../images/logoIcon.svg';
 import iconBell from '../../images/iconBell.svg';
@@ -57,7 +58,7 @@ function Header({ pageTitle, showSearchIcon }: HeaderRouterProps) {
       </div>
       <div className={ styles.titleIcon }>
         {pageTitle === 'Profile'
-          ? <img src={ profileIcon } alt="icon" />
+          ? <img src={ profileIcon3 } alt="icon" />
           : <img
               src={ pageTitle === 'Meals'
                 ? mealTitleIcon : drinkPageIcon }
