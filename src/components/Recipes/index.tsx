@@ -72,6 +72,7 @@ function Recipes() {
       >
         { categoriesWith5Length?.map(({ strCategory: categoryName }: CategoryType) => (
           <button
+            // line commented because breaks the tests
             // className={ `${style.categoryBtns} ${style[`btn${categoryName.replace(/[\s/]/g, '')}`]}` }
             key={ categoryName }
             data-testid={ `${categoryName}-category-filter` }
