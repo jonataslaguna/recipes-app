@@ -2,8 +2,7 @@
   display: grid;
   gap: 10px;
   grid-template-columns: repeat(6, 1fr);
-  height: 80px;
-
+  margin-bottom: 20px;
 }
 
 .categoryBtns {
@@ -14,7 +13,7 @@
   cursor: pointer;
   display: flex;
   flex-direction: column;
-  font-size: 9px;
+  font-size: 12px;
   justify-content: center;
 }
 
@@ -39,7 +38,7 @@
 
 .recipeText {
   color: #1a1b1c;
-  font-size: 12px;
+  font-size: 14px;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
