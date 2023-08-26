@@ -1,7 +1,7 @@
 .header {
-  height: 160px;
   background-position: center;
   background-size: cover;
+  height: 160px;
 }
 
 .btn {
@@ -10,8 +10,7 @@
 }
 
 .categoryBtn {
-  color: #FCC436;
-  font-family: Epilogue;
+  color: #fcc436;
   font-size: 14px;
   font-style: normal;
   font-weight: 700;
