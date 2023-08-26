@@ -8,37 +8,19 @@ type Props = {
 };
 
 function Recommendations({ recommendations, type }: Props) {
-  const responsive = {
-    desktop: {
-      breakpoint: { max: 3000, min: 1024 },
-      items: 4,
-      slidesToSlide: 4, // optional, default to 1.
-    },
-    mobile: {
-      breakpoint: { max: 767, min: 464 },
-      items: 2,
-      slidesToSlide: 1, // optional, default to 1.
-    },
-  };
-
-  const settings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-  };
-
   return (
-    <Flicking
-      align="prev"
-      horizontal
-      bound
-      panelsPerView={ 2 }
-      moveType={ ['strict', { count: 2 }] }
-      preventClickOnDrag
+    <div
+      data-testid="recomendations"
     >
-      {
+      <Flicking
+        align="prev"
+        horizontal
+        bound
+        panelsPerView={ 2 }
+        moveType={ ['strict', { count: 2 }] }
+        preventClickOnDrag
+      >
+        {
         recommendations && recommendations.map((recommendation, index) => {
           const maxIndex = 6;
           if (index >= maxIndex) return null;
@@ -68,7 +50,8 @@ function Recommendations({ recommendations, type }: Props) {
           );
         })
       }
-    </Flicking>
+      </Flicking>
+    </div>
   );
 }
 

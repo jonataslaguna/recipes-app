@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../../images/blackHeartIcon.svg';
 import shareIcon from '../../images/shareIcon.svg';
@@ -14,6 +15,8 @@ type DetailsHeaderProps = {
 function DetailsHeader(props: DetailsHeaderProps) {
   const { onClick, recipe, id } = props;
   const [favorite, isFavorite] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const { handleAddToFavorites, handleRemoveFromFavorites } = useContext(ContextRecipes);
 
@@ -32,7 +35,11 @@ function DetailsHeader(props: DetailsHeaderProps) {
           justifyContent: 'space-between',
         } }
       >
-        <button>
+        <button
+          onClick={ () => (location.pathname.includes('meals')
+            ? navigate('/meals')
+            : navigate('/drinks')) }
+        >
           { '< '}
         </button>
         <div
