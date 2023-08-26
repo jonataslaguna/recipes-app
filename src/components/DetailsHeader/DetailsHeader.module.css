@@ -1,0 +1,19 @@
+.header {
+  height: 160px;
+  background-position: center;
+  background-size: cover;
+}
+
+.btn {
+  background-color: transparent;
+  border: none;
+}
+
+.categoryBtn {
+  color: #FCC436;
+  font-family: Epilogue;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}

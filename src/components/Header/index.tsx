@@ -11,7 +11,7 @@ import searchIcon2 from '../../images/searchIcon2.svg';
 import logoIcon from '../../images/logoIcon.svg';
 import iconBell from '../../images/iconBell.svg';
 import styles from './styles.module.css';
-import mealTitleIcon from '../../images/mealsTitleIcon.svg';
+import mealTitleIcon from '../../images/mealIcon.svg';
 import drinkPageIcon from '../../images/drinkPageIcon.svg';
 
 function Header({ pageTitle, showSearchIcon }: HeaderRouterProps) {

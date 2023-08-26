@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
-import drinkIcon from '../../images/drinkPageIcon.svg';
-import mealIcon from '../../images/mealsTitleIcon.svg';
+import drinkIcon from '../../images/drinkIcon.svg';
+import mealIcon from '../../images/mealIcon.svg';
 import style from './Footer.module.css';
 
 function Footer() {
