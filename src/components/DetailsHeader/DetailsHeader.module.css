@@ -1,0 +1,18 @@
+.header {
+  background-position: center;
+  background-size: cover;
+  height: 160px;
+}
+
+.btn {
+  background-color: transparent;
+  border: none;
+}
+
+.categoryBtn {
+  color: #fcc436;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
