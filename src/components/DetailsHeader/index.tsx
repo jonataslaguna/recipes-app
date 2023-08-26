@@ -17,6 +17,7 @@ function DetailsHeader(props: DetailsHeaderProps) {
   const [favorite, isFavorite] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
+
   const { handleAddToFavorites, handleRemoveFromFavorites } = useContext(ContextRecipes);
 
   useEffect(() => {
