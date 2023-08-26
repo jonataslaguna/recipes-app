@@ -38,7 +38,6 @@ function Profile() {
   return (
     <>
       <Header pageTitle="Profile" />
-
       <form
         className={ style.profileForm }
       >
