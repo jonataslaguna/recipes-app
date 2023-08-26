@@ -1,0 +1,46 @@
+.profileForm {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.profileEmail {
+  color: #1A1B1C;
+  font-family: Epilogue;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  text-align: center;
+}
+
+.btn {
+  align-items: center;
+  background-color: white;
+  border-bottom: 0.5px solid #B1B1B1;
+  border-left: none;
+  border-right: none;
+  border-top: none;
+  color: #797D86;
+  display: flex;
+  font-family: Epilogue;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  justify-content: baseline;
+  letter-spacing: 0.48px;
+  line-height: normal;
+  padding: 30px 0;
+  text-transform: capitalize;
+  width: 290px;
+
+}
+
+.iconBtn {
+  margin-right: 35px;
+}
+
+.logoutBtn {
+  border: none;
+}
