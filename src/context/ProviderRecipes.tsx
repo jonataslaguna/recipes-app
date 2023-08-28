@@ -32,6 +32,7 @@ function ProviderRecipes({ children }: ProviderRecipesProps) {
       setRecipesSearchForm(await getFirstLetter(searchInput, pageName));
     }
     setBtnClicked(true);
+    setSearchFormData(InitialStateSearchForm);
   };
 
   const handleAddToFavorites = (recipe: FavoriteRecipeType) => {
