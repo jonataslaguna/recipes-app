@@ -66,7 +66,9 @@ function Recipes() {
   const categoriesWith5Length = categories?.slice(0, 5);
 
   return (
-    <div>
+    <div
+      className={ style.recipesContainer }
+    >
       <div
         className={ style.categoryBtnsContainer }
       >

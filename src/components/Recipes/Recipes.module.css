@@ -1,3 +1,7 @@
+.recipesContainer {
+  margin-bottom: 55px;
+}
+
 .categoryBtnsContainer {
   display: grid;
   gap: 10px;
