@@ -138,7 +138,7 @@ function DoneRecipe() {
                 >
                   Done in:
                   {' '}
-                  { recipe.doneDate }
+                  { recipe.doneDate.slice(0, 10) }
                 </span>
               </Link>
               { clipboardText && (
