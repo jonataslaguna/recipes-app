@@ -67,9 +67,9 @@
 }
 
 .doneLefSideShare {
+  height: 3%;
   margin-top: 10px;
   width: 25%;
-  height: 3%;  
 }
 
 .doneLink {
@@ -121,21 +121,20 @@
 
 .doneTagsCard {
   display: flex;
-  flex-direction: row;
+  flex-flow: row wrap;
   width: 100%;
-  flex-wrap: wrap;
 }
 
 .doneTags {
-  text-align: center;
+  background-color: #d9d9d9;
+  border-radius: 5px;
   color: #797d86;
   font-size: 14px;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
-  background-color: #d9d9d9;
-  border-radius: 5px;
-  width: auto;
-  padding: 4px;
   margin-right: 2px;
+  padding: 4px;
+  text-align: center;
+  width: auto;
 }

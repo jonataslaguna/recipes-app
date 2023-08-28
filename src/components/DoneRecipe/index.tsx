@@ -138,11 +138,7 @@ function DoneRecipe() {
                 >
                   Done in:
                   {' '}
-                  {new Date(recipe.doneDate).toLocaleDateString('en-GB', {
-                    day: '2-digit',
-                    month: '2-digit',
-                    year: 'numeric',
-                  })}
+                  { recipe.doneDate }
                 </span>
               </Link>
               { clipboardText && (
