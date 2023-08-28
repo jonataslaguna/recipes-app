@@ -1,7 +1,5 @@
 import { useNavigate } from 'react-router-dom';
 import { useContext, useEffect, useState } from 'react';
-import profileIcon from '../../images/profileIcon.svg';
-/* import searchIcon from '../../images/searchIcon.svg'; */
 import { HeaderRouterProps } from './type';
 import SearchBar from '../SearchBar';
 import ContextRecipes from '../../context/ContextRecipes';
@@ -13,10 +11,13 @@ import iconBell from '../../images/iconBell.svg';
 import styles from './styles.module.css';
 import mealTitleIcon from '../../images/mealIcon.svg';
 import drinkPageIcon from '../../images/drinkPageIcon.svg';
+import doneRecipesIcon from '../../images/doneRecipesIcon.svg';
+import favoritePageIcon from '../../images/favoritePageIcon.svg';
 
 function Header({ pageTitle, showSearchIcon }: HeaderRouterProps) {
   const { setPageName } = useContext(ContextRecipes);
   const [showInputSearch, setShowInputSearch] = useState(false);
+  const [pageIcons, setPageIcons] = useState<any>();
 
   const navigate = useNavigate();
 
@@ -26,13 +27,35 @@ function Header({ pageTitle, showSearchIcon }: HeaderRouterProps) {
 
   useEffect(() => {
     setPageName(pageTitle);
-  }, [pageTitle, setPageName]);
+    const pageName = () => {
+      switch (pageTitle) {
+        case 'Meals':
+          setPageIcons(mealTitleIcon);
+          break;
+        case 'Drinks':
+          setPageIcons(drinkPageIcon);
+          break;
+        case 'Profile':
+          setPageIcons(profileIcon3);
+          break;
+        case 'Done Recipes':
+          setPageIcons(doneRecipesIcon);
+          break;
+        case 'Favorite Recipes':
+          setPageIcons(favoritePageIcon);
+          break;
+        default:
+          break;
+      }
+    };
+    pageName();
+  }, [pageTitle, setPageName, pageIcons]);
 
   return (
     <header>
       <div className={ styles.headerIcons }>
         <div className={ styles.headerIconsPar1 }>
-          <img src={ iconBell } alt="" />
+          <img src={ iconBell } alt="iconBell" />
           <img src={ logoIcon } alt="recipesAppIcon" />
         </div>
         <div className={ styles.headerIconsPar2 }>
@@ -57,13 +80,7 @@ function Header({ pageTitle, showSearchIcon }: HeaderRouterProps) {
         </div>
       </div>
       <div className={ styles.titleIcon }>
-        {pageTitle === 'Profile'
-          ? <img src={ profileIcon3 } alt="icon" />
-          : <img
-              src={ pageTitle === 'Meals'
-                ? mealTitleIcon : drinkPageIcon }
-              alt="icon"
-          />}
+        {pageIcons && <img src={ pageIcons } alt="pageIcon" />}
         <h1 data-testid="page-title">{pageTitle}</h1>
       </div>
       {showInputSearch && <SearchBar />}
