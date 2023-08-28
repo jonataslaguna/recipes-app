@@ -6,6 +6,11 @@ import shareIcon from '../../images/shareIcon.svg';
 import blackHeartIcon from '../../images/blackHeartIcon.svg';
 import ContextRecipes from '../../context/ContextRecipes';
 
+import allBtn from '../../images/allBtn.svg';
+import mealBtn from '../../images/mealIcon.svg';
+import drinkBtn from '../../images/drinkIcon.svg';
+import style from './FavoriteRecipes.module.css';
+
 function FavoriteRecipes() {
   const [favoriteRecipes, setFavoriteRecipes] = useState<FavoriteRecipeType[]>([]);
   const [activeRecipes, setActiveRecipes] = useState<FavoriteRecipeType[]>([]); // [
@@ -30,29 +35,49 @@ function FavoriteRecipes() {
   }, [favorites]);
 
   return (
-    <div>
+    <div
+      className={ style.favoriteRecipes }
+    >
       <div
-        className="favorite-filters"
+        className={ style.favoriteFilters }
       >
         <button
+          className={ style.btn }
           type="button"
           data-testid="filter-by-all-btn"
           onClick={ () => setActiveRecipes(favoriteRecipes) }
         >
+          <img
+            className={ style.btnIcon }
+            src={ allBtn }
+            alt="Filter all button"
+          />
           All
         </button>
         <button
+          className={ style.btn }
           type="button"
           data-testid="filter-by-meal-btn"
           onClick={ () => filterFavorites('meal') }
         >
+          <img
+            className={ style.btnIcon }
+            src={ mealBtn }
+            alt="filter meals button"
+          />
           Meals
         </button>
         <button
+          className={ style.btn }
           type="button"
           data-testid="filter-by-drink-btn"
           onClick={ () => filterFavorites('drink') }
         >
+          <img
+            className={ style.btnIcon }
+            src={ drinkBtn }
+            alt="filter drinks icon"
+          />
           Drinks
         </button>
         {
@@ -74,60 +99,82 @@ function FavoriteRecipes() {
         ) => (
           <div
             key={ index }
-            style={ { padding: '50px' } }
+            className={ style.favoriteCard }
           >
-            <Link
-              to={ `/${type}s/${id}` }
+            <div
+              className={ style.favoriteImageCard }
             >
-              <div>
+              <Link
+                className={ style.favoriteLink }
+                to={ `/${type}s/${id}` }
+              >
                 <img
+                  className={ style.favoriteImage }
                   src={ image }
                   alt={ name }
                   data-testid={ `${index}-horizontal-image` }
-                  width={ 200 }
                 />
-                <div>
-                  <span
+              </Link>
+            </div>
+            <div
+              className={ style.favoriteCardLeftSide }
+            >
+              <Link
+                className={ style.favoriteLink }
+                to={ `/${type}s/${id}` }
+              >
+                <div
+                  className={ style.favoriteTextCard }
+                >
+                  <h4
+                    className={ style.favoriteText }
+                    data-testid={ `${index}-horizontal-name` }
+                  >
+                    { name }
+                  </h4>
+                  <h4
+                    className={ style.favoriteCategory }
                     data-testid={ `${index}-horizontal-top-text` }
                   >
                     { type === 'meal'
                       ? `${nationality} - ${category}`
                       : alcoholicOrNot }
-                  </span>
-                  <span
-                    data-testid={ `${index}-horizontal-name` }
-                  >
-                    { name }
-                  </span>
+                  </h4>
                 </div>
+              </Link>
+              <div
+                className={ style.favoriteBtns }
+              >
+                <button
+                  className={ style.Btn }
+                  onClick={ () => {
+                    const url = `${protocol}//${host}/${type}s/${id}`;
+                    navigator.clipboard.writeText(url);
+                    setClipboard(url);
+                  } }
+                >
+                  <img
+                    className={ style.BtnIcon }
+                    src={ shareIcon }
+                    alt="share icon"
+                    data-testid={ `${index}-horizontal-share-btn` }
+                  />
+                </button>
+                <button
+                  className={ style.Btn }
+                  onClick={ () => {
+                    handleRemoveFromFavorites(id);
+                    setFavorites(favorites.filter((recipe: any) => recipe.id !== id));
+                  } }
+                >
+                  <img
+                    className={ style.BtnIcon }
+                    src={ blackHeartIcon }
+                    alt="favorite icon"
+                    data-testid={ `${index}-horizontal-favorite-btn` }
+                  />
+                </button>
               </div>
-            </Link>
-            <div>
-              <button
-                onClick={ () => {
-                  const url = `${protocol}//${host}/${type}s/${id}`;
-                  navigator.clipboard.writeText(url);
-                  setClipboard(url);
-                } }
-              >
-                <img
-                  src={ shareIcon }
-                  alt="share icon"
-                  data-testid={ `${index}-horizontal-share-btn` }
-                />
-              </button>
-              <button
-                onClick={ () => {
-                  handleRemoveFromFavorites(id);
-                  setFavorites(favorites.filter((recipe: any) => recipe.id !== id));
-                } }
-              >
-                <img
-                  src={ blackHeartIcon }
-                  alt="favorite icon"
-                  data-testid={ `${index}-horizontal-favorite-btn` }
-                />
-              </button>
             </div>
           </div>
         ))
