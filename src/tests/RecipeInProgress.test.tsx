@@ -17,7 +17,12 @@ describe('Testa o comportamento e renderização da tela de detalhes de uma comi
     global.fetch = vi.fn().mockResolvedValue({
       json: async () => detailsMock,
     });
-    renderWithRouter(<App />, { route });
+    renderWithRouter(
+      <ProviderRecipes>
+        <App />
+      </ProviderRecipes>,
+      { route },
+    );
 
     const title = screen.getByRole('heading', { name: /receita em progresso/i });
     const ingredientsSection = screen.getByRole('heading', { name: /ingredients/i });
@@ -38,7 +43,12 @@ describe('Testa o comportamento e renderização da tela de detalhes de uma comi
     global.fetch = vi.fn().mockResolvedValue({
       json: async () => detailsMock,
     });
-    renderWithRouter(<App />, { route });
+    renderWithRouter(
+      <ProviderRecipes>
+        <App />
+      </ProviderRecipes>,
+      { route },
+    );
     expect(global.fetch).toHaveBeenCalled();
 
     const shareButton = screen.getByTestId('share-btn');
@@ -65,7 +75,12 @@ describe('Testa o comportamento e renderização da tela de detalhes de uma comi
     global.fetch = vi.fn().mockResolvedValue({
       json: async () => detailsMock,
     });
-    renderWithRouter(<App />, { route });
+    renderWithRouter(
+      <ProviderRecipes>
+        <App />
+      </ProviderRecipes>,
+      { route },
+    );
     expect(global.fetch).toHaveBeenCalled();
 
     const favoriteButton = screen.getByTestId('favorite-btn');

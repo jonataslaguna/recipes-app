@@ -124,6 +124,10 @@ describe('Testa o comportamento e renderização da tela de detalhes de uma rece
 
     expect(favoriteButton).toHaveAttribute('src', '/src/images/blackHeartIcon.svg');
 
+    const getLocalStorage = JSON.parse(localStorage.getItem('favoriteRecipes') || '[]');
+
+    expect(getLocalStorage).toHaveLength(1);
+
     await userEvent.click(favoriteButton);
 
     expect(favoriteButton).toHaveAttribute('src', '/src/images/whiteHeartIcon.svg');

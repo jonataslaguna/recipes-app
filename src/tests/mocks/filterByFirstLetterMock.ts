@@ -222,3 +222,14 @@ export const filterByFirstLetterMock = {
     },
   ],
 };
+
+export const drinkByFirstLetter = {
+  drinks: [
+    {
+      idDrink: '15328',
+      strDrink: 'Zorro',
+    },
+    {
+      idDrink: '14888',
+      strDrink: 'Zinger',
+    }] };
