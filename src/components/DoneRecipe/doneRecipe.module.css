@@ -1,3 +1,141 @@
-.recipeCard {
-  width: 300px;
+.doneRecipes {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 55px;
+}
+
+.doneFilters {
+  display: flex;
+  justify-content: space-evenly;
+  margin-bottom: 30px;
+  width: 100%;
+}
+
+.btn {
+  align-items: center;
+  background-color: transparent;
+  border: none;
+  color: #797d86;
+  display: flex;
+  flex-direction: column;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: normal;
+  text-align: center;
+}
+
+.btnIcon {
+  height: 35px;
+  margin-bottom: 10px;
+}
+
+.doneCard {
+  align-items: center;
+  display: flex;
+  height: 200px;
+  justify-content: center;
+  margin: 10px 0;
+  width: 95%;
+}
+
+.doneCardLeftSide {
+  border-bottom: 1px solid #797d86;
+  border-bottom-right-radius: 10px;
+  border-right: 1px solid #797d86;
+  border-top: 1px solid #797d86;
+  border-top-right-radius: 10px;
+  display: flex;
+  height: 100%;
+  justify-content: space-between;
+  padding-left: 5%;
+  width: 100%;
+}
+
+.doneLefSideInfo {
+  margin-top: 10px;
+}
+
+.doneDoneIn {
+  color: #1a1b1c;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  text-align: center;
+}
+
+.doneLefSideShare {
+  margin-top: 10px;
+  width: 25%;
+  height: 3%;  
+}
+
+.doneLink {
+  text-decoration: none;
+}
+
+.doneImageCard {
+  width: 80%;
+
+}
+
+.doneImage {
+  border-bottom-left-radius: 10px;
+  border-top-left-radius: 10px;
+  height: 200px;
+  position: cover;
+  width: 100%;
+}
+
+.doneText, .doneCategory {
+  color: black;
+}
+
+.doneText {
+  color: #1a1b1c;
+  font-size: 22px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+.doneCategory {
+  color: #797d86;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: normal;
+}
+
+.Btn {
+  background-color: transparent;
+  border: none;
+  margin-right: 5px;
+}
+
+.BtnIcon {
+  height: 28px;
+}
+
+.doneTagsCard {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  flex-wrap: wrap;
+}
+
+.doneTags {
+  text-align: center;
+  color: #797d86;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  background-color: #d9d9d9;
+  border-radius: 5px;
+  width: auto;
+  padding: 4px;
+  margin-right: 2px;
 }
