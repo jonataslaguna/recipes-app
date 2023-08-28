@@ -4,6 +4,7 @@ import Header from '../../components/Header';
 import ContextRecipes from '../../context/ContextRecipes';
 import Card from '../../components/Card';
 import Recipes from '../../components/Recipes';
+import styles from './drinks.module.css';
 
 function Drinks() {
   const { recipesSearchForm, btnClicked, setBtnClicked } = useContext(ContextRecipes);
@@ -23,15 +24,18 @@ function Drinks() {
         recipesSearchForm && recipesSearchForm.drinks
         && recipesSearchForm.drinks.length > 0
           ? (
-            recipesSearchForm.drinks.slice(0, 12).map((recipe: any, index:number) => (
-              <Card
-                key={ recipe.idDrink }
-                img={ recipe.strDrinkThumb }
-                name={ recipe.strDrink }
-                index={ index }
-              />
-            )))
-          : (
+            <div className={ styles.cardContainerDrinks }>
+              {recipesSearchForm.drinks.slice(0, 12).map((recipe: any, index:number) => (
+                <Card
+                  key={ recipe.idDrink }
+                  img={ recipe.strDrinkThumb }
+                  name={ recipe.strDrink }
+                  index={ index }
+                  id={ recipe.idMeal }
+                />
+              ))}
+            </div>
+          ) : (
             <Recipes />
           )
       }
