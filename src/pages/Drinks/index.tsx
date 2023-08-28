@@ -31,7 +31,7 @@ function Drinks() {
                   img={ recipe.strDrinkThumb }
                   name={ recipe.strDrink }
                   index={ index }
-                  id={ recipe.idMeal }
+                  id={ recipe.idDrink }
                 />
               ))}
             </div>
