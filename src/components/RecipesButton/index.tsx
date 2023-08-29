@@ -61,10 +61,11 @@ function RecipesButton({ type, id }: ButtonProps) {
     <div>
       <Button
         variant={ isInProgress ? 'warning' : 'danger' }
-        style={ { position: 'fixed',
+        style={ {
+          position: 'fixed',
           bottom: '0',
           zIndex: 5,
-          width: '336px',
+          width: '100%',
         } }
         data-testid="start-recipe-btn"
         onClick={ handleClick }
