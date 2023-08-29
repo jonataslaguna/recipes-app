@@ -85,7 +85,7 @@ describe('Testa o comportamento e renderização da tela de detalhes de uma comi
 
     const favoriteButton = screen.getByTestId('favorite-btn');
     expect(favoriteButton).toBeInTheDocument();
-    expect(favoriteButton).toHaveAttribute('src', '/src/images/whiteHeartIcon.svg');
+    expect(favoriteButton).toHaveAttribute('src', '/src/images/whiteHeartBtn.svg');
   });
   it('Testa a finalizacao da receita', async () => {
     global.fetch = vi.fn().mockResolvedValue({

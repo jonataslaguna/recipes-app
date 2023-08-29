@@ -118,7 +118,7 @@ describe('Testa o comportamento e renderização da tela de detalhes de uma rece
     expect(favoriteButton).toBeInTheDocument();
     expect(shareButton).toBeInTheDocument();
     expect(favoriteButton).toBeInTheDocument();
-    expect(favoriteButton).toHaveAttribute('src', '/src/images/whiteHeartIcon.svg');
+    expect(favoriteButton).toHaveAttribute('src', '/src/images/whiteHeartBtn.svg');
 
     await userEvent.click(favoriteButton);
 
@@ -130,7 +130,7 @@ describe('Testa o comportamento e renderização da tela de detalhes de uma rece
 
     await userEvent.click(favoriteButton);
 
-    expect(favoriteButton).toHaveAttribute('src', '/src/images/whiteHeartIcon.svg');
+    expect(favoriteButton).toHaveAttribute('src', '/src/images/whiteHeartBtn.svg');
 
     await userEvent.click(returnButton);
 
