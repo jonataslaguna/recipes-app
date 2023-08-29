@@ -1,3 +1,14 @@
-.checkbox {
+.checked {
   text-decoration: line-through solid black;
+}
+.ingredients {
+  font: epilogue;
+  font-size: 20px;
+  font-style: bold;
+  text-align: left;
+  color: #1a1b1c;
+}
+.ingredients-list {
+  width: 335px;
+  height: 133px;
 }

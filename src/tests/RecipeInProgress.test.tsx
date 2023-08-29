@@ -19,7 +19,6 @@ describe('Testa o comportamento e renderização da tela de detalhes de uma comi
     });
     renderWithRouter(<App />, { route });
 
-    const title = screen.getByRole('heading', { name: /receita em progresso/i });
     const ingredientsSection = screen.getByRole('heading', { name: /ingredients/i });
     const instructionsSection = screen.getByRole('heading', { name: /instructions/i });
     const btnFinish = screen.getByRole('button', { name: /finalizar receita/i });
@@ -27,7 +26,6 @@ describe('Testa o comportamento e renderização da tela de detalhes de uma comi
     const recipeTitle = screen.getByTestId('recipe-title');
 
     expect(global.fetch).toHaveBeenCalled();
-    expect(title).toBeInTheDocument();
     expect(ingredientsSection).toBeInTheDocument();
     expect(instructionsSection).toBeInTheDocument();
     expect(btnFinish).toBeInTheDocument();

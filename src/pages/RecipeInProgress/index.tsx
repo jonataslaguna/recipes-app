@@ -163,7 +163,6 @@ function RecipeInProgress({ type }: RecipeInProgressProps) {
           </Alert>
         )
       }
-      <h1>Receita em Progresso</h1>
       <div>
         <h2
           data-testid="recipe-category"
@@ -191,12 +190,13 @@ function RecipeInProgress({ type }: RecipeInProgressProps) {
         </h2>
       </div>
       <div>
-        <h3>Ingredients</h3>
-        <ul>
+        <h3 className="ingredients">Ingredients</h3>
+        <ul className="ingredients-list">
           {
             ingredients?.map((ingredient, index) => (
               <label
-                className="checkbox"
+                className={ `checkbox ${checkedBoxes[id as string]
+                  ?.[index] ? 'checked' : ''}` }
                 key={ ingredient }
                 data-testid={ `${index}-ingredient-step` }
               >
@@ -207,9 +207,9 @@ function RecipeInProgress({ type }: RecipeInProgressProps) {
                   onChange={ () => handleCheckedBoxes(id as string, index) }
                   id={ ingredient }
                 />
-                { checkedBoxes[index]
-                  ? <del>{ `${ingredient} - ${measures?.[index]}` }</del>
-                  : `${ingredient} - ${measures?.[index]}` }
+                { checkedBoxes[id as string]?.[index]
+                  ? (<del>{ `${ingredient} - ${measures?.[index]}` }</del>)
+                  : (`${ingredient} - ${measures?.[index]}`) }
               </label>
             ))
           }
