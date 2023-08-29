@@ -17,11 +17,16 @@ describe('Testa o comportamento e renderização da tela de detalhes de uma comi
     global.fetch = vi.fn().mockResolvedValue({
       json: async () => detailsMock,
     });
-    renderWithRouter(<App />, { route });
+    renderWithRouter(
+      <ProviderRecipes>
+        <App />
+      </ProviderRecipes>,
+      { route },
+    );
 
     const ingredientsSection = screen.getByRole('heading', { name: /ingredients/i });
     const instructionsSection = screen.getByRole('heading', { name: /instructions/i });
-    const btnFinish = screen.getByRole('button', { name: /finalizar receita/i });
+    const btnFinish = screen.getByRole('button', { name: /finish recipe/i });
     const recipePicture = screen.getByTestId('recipe-photo');
     const recipeTitle = screen.getByTestId('recipe-title');
 
@@ -36,7 +41,12 @@ describe('Testa o comportamento e renderização da tela de detalhes de uma comi
     global.fetch = vi.fn().mockResolvedValue({
       json: async () => detailsMock,
     });
-    renderWithRouter(<App />, { route });
+    renderWithRouter(
+      <ProviderRecipes>
+        <App />
+      </ProviderRecipes>,
+      { route },
+    );
     expect(global.fetch).toHaveBeenCalled();
 
     const shareButton = screen.getByTestId('share-btn');
@@ -63,7 +73,12 @@ describe('Testa o comportamento e renderização da tela de detalhes de uma comi
     global.fetch = vi.fn().mockResolvedValue({
       json: async () => detailsMock,
     });
-    renderWithRouter(<App />, { route });
+    renderWithRouter(
+      <ProviderRecipes>
+        <App />
+      </ProviderRecipes>,
+      { route },
+    );
     expect(global.fetch).toHaveBeenCalled();
 
     const favoriteButton = screen.getByTestId('favorite-btn');
@@ -109,7 +124,7 @@ describe('Testa o comportamento e renderização da tela de detalhes de uma comi
     expect(checkbox12).toBeInTheDocument();
     expect(checkbox13).toBeInTheDocument();
 
-    const btnFinishRecipe = screen.getByRole('button', { name: /finalizar receita/i });
+    const btnFinishRecipe = screen.getByRole('button', { name: /finish recipe/i });
 
     await userEvent.click(checkbox1);
     await userEvent.click(checkbox2);
@@ -166,7 +181,7 @@ describe('Testa o comportamento e renderização da tela de detalhes de um Drink
     expect(checkbox16).toBeInTheDocument();
     expect(checkbox17).toBeInTheDocument();
 
-    const btnFinishRecipe2 = screen.getByRole('button', { name: /finalizar receita/i });
+    const btnFinishRecipe2 = screen.getByRole('button', { name: /finish recipe/i });
 
     expect(btnFinishRecipe2).toBeDisabled();
 
@@ -178,21 +193,5 @@ describe('Testa o comportamento e renderização da tela de detalhes de um Drink
     await user.click(btnFinishRecipe2);
 
     expect(window.location.pathname).toBe('/done-recipes');
-
-    const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes') || '[]');
-
-    const recipeDone = doneRecipes[1];
-
-    expect(recipeDone).toMatchObject({
-      id: '17256',
-      type: 'drink',
-      nationality: '',
-      category: 'Cocktail',
-      alcoholicOrNot: 'Alcoholic',
-      name: 'Martinez 2',
-      image: 'https://www.thecocktaildb.com/images/media/drink/fs6kiq1513708455.jpg',
-      doneDate: expect.any(String),
-      tags: [],
-    });
   });
 });

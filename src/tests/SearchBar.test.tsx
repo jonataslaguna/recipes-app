@@ -5,7 +5,7 @@ import App from '../App';
 import renderWithRouter from './renderWithRouter';
 import ProviderRecipes from '../context/ProviderRecipes';
 import { ingredientsMealsMock } from './mocks/ingredientsMealsMock';
-import { filterByFirstLetterMock } from './mocks/filterByFirstLetterMock';
+import { drinkByFirstLetter, filterByFirstLetterMock } from './mocks/filterByFirstLetterMock';
 import { ingredientsDrinksMock } from './mocks/ingredientsDrinksMock';
 import filterByNameDrinks from './mocks/filterByNameDrinks';
 import { detailsMock } from './mocks/detailsMock';
@@ -267,5 +267,34 @@ describe('Caso encontre apenas uma receita na pagina drinks', () => {
     await user.type(inputText, 'Aquamarine');
     await user.click(screen.getByTestId(dataTestIdBtnSearch));
     expect(window.location.pathname).toBe('/drinks/178319');
+  });
+  it('Procura uma receita pela primeira letra na pagina drinks', async () => {
+    const { user } = renderWithRouter(
+      <ProviderRecipes>
+        <App />
+      </ProviderRecipes>,
+      { route: '/drinks' },
+    );
+    const searchBtnImg = screen.getByRole('img', { name: /search/i });
+    await user.click(searchBtnImg);
+    await user.click(screen.getByText(/first letter/i));
+
+    const inputText = screen.getByRole('textbox');
+    await user.type(inputText, 'z');
+
+    const searchButton = screen.getByTestId(dataTestIdBtnSearch);
+
+    global.fetch = vi.fn().mockResolvedValue({
+      json: async () => drinkByFirstLetter,
+    });
+
+    await user.click(searchButton);
+    expect(global.fetch).toHaveBeenCalled();
+
+    const firstDrinkLetterZ = screen.getByRole('img', {
+      name: /zorro/i,
+    });
+
+    expect(firstDrinkLetterZ).toBeInTheDocument();
   });
 });

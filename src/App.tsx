@@ -26,6 +26,7 @@ function App() {
         <Route path="/drinks/:id/:in" element={ <RecipeInProgress type="Drink" /> } />
         <Route path="/done-recipes" element={ <DoneRecipes /> } />
         <Route path="/favorite-recipes" element={ <FavoritesRecipes /> } />
+        <Route path="*" element={ <h1>Not Found</h1> } />
       </Routes>
       { /*
       Deixei comentado caso precise depois

@@ -3,7 +3,11 @@ import { Alert } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import iconShare from '../../images/shareIcon.svg';
 import { DoneRecipesType } from '../../pages/DoneRecipes/DoneRecipesType';
-import styles from './doneRecipe.module.css';
+
+import allBtn from '../../images/allBtn.svg';
+import mealBtn from '../../images/mealIcon.svg';
+import drinkBtn from '../../images/drinkIcon.svg';
+import style from './doneRecipe.module.css';
 
 function DoneRecipe() {
   const [doneRecipes, setDoneRecipes] = useState<DoneRecipesType[]>([]);
@@ -34,110 +38,158 @@ function DoneRecipe() {
     : doneRecipes.filter((recipe) => recipe.type === filter);
 
   return (
-    <div>
-      <button
-        type="button"
-        data-testid="filter-by-all-btn"
-        onClick={ handleFilterClickAll }
+    <div
+      className={ style.doneRecipes }
+    >
+      <div
+        className={ style.doneFilters }
       >
-        All
-      </button>
-      <button
-        type="button"
-        data-testid="filter-by-meal-btn"
-        onClick={ handleFilterClickMeals }
-      >
-        Meals
-      </button>
-      <button
-        type="button"
-        data-testid="filter-by-drink-btn"
-        onClick={ handleFilterClickDrinks }
-      >
-        Drinks
-      </button>
-
+        <button
+          className={ style.btn }
+          type="button"
+          data-testid="filter-by-all-btn"
+          onClick={ handleFilterClickAll }
+        >
+          <img
+            className={ style.btnIcon }
+            src={ allBtn }
+            alt="Filter all button"
+          />
+          All
+        </button>
+        <button
+          className={ style.btn }
+          type="button"
+          data-testid="filter-by-meal-btn"
+          onClick={ handleFilterClickMeals }
+        >
+          <img
+            className={ style.btnIcon }
+            src={ mealBtn }
+            alt="filter meals button"
+          />
+          Meals
+        </button>
+        <button
+          className={ style.btn }
+          type="button"
+          data-testid="filter-by-drink-btn"
+          onClick={ handleFilterClickDrinks }
+        >
+          <img
+            className={ style.btnIcon }
+            src={ drinkBtn }
+            alt="filter drinks icon"
+          />
+          Drinks
+        </button>
+      </div>
       { filterDoneRecipes.length > 0
       && filterDoneRecipes.map((recipe, index) => (
         <div
           key={ recipe.id }
-          className={ styles.recipeCard }
+          className={ style.doneCard }
         >
-          <Link
-            to={ recipe.type === 'meal'
-              ? `/meals/${recipe.id}`
-              : `/drinks/${recipe.id}` }
+          <div
+            className={ style.doneImageCard }
           >
-            <img
-              className="img-thumbnail"
-              src={ recipe.image }
-              alt={ recipe.name }
-              data-testid={ `${index}-horizontal-image` }
-            />
-
-          </Link>
-
-          <p
-            data-testid={ `${index}-horizontal-top-text` }
-          >
-            {`${recipe.nationality} - ${recipe.category}`}
-            {recipe?.alcoholicOrNot}
-          </p>
-
-          <Link
-            to={ recipe.type === 'meal'
-              ? `/meals/${recipe.id}`
-              : `/drinks/${recipe.id}` }
-          >
-            <p
-              data-testid={ `${index}-horizontal-name` }
+            <Link
+              className={ style.doneLink }
+              to={ recipe.type === 'meal'
+                ? `/meals/${recipe.id}`
+                : `/drinks/${recipe.id}` }
             >
-              {recipe.name}
-            </p>
-          </Link>
-          <p
-            data-testid={ `${index}-horizontal-done-date` }
+              <img
+                className={ style.doneImage }
+                src={ recipe.image }
+                alt={ recipe.name }
+                data-testid={ `${index}-horizontal-image` }
+              />
+            </Link>
+          </div>
+          <div
+            className={ style.doneCardLeftSide }
           >
-            Done in:
-            {recipe.doneDate}
-          </p>
-
-          <button
-            type="button"
-            onClick={ () => {
-              const url = window.location.href
-                .replace('/done-recipes', `/meals/${recipe.id}`
+            <div
+              className={ style.doneLefSideInfo }
+            >
+              <Link
+                className={ style.doneLink }
+                to={ recipe.type === 'meal'
+                  ? `/meals/${recipe.id}`
+                  : `/drinks/${recipe.id}` }
+              >
+                <p
+                  className={ style.doneText }
+                  data-testid={ `${index}-horizontal-name` }
+                >
+                  {recipe.name}
+                </p>
+                <p
+                  className={ style.doneCategory }
+                  data-testid={ `${index}-horizontal-top-text` }
+                >
+                  {`${recipe.nationality} - ${recipe.category}`}
+                  {recipe?.alcoholicOrNot}
+                </p>
+                <span
+                  className={ style.doneDoneIn }
+                  data-testid={ `${index}-horizontal-done-date` }
+                >
+                  Done in:
+                  {' '}
+                  { recipe.doneDate.slice(0, 10) }
+                </span>
+              </Link>
+              { clipboardText && (
+                <Alert
+                  variant="info"
+                  dismissible
+                  onClose={ () => setClipboardText('') }
+                >
+                  <Alert.Heading>Link copied!</Alert.Heading>
+                </Alert>
+              )}
+              <div
+                className={ style.doneTagsCard }
+              >
+                {recipe.tags.map((tag, indexTag) => (
+                  <p
+                    key={ indexTag }
+                    className={ style.doneTags }
+                    data-testid={ `${index}-${tag}-horizontal-tag` }
+                  >
+                    { tag }
+                  </p>
+                ))}
+              </div>
+            </div>
+            <div
+              className={ style.doneLefSideShare }
+            >
+              <button
+                className={ style.Btn }
+                type="button"
+                onClick={ () => {
+                  const url = window.location.href
+                    .replace('/done-recipes', `/meals/${recipe.id}`
                 || `/drinks/${recipe.id}`);
-              setClipboardText(url);
-              navigator.clipboard.writeText(url);
-            } }
-          >
-            <img
-              src={ iconShare }
-              alt="share"
-              data-testid={ `${index}-horizontal-share-btn` }
-            />
-          </button>
-          { clipboardText && (
-            <Alert
-              variant="info"
-              dismissible
-              onClose={ () => setClipboardText('') }
-            >
-              <Alert.Heading>Link copied!</Alert.Heading>
-            </Alert>
-          )}
-          {recipe.tags.map((tag, indexTag) => (
-            <p
-              key={ indexTag }
-              data-testid={ `${index}-${tag}-horizontal-tag` }
-            >
-              {recipe.tags}
-            </p>
-          ))}
+                  setClipboardText(url);
+                  navigator.clipboard.writeText(url);
+                } }
+              >
+                <img
+                  className={ style.BtnIcon }
+                  src={ iconShare }
+                  alt="share"
+                  data-testid={ `${index}-horizontal-share-btn` }
+                />
+              </button>
+            </div>
+
+          </div>
         </div>
       ))}
-
     </div>
   );
 }
