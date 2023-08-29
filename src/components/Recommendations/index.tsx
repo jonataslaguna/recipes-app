@@ -53,7 +53,7 @@ function Recommendations({ recommendations, type }: Props) {
                 style={ {
                   fontFamily: 'Epilogue',
                   fontWeight: '400',
-                  fontSize: 'fit-content',
+                  fontSize: '12px',
                   textAlign: 'left',
                   margin: '8px 20px',
                 } }
