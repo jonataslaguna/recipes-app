@@ -16,6 +16,7 @@ import cocktailCategoryIcon from '../../images/cocktailCategory.svg';
 import shakeCategoryIcon from '../../images/shakeCategory.svg';
 import otheUnknownCategoryIcon from '../../images/otherCategory.svg';
 import cocoaCategoryIcon from '../../images/cocoaDownload.png';
+import allIcon from '../../images/allCategoryBtn.svg';
 
 type DetailsHeaderProps = {
   onClick: () => void;
@@ -76,6 +77,7 @@ function DetailsHeader(props: DetailsHeaderProps) {
           setPageIcons(cocoaCategoryIcon);
           break;
         default:
+          setPageIcons(allIcon);
           break;
       }
     };
@@ -91,7 +93,11 @@ function DetailsHeader(props: DetailsHeaderProps) {
             : navigate('/drinks')) }
         >
           { categoryName
-          && (<img src={ pageIcons } alt="Icon Category" />) }
+          && (<img
+            className={ style.categoryBtnImg }
+            src={ pageIcons }
+            alt="Icon Category"
+          />) }
         </button>
         <div className={ style.btnContainerRight }>
           <button

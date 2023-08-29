@@ -5,6 +5,7 @@
 .recipeImg {
   height: 161.85px;
   object-fit: cover;
+  opacity: 0.85;
   position: absolute;
   top: 0;
   width: 100%;
@@ -14,9 +15,18 @@
 .categoryName {
   color: #fcc436;
   font-size: 18px;
-  left: 45px;
+  left: 65px;
   position: absolute;
   top: 18px;
+}
+
+.categoryAlcoholic {
+  color: white;
+  font-size: 18px;
+  left: 50%;
+  position: absolute;
+  top: 100px;
+  transform: translateX(-50%);
 }
 
 .recipeName {
@@ -41,7 +51,7 @@
 .ingredientsContainer ul {
   border: 0.55px solid #b1b1b1;
   border-radius: 5px;
-  width: 335px;
+  width: 100%;
 }
 
 .ingredientsContainer li {
@@ -67,15 +77,16 @@
 .instructionsTextContainer {
   border: 0.55px solid #b1b1b1;
   border-radius: 5px;
-  width: 335px;
+  width: 100%;
 }
 
 .instructionsTextContainer p {
   font-size: 14px;
   font-weight: 400;
+  inline-size: auto;
   line-height: 25px;
-  margin: auto;
-  width: 301px;
+  margin: 15px;
+  width: fit-content;
 }
 
 .videoContainer {
@@ -91,8 +102,7 @@
 
 .videoContainer iframe {
   background: #00000059;
-  height: 205.1px;
-  width: 336px;
+  width: 100%;
 }
 
 .recommendations {
@@ -106,9 +116,3 @@
   width: 205px;
 }
 
-/*
-.recommendationsImg {
-  border: 0.55px solid #b1b1b1;
-  border-radius: 5px 5px 0 0;
-  width: 336px;
-} */

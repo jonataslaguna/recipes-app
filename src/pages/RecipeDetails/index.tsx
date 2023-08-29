@@ -116,6 +116,7 @@ function RecipeDetails({ type }: RecipeDetailsProps) {
             : drinkDetails?.strCategory }
         </h2>
         <h5
+          className={ style.categoryAlcoholic }
           data-testid="recipe-category"
         >
           { drinkDetails && drinkDetails.strAlcoholic }

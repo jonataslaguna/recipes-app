@@ -112,9 +112,7 @@ describe('Testa o comportamento e renderização da tela de detalhes de uma rece
 
     const favoriteButton = screen.getByTestId('favorite-btn');
     const shareButton = screen.getByTestId('share-btn');
-    const returnButton = screen.getByRole('button', {
-      name: /</i,
-    });
+    const returnButton = screen.getByAltText(/icon category/i);
     expect(favoriteButton).toBeInTheDocument();
     expect(shareButton).toBeInTheDocument();
     expect(favoriteButton).toBeInTheDocument();

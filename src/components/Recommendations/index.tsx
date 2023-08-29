@@ -44,17 +44,16 @@ function Recommendations({ recommendations, type }: Props) {
                   ? recommendation.strMeal
                   : recommendation.strDrink }
                 style={ {
-                  width: '160px',
+                  width: '100%',
                   borderRadius: '5px 5px 0 0',
                   objectFit: 'cover',
-                  height: '135px',
                 } }
               />
               <p
                 style={ {
                   fontFamily: 'Epilogue',
                   fontWeight: '400',
-                  fontSize: '12px',
+                  fontSize: 'fit-content',
                   textAlign: 'left',
                   margin: '8px 20px',
                 } }
