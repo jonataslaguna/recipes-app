@@ -64,7 +64,7 @@ function RecipesButton({ type, id }: ButtonProps) {
         style={ { position: 'fixed',
           bottom: '0',
           zIndex: 5,
-          width: '100%',
+          width: '336px',
         } }
         data-testid="start-recipe-btn"
         onClick={ handleClick }

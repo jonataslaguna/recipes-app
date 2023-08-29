@@ -28,7 +28,13 @@ function Recommendations({ recommendations, type }: Props) {
             <div
               key={ index }
               data-testid={ `${index}-recommendation-card` }
-              style={ { width: '100%', textAlign: 'center' } }
+              style={ {
+                width: '163.2px',
+                marginRight: '10px',
+                border: '#B1B1B1 0.52px solid',
+                borderRadius: '5px',
+                textAlign: 'center',
+              } }
             >
               <img
                 src={ type === 'Meal'
@@ -37,9 +43,21 @@ function Recommendations({ recommendations, type }: Props) {
                 alt={ type === 'Meal'
                   ? recommendation.strMeal
                   : recommendation.strDrink }
-                style={ { width: '400px', height: '300px' } }
+                style={ {
+                  width: '160px',
+                  borderRadius: '5px 5px 0 0',
+                  objectFit: 'cover',
+                  height: '135px',
+                } }
               />
               <p
+                style={ {
+                  fontFamily: 'Epilogue',
+                  fontWeight: '400',
+                  fontSize: '12px',
+                  textAlign: 'left',
+                  margin: '8px 20px',
+                } }
                 data-testid={ `${index}-recommendation-title` }
               >
                 { type === 'Meal'

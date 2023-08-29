@@ -1,0 +1,114 @@
+.marginContainer {
+  margin: 28px;
+}
+
+.recipeImg {
+  height: 161.85px;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: -1;
+}
+
+.categoryName {
+  color: #fcc436;
+  font-size: 18px;
+  left: 45px;
+  position: absolute;
+  top: 18px;
+}
+
+.recipeName {
+  color: white;
+  left: 50%;
+  position: absolute;
+  top: 65px;
+  transform: translateX(-50%);
+}
+
+.ingredientsContainer {
+  margin-top: 40px;
+}
+
+.ingredientsContainer h3 {
+  font-size: 20px;
+  font-weight: 700;
+  height: 21px;
+  width: 148.8px;
+}
+
+.ingredientsContainer ul {
+  border: 0.55px solid #b1b1b1;
+  border-radius: 5px;
+  width: 335px;
+}
+
+.ingredientsContainer li {
+  font-size: 14px;
+  font-weight: 400;
+  height: 25px;
+  line-height: 14.35px;
+  margin-top: 5px;
+  width: 301px;
+}
+
+.instructionsContainer {
+  margin-top: 50px;
+}
+
+.instructionsContainer h3 {
+  font-size: 20px;
+  font-weight: 700;
+  height: 21px;
+  width: 148.8px;
+}
+
+.instructionsTextContainer {
+  border: 0.55px solid #b1b1b1;
+  border-radius: 5px;
+  width: 335px;
+}
+
+.instructionsTextContainer p {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 25px;
+  margin: auto;
+  width: 301px;
+}
+
+.videoContainer {
+  margin-top: 50px;
+}
+
+.videoContainer h3 {
+  font-size: 20px;
+  font-weight: 700;
+  height: 21px;
+  width: 148.8px;
+}
+
+.videoContainer iframe {
+  background: #00000059;
+  height: 205.1px;
+  width: 336px;
+}
+
+.recommendations {
+  margin: 50px 0;
+}
+
+.recommendations h5 {
+  font-size: 20px;
+  font-weight: 700;
+  height: 21px;
+  width: 205px;
+}
+
+/*
+.recommendationsImg {
+  border: 0.55px solid #b1b1b1;
+  border-radius: 5px 5px 0 0;
+  width: 336px;
+} */

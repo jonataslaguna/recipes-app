@@ -2,8 +2,6 @@ import { screen } from '@testing-library/dom';
 import { vi } from 'vitest';
 import React from 'react';
 import userEvent from '@testing-library/user-event';
-import { render } from '@testing-library/react';
-import { useNavigate } from 'react-router-dom';
 import renderWithRouter from './renderWithRouter';
 import App from '../App';
 import ProviderRecipes from '../context/ProviderRecipes';
@@ -129,7 +127,7 @@ describe('Testa a tela de Receitas favoritas e seu comportamento', () => {
     expect(recipeTitle).toBeInTheDocument();
     expect(favoriteButton).toBeInTheDocument();
     expect(returnButton).toBeInTheDocument();
-    expect(favoriteButton).toHaveAttribute('src', '/src/images/whiteHeartIcon.svg');
+    expect(favoriteButton).toHaveAttribute('src', '/src/images/whiteHeartBtn.svg');
 
     await userEvent.click(favoriteButton);
 

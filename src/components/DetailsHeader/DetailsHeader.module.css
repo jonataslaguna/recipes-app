@@ -9,10 +9,29 @@
   border: none;
 }
 
+.btnContainer {
+  display: flex;
+  justify-content: space-between;
+  width: 100vw;
+}
+
+.btnContainerRight {
+  margin: 15px;
+}
+
+.btnFavorite {
+  width: 23px;
+}
+
+.categoryBtn img {
+  width: 23px 21px;
+}
+
 .categoryBtn {
   color: #fcc436;
   font-size: 14px;
   font-style: normal;
   font-weight: 700;
   line-height: normal;
+  margin: 10px;
 }

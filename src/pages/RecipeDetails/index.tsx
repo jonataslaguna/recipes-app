@@ -6,6 +6,7 @@ import useFetchDetails from '../../hooks/useFetchDetails';
 import Recommendations from '../../components/Recommendations';
 import RecipesButton from '../../components/RecipesButton';
 import DetailsHeader from '../../components/DetailsHeader';
+import style from './recipeDetails.module.css';
 // import useFetchDetails, { fecthMealDetails, fetchDrinkDetails } from './useFetchDetails';
 
 type RecipeDetailsProps = {
@@ -70,7 +71,7 @@ function RecipeDetails({ type }: RecipeDetailsProps) {
   }, [recipe]);
 
   return (
-    <div>
+    <div className={ style.recipeDetailsBottom }>
       <DetailsHeader
         id={ id as string }
         recipe={
@@ -105,8 +106,9 @@ function RecipeDetails({ type }: RecipeDetailsProps) {
           </Alert>
         )
       }
-      <div>
+      <div className={ style.categoryContainer }>
         <h2
+          className={ style.categoryName }
           data-testid="recipe-category"
         >
           { type === 'Meal'
@@ -119,22 +121,27 @@ function RecipeDetails({ type }: RecipeDetailsProps) {
           { drinkDetails && drinkDetails.strAlcoholic }
         </h5>
         <img
+          className={ style.recipeImg }
           data-testid="recipe-photo"
           src={ type === 'Meal'
             ? mealDetails?.strMealThumb
             : drinkDetails?.strDrinkThumb }
           alt="Recipe"
         />
-        <h2 data-testid="recipe-title">
+        <h2
+          className={ style.recipeName }
+          data-testid="recipe-title"
+        >
           { type === 'Meal'
             ? mealDetails?.strMeal
             : drinkDetails?.strDrink }
         </h2>
       </div>
-      <div>
-        <h3>Ingredients</h3>
-        <ul>
-          {
+      <div className={ style.marginContainer }>
+        <div className={ style.ingredientsContainer }>
+          <h3>Ingredients</h3>
+          <ul>
+            {
             ingredients?.map((ingredient, index) => (
               <li
                 key={ ingredient }
@@ -144,47 +151,49 @@ function RecipeDetails({ type }: RecipeDetailsProps) {
               </li>
             ))
           }
-        </ul>
-      </div>
-      <div>
-        <h3>Instructions</h3>
-        <p data-testid="instructions">
-          { type === 'Meal'
-            ? mealDetails?.strInstructions
-            : drinkDetails?.strInstructions }
-        </p>
-      </div>
-      <div>
-        <h3>Video</h3>
-        <iframe
-          data-testid="video"
-          title="video"
-          src={ type === 'Meal' ? mealDetails?.strYoutube : undefined }
-          width="420"
-          height="345"
-        />
-      </div>
-      <div
-        style={ { zIndex: 1 } }
-      >
-        <h5>
-          Recommendations
-        </h5>
-        <Recommendations
-          recommendations={ recommendations as any }
+          </ul>
+        </div>
+        <div className={ style.instructionsContainer }>
+          <h3>Instructions</h3>
+          <div className={ style.instructionsTextContainer }>
+            <p data-testid="instructions">
+              { type === 'Meal'
+                ? mealDetails?.strInstructions
+                : drinkDetails?.strInstructions }
+            </p>
+          </div>
+        </div>
+        <div className={ style.videoContainer }>
+          <h3>Video</h3>
+          <iframe
+            data-testid="video"
+            title="video"
+            src={ type === 'Meal' ? mealDetails?.strYoutube : undefined }
+            width="420"
+            height="345"
+          />
+        </div>
+        <div
+          className={ style.recommendations }
+          style={ { zIndex: 1 } }
+        >
+          <h5>
+            Recommendations
+          </h5>
+          <div
+            className={ style.recommendationsImg }
+          >
+            <Recommendations
+              recommendations={ recommendations as any }
+              type={ type }
+            />
+          </div>
+        </div>
+        <RecipesButton
+          id={ id as string }
           type={ type }
         />
       </div>
-      {/* <button
-        data-testid="start-recipe-btn"
-        style={ { position: 'fixed', bottom: '0', zIndex: 5 } }
-      >
-        Start Recipe
-      </button> */}
-      <RecipesButton
-        id={ id as string }
-        type={ type }
-      />
     </div>
   );
 }
