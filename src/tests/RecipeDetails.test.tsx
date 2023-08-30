@@ -40,9 +40,7 @@ describe('Testa o comportamento e renderização da tela de detalhes de uma rece
     expect(detailsMock.meals[0].strMeal).toBe('Corba');
     expect(detailsMock.meals[0].strCategory).toBe('Side');
 
-    const returnButton = screen.getByRole('button', {
-      name: /</i,
-    });
+    const returnButton = screen.getByTestId('category-btn');
     const shareButton = screen.getByTestId('share-btn');
 
     expect(returnButton).toBeInTheDocument();
@@ -112,11 +110,11 @@ describe('Testa o comportamento e renderização da tela de detalhes de uma rece
 
     const favoriteButton = screen.getByTestId('favorite-btn');
     const shareButton = screen.getByTestId('share-btn');
-    const returnButton = screen.getByAltText(/icon category/i);
+    const returnButton = screen.getByTestId('category-btn');
     expect(favoriteButton).toBeInTheDocument();
     expect(shareButton).toBeInTheDocument();
     expect(favoriteButton).toBeInTheDocument();
-    expect(favoriteButton).toHaveAttribute('src', '/src/images/whiteHeartBtn.svg');
+    expect(favoriteButton).toHaveAttribute('src', '/src/images/whiteHeartIcon.svg');
 
     await userEvent.click(favoriteButton);
 
@@ -128,7 +126,7 @@ describe('Testa o comportamento e renderização da tela de detalhes de uma rece
 
     await userEvent.click(favoriteButton);
 
-    expect(favoriteButton).toHaveAttribute('src', '/src/images/whiteHeartBtn.svg');
+    expect(favoriteButton).toHaveAttribute('src', '/src/images/whiteHeartIcon.svg');
 
     await userEvent.click(returnButton);
 

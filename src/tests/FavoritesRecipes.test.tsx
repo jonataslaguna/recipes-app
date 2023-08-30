@@ -47,9 +47,7 @@ describe('Testa a tela de Receitas favoritas e seu comportamento', () => {
     );
     const recipeTitle = await screen.findByText('Corba');
     const favoriteButton = screen.getByTestId('favorite-btn');
-    const returnButton = screen.getByRole('button', {
-      name: /</i,
-    });
+    const returnButton = screen.getByTestId('category-btn');
 
     expect(recipeTitle).toBeInTheDocument();
     expect(favoriteButton).toBeInTheDocument();
@@ -116,18 +114,14 @@ describe('Testa a tela de Receitas favoritas e seu comportamento', () => {
 
     expect(global.fetch).toHaveBeenCalled();
 
-    const recipeTitle = await screen.findByRole('heading', {
-      name: /martinez 2/i,
-    });
+    const recipeTitle = await screen.getByTestId('recipe-title');
     const favoriteButton = screen.getByTestId('favorite-btn');
-    const returnButton = screen.getByRole('button', {
-      name: /</i,
-    });
+    const returnButton = screen.getByTestId('category-btn');
 
     expect(recipeTitle).toBeInTheDocument();
     expect(favoriteButton).toBeInTheDocument();
     expect(returnButton).toBeInTheDocument();
-    expect(favoriteButton).toHaveAttribute('src', '/src/images/whiteHeartBtn.svg');
+    expect(favoriteButton).toHaveAttribute('src', '/src/images/whiteHeartIcon.svg');
 
     await userEvent.click(favoriteButton);
 

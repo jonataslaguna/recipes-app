@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import whiteHeartIcon from '../../images/whiteHeartBtn.svg';
+import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../../images/blackHeartIcon.svg';
 import shareIcon from '../../images/shareIcon.svg';
 import ContextRecipes from '../../context/ContextRecipes';
@@ -87,6 +87,7 @@ function DetailsHeader(props: DetailsHeaderProps) {
     <div className={ style.header }>
       <div className={ style.btnContainer }>
         <button
+          data-testid="category-btn"
           className={ `${style.btn} ${style.categoryBtn}` }
           onClick={ () => (location.pathname.includes('meals')
             ? navigate('/meals')
