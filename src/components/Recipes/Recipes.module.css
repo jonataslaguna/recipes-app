@@ -4,9 +4,9 @@
 
 .categoryBtnsContainer {
   display: grid;
-  gap: 10px;
+  gap: 8px;
   grid-template-columns: repeat(6, 1fr);
-  margin-bottom: 20px;
+
 }
 
 .categoryBtns {
@@ -23,8 +23,9 @@
 
 .categoryCardContainer {
   display: grid;
-  gap: 10px;
+  gap: 8px;
   grid-template-columns: 2fr 1fr;
+  margin: 8px;
 }
 
 .recipeLink {
@@ -37,7 +38,7 @@
   justify-content: center;
   text-align: center;
   text-decoration: none;
-  width: 50vw;
+  width: 47vw;
 }
 
 .recipeText {

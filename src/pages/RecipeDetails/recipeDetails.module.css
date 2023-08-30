@@ -1,0 +1,119 @@
+.marginContainer {
+  margin: 28px;
+  max-width: 100%;
+}
+
+.recipeImg {
+  height: 161.85px;
+  object-fit: cover;
+  opacity: 0.85;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: -1;
+}
+
+.categoryName {
+  color: #fcc436;
+  font-size: 18px;
+  left: 65px;
+  position: absolute;
+  top: 18px;
+}
+
+.categoryAlcoholic {
+  color: white;
+  font-size: 18px;
+  left: 50%;
+  position: absolute;
+  top: 100px;
+  transform: translateX(-50%);
+}
+
+.recipeName {
+  color: white;
+  left: 50%;
+  position: absolute;
+  top: 65px;
+  transform: translateX(-50%);
+}
+
+.ingredientsContainer {
+  margin-top: 40px;
+}
+
+.ingredientsContainer h3 {
+  font-size: 20px;
+  font-weight: 700;
+  height: 21px;
+  width: 148.8px;
+}
+
+.ingredientsContainer ul {
+  border: 0.55px solid #b1b1b1;
+  border-radius: 5px;
+  width: 100%;
+}
+
+.ingredientsContainer li {
+  font-size: 14px;
+  font-weight: 400;
+  height: 25px;
+  line-height: 14.35px;
+  margin-top: 5px;
+  width: 301px;
+}
+
+.instructionsContainer {
+  margin-top: 50px;
+}
+
+.instructionsContainer h3 {
+  font-size: 20px;
+  font-weight: 700;
+  height: 21px;
+  width: 148.8px;
+}
+
+.instructionsTextContainer {
+  border: 0.55px solid #b1b1b1;
+  border-radius: 5px;
+  width: 100%;
+}
+
+.instructionsTextContainer p {
+  font-size: 14px;
+  font-weight: 400;
+  inline-size: auto;
+  line-height: 25px;
+  margin: 15px;
+  width: fit-content;
+}
+
+.videoContainer {
+  margin-top: 50px;
+}
+
+.videoContainer h3 {
+  font-size: 20px;
+  font-weight: 700;
+  height: 21px;
+  width: 148.8px;
+}
+
+.videoContainer iframe {
+  background: #00000059;
+  width: 100%;
+}
+
+.recommendations {
+  margin: 50px 0;
+}
+
+.recommendations h5 {
+  font-size: 20px;
+  font-weight: 700;
+  height: 21px;
+  width: 205px;
+}
+

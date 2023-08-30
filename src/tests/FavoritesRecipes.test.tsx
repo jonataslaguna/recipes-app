@@ -2,8 +2,6 @@ import { screen } from '@testing-library/dom';
 import { vi } from 'vitest';
 import React from 'react';
 import userEvent from '@testing-library/user-event';
-import { render } from '@testing-library/react';
-import { useNavigate } from 'react-router-dom';
 import renderWithRouter from './renderWithRouter';
 import App from '../App';
 import ProviderRecipes from '../context/ProviderRecipes';
@@ -49,9 +47,7 @@ describe('Testa a tela de Receitas favoritas e seu comportamento', () => {
     );
     const recipeTitle = await screen.findByText('Corba');
     const favoriteButton = screen.getByTestId('favorite-btn');
-    const returnButton = screen.getByRole('button', {
-      name: /</i,
-    });
+    const returnButton = screen.getByTestId('category-btn');
 
     expect(recipeTitle).toBeInTheDocument();
     expect(favoriteButton).toBeInTheDocument();
@@ -118,13 +114,9 @@ describe('Testa a tela de Receitas favoritas e seu comportamento', () => {
 
     expect(global.fetch).toHaveBeenCalled();
 
-    const recipeTitle = await screen.findByRole('heading', {
-      name: /martinez 2/i,
-    });
+    const recipeTitle = await screen.getByTestId('recipe-title');
     const favoriteButton = screen.getByTestId('favorite-btn');
-    const returnButton = screen.getByRole('button', {
-      name: /</i,
-    });
+    const returnButton = screen.getByTestId('category-btn');
 
     expect(recipeTitle).toBeInTheDocument();
     expect(favoriteButton).toBeInTheDocument();

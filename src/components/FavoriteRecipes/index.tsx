@@ -13,7 +13,7 @@ import style from './FavoriteRecipes.module.css';
 
 function FavoriteRecipes() {
   const [favoriteRecipes, setFavoriteRecipes] = useState<FavoriteRecipeType[]>([]);
-  const [activeRecipes, setActiveRecipes] = useState<FavoriteRecipeType[]>([]); // [
+  const [activeRecipes, setActiveRecipes] = useState<FavoriteRecipeType[]>([]);
   const [favorites, setFavorites] = useState([] as FavoriteRecipeType[]);
   const [clipBoard, setClipboard] = useState<string>('');
   const { handleRemoveFromFavorites } = useContext(ContextRecipes);

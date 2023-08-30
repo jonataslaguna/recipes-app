@@ -61,7 +61,8 @@ function RecipesButton({ type, id }: ButtonProps) {
     <div>
       <Button
         variant={ isInProgress ? 'warning' : 'danger' }
-        style={ { position: 'fixed',
+        style={ {
+          position: 'fixed',
           bottom: '0',
           zIndex: 5,
           width: '100%',
