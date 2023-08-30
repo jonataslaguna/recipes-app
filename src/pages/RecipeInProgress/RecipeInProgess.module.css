@@ -7,6 +7,14 @@
   width: 362;
 }
 
+.content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 0 auto;
+  width: 362px;
+}
+
 .ingredients, .instructions {
   color: #1a1b1c;
   font-size: 20px;
@@ -55,6 +63,7 @@
   left: 110px;
   letter-spacing: 0.1em;
   line-height: 21px;
+  position: absolute;
   text-align: center;
   top: 81px;
   width: 147px;
@@ -96,5 +105,5 @@
 }
 
 .recipePhoto {
-  width: 100;
+  width: 362px;
 }

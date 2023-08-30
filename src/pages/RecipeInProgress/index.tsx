@@ -166,6 +166,7 @@ function RecipeInProgress({ type }: RecipeInProgressProps) {
       <div>
         <h2
           data-testid="recipe-category"
+          className={ style.recipeCategory }
         >
           { type === 'Meal'
             ? mealDetails?.strCategory
@@ -173,7 +174,6 @@ function RecipeInProgress({ type }: RecipeInProgressProps) {
         </h2>
         <h5
           data-testid="recipe-category"
-          className={ style.recipeCategory }
         >
           { drinkDetails && drinkDetails.strAlcoholic }
         </h5>
@@ -191,7 +191,7 @@ function RecipeInProgress({ type }: RecipeInProgressProps) {
             : drinkDetails?.strDrink }
         </h2>
       </div>
-      <div>
+      <div className={ style.content }>
         <h3 className={ style.ingredients }>Ingredients</h3>
         <ul className={ style.ingredientsList }>
           {
@@ -219,7 +219,7 @@ function RecipeInProgress({ type }: RecipeInProgressProps) {
           }
         </ul>
       </div>
-      <div>
+      <div className={ style.content }>
         <h3 className={ style.instructions }>Instructions</h3>
         <p data-testid="instructions" className={ style.instructionsText }>
           { type === 'Meal'
@@ -227,15 +227,17 @@ function RecipeInProgress({ type }: RecipeInProgressProps) {
             : drinkDetails?.strInstructions }
         </p>
       </div>
-      <button
-        data-testid="finish-recipe-btn"
-        className={ !areAllIngredientsChecked() ? style.disabledBtn : style.finishBtn }
-        type="button"
-        disabled={ !areAllIngredientsChecked() }
-        onClick={ handleDoneRecipes }
-      >
-        FINISH RECIPE
-      </button>
+      <div className={ style.content }>
+        <button
+          data-testid="finish-recipe-btn"
+          className={ !areAllIngredientsChecked() ? style.disabledBtn : style.finishBtn }
+          type="button"
+          disabled={ !areAllIngredientsChecked() }
+          onClick={ handleDoneRecipes }
+        >
+          FINISH RECIPE
+        </button>
+      </div>
     </div>
   );
 }
