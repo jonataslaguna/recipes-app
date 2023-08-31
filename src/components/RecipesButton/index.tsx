@@ -54,7 +54,6 @@ function RecipesButton({ type, id }: ButtonProps) {
 
   useEffect(() => {
     verifyInProgress();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [inProgress]);
 
   return (

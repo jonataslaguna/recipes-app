@@ -190,11 +190,11 @@ function RecipeDetails({ type }: RecipeDetailsProps) {
             />
           </div>
         </div>
-        <RecipesButton
-          id={ id as string }
-          type={ type }
-        />
       </div>
+      <RecipesButton
+        id={ id as string }
+        type={ type }
+      />
     </div>
   );
 }
