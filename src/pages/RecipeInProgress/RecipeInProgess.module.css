@@ -2,17 +2,13 @@
   text-decoration: line-through solid black;
 }
 
-.body {
-  font-family: Epilogue , sans-serif;
-  width: 362;
-}
-
 .content {
+  align-items: center;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin: 0 auto;
-  width: 362px;
+  width: 100vw;
+
 }
 
 .ingredients, .instructions {
@@ -82,6 +78,7 @@
   font-weight: 700;
   height: 40px;
   left: 13px;
+  margin-top: 20px;
   top: 1137px;
   width: 336px;
 }
@@ -94,9 +91,12 @@
   font-weight: 700;
   height: 40px;
   left: 13px;
+  margin-bottom: 20px;
+  margin-top: 20px;
   opacity: 0.5;
   top: 1137px;
   width: 336px;
+
 }
 
 .recipePhoto {
@@ -107,4 +107,43 @@
   top: 0;
   width: 100%;
   z-index: -1;
+}
+
+.checkbox {
+  align-items: center;
+  display: flex;
+}
+
+.box {
+  appearance: none;
+  background-color: white;
+  border: 0.15em solid #fcc436;
+  border-radius: 0.15em;
+  color: #fcc436;
+  display: grid;
+  font: inherit;
+  height: 1.15em;
+  margin: 0;
+  margin-right: 10px;
+  place-content: center;
+  transform: translateY(-0.075em);
+  width: 1.15em;
+}
+
+.box:checked {
+  appearance: none;
+  background-color: #fcc436;
+  border: 0.15em solid #fcc436;
+  border-radius: 0.15em;
+  clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+  color: #fcc436;
+  display: grid;
+  font: inherit;
+  height: 1.15em;
+  margin: 0;
+  margin-right: 10px;
+  place-content: center;
+  transform: translateY(-0.075em);
+  transform-origin: bottom left;
+  width: 1.15em;
 }
