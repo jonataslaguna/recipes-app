@@ -140,8 +140,8 @@ describe('Testes do App', () => {
     await user.click(logoutBtn);
     expect(window.location.pathname).toBe('/');
   });
-  it('Testes no componente DoneRecipe', () => {
-    renderWithRouter(
+  it('Testes no componente DoneRecipe', async () => {
+    const { user } = renderWithRouter(
       <ProviderRecipes>
         <App />
       </ProviderRecipes>,
@@ -161,5 +161,9 @@ describe('Testes do App', () => {
       name: /drinks/i,
     });
     expect(drinksBtn).toBeInTheDocument();
+
+    await user.click(mealsBtn);
+    await user.click(drinksBtn);
+    await user.click(allBtn);
   });
 });

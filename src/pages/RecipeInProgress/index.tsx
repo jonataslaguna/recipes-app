@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { Alert } from 'react-bootstrap';
 import useFetchDetails from '../../hooks/useFetchDetails';
 import { DrinkType, MealType } from '../RecipeDetails/detailsType';
-import './index.css';
+import style from './RecipeInProgess.module.css';
 import DetailsHeader from '../../components/DetailsHeader';
 
 type RecipeInProgressProps = {
@@ -128,7 +128,7 @@ function RecipeInProgress({ type }: RecipeInProgressProps) {
   };
 
   return (
-    <div>
+    <div className={ style.body }>
       <DetailsHeader
         id={ id as string }
         recipe={
@@ -163,10 +163,10 @@ function RecipeInProgress({ type }: RecipeInProgressProps) {
           </Alert>
         )
       }
-      <h1>Receita em Progresso</h1>
       <div>
         <h2
           data-testid="recipe-category"
+          className={ style.recipeCategory }
         >
           { type === 'Meal'
             ? mealDetails?.strCategory
@@ -178,59 +178,66 @@ function RecipeInProgress({ type }: RecipeInProgressProps) {
           { drinkDetails && drinkDetails.strAlcoholic }
         </h5>
         <img
+          className={ style.recipePhoto }
           data-testid="recipe-photo"
           src={ type === 'Meal'
             ? mealDetails?.strMealThumb
             : drinkDetails?.strDrinkThumb }
           alt="Recipe"
         />
-        <h2 data-testid="recipe-title">
+        <h2 data-testid="recipe-title" className={ style.recipeTitle }>
           { type === 'Meal'
             ? mealDetails?.strMeal
             : drinkDetails?.strDrink }
         </h2>
       </div>
-      <div>
-        <h3>Ingredients</h3>
-        <ul>
+      <div className={ style.content }>
+        <h3 className={ style.ingredients }>Ingredients</h3>
+        <ul className={ style.ingredientsList }>
           {
             ingredients?.map((ingredient, index) => (
               <label
-                className="checkbox"
+                className={ `${style.checkbox} ${
+                  checkedBoxes[id as string]?.[index] ? style.checked : style.checkbox
+                }` }
                 key={ ingredient }
                 data-testid={ `${index}-ingredient-step` }
               >
                 <input
+                  className={ style.box }
                   type="checkbox"
                   name="ingredient"
                   checked={ checkedBoxes[id as string]?.[index] || false }
                   onChange={ () => handleCheckedBoxes(id as string, index) }
                   id={ ingredient }
                 />
-                { checkedBoxes[index]
-                  ? <del>{ `${ingredient} - ${measures?.[index]}` }</del>
-                  : `${ingredient} - ${measures?.[index]}` }
+                { checkedBoxes[id as string]?.[index]
+                  ? (<del>{ `${ingredient} - ${measures?.[index]}` }</del>)
+                  : (`${ingredient} - ${measures?.[index]}`) }
               </label>
             ))
           }
         </ul>
       </div>
-      <div>
-        <h3>Instructions</h3>
-        <p data-testid="instructions">
+      <div className={ style.content }>
+        <h3 className={ style.instructions }>Instructions</h3>
+        <p data-testid="instructions" className={ style.instructionsText }>
           { type === 'Meal'
             ? mealDetails?.strInstructions
             : drinkDetails?.strInstructions }
         </p>
       </div>
-      <button
-        data-testid="finish-recipe-btn"
-        type="button"
-        disabled={ !areAllIngredientsChecked() }
-        onClick={ handleDoneRecipes }
-      >
-        Finalizar Receita
-      </button>
+      <div className={ style.content }>
+        <button
+          data-testid="finish-recipe-btn"
+          className={ !areAllIngredientsChecked() ? style.disabledBtn : style.finishBtn }
+          type="button"
+          disabled={ !areAllIngredientsChecked() }
+          onClick={ handleDoneRecipes }
+        >
+          FINISH RECIPE
+        </button>
+      </div>
     </div>
   );
 }
