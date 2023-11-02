@@ -50,7 +50,6 @@ function RecipeDetails({ type }: RecipeDetailsProps) {
       ? data.drinks
       : data.meals;
     setRecommendations(recomendationsData);
-    console.log(recomendationsData);
   };
 
   const copyToClipboard = () => {
