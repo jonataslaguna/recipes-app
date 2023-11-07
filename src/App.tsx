@@ -14,34 +14,19 @@ import RecipeInProgress from './pages/RecipeInProgress';
 
 function App() {
   return (
-    <>
-      <Routes>
-        <Route path="/" element={ <Login /> } />
-        <Route path="/meals" element={ <Meals /> } />
-        <Route path="/drinks" element={ <Drinks /> } />
-        <Route path="/profile" element={ <Profile /> } />
-        <Route path="/meals/:id" element={ <RecipeDetails type="Meal" /> } />
-        <Route path="/drinks/:id" element={ <RecipeDetails type="Drink" /> } />
-        <Route path="/meals/:id/:in" element={ <RecipeInProgress type="Meal" /> } />
-        <Route path="/drinks/:id/:in" element={ <RecipeInProgress type="Drink" /> } />
-        <Route path="/done-recipes" element={ <DoneRecipes /> } />
-        <Route path="/favorite-recipes" element={ <FavoritesRecipes /> } />
-        <Route path="*" element={ <h1>Not Found</h1> } />
-      </Routes>
-      { /*
-      Deixei comentado caso precise depois
-
-      <div className="meals">
-      <span className="logo">TRYBE</span>
-      <object
-        className="rocksGlass"
-        type="image/svg+xml"
-        data={ rockGlass }
-      >
-        Glass
-      </object>
-    </div>  */ }
-    </>
+    <Routes>
+      <Route path="/" element={ <Login /> } />
+      <Route path="/meals" element={ <Meals /> } />
+      <Route path="/drinks" element={ <Drinks /> } />
+      <Route path="/profile" element={ <Profile /> } />
+      <Route path="/meals/:id" element={ <RecipeDetails type="Meal" /> } />
+      <Route path="/drinks/:id" element={ <RecipeDetails type="Drink" /> } />
+      <Route path="/meals/:id/:in" element={ <RecipeInProgress type="Meal" /> } />
+      <Route path="/drinks/:id/:in" element={ <RecipeInProgress type="Drink" /> } />
+      <Route path="/done-recipes" element={ <DoneRecipes /> } />
+      <Route path="/favorite-recipes" element={ <FavoritesRecipes /> } />
+      <Route path="*" element={ <h1>Not Found</h1> } />
+    </Routes>
   );
 }
 
