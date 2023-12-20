@@ -83,4 +83,4 @@ Este projeto está licenciado sob os termos da [MIT License](https://opensource.
 
 ## Contato
 
-Para questões ou sugestões relacionadas a este projeto, sinta-se à vontade para entrar em contato via e-mail: [jonataslaguna.js@email.com](mailto:jonataslaguna.js@email.com)
+Para questões ou sugestões relacionadas a este projeto, sinta-se à vontade para entrar em contato via e-mail: [jonataslaguna.js@gmail.com](mailto:jonataslaguna.js@gmail.com)
